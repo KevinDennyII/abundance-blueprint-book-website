@@ -1,0 +1,104 @@
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { motion } from "framer-motion";
+
+export default function Contact() {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <Navbar />
+      
+      <main className="flex-1 pt-24">
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">
+              
+              {/* Info Column */}
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h1 className="font-serif text-4xl md:text-5xl text-primary mb-6">Get in Touch</h1>
+                <p className="text-muted text-lg leading-relaxed mb-12">
+                  Whether you're interested in speaking engagements, bulk book orders, or simply want to share how the book impacted you, we'd love to hear from you.
+                </p>
+
+                <div className="space-y-8">
+                  <div>
+                    <h3 className="font-sans font-medium text-sm tracking-widest uppercase mb-2 text-primary">Social</h3>
+                    <a href="#" className="text-secondary hover:text-primary transition-colors text-lg" data-testid="link-contact-social">
+                      @longmoneycpa
+                    </a>
+                  </div>
+                  
+                  <div>
+                    <h3 className="font-sans font-medium text-sm tracking-widest uppercase mb-2 text-primary">Publisher</h3>
+                    <p className="text-muted text-lg">Long Money Concepts Inc.</p>
+                    <p className="text-muted/70 italic mt-1">"Educate. Empower. Build Legacy."</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Form Column */}
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-card p-8 rounded-2xl border border-card-border shadow-sm"
+              >
+                {submitted ? (
+                  <div className="h-full flex flex-col items-center justify-center text-center py-12">
+                    <div className="w-16 h-16 bg-secondary/20 text-secondary rounded-full flex items-center justify-center mb-6 text-2xl">
+                      ✓
+                    </div>
+                    <h3 className="font-serif text-3xl text-primary mb-2">Message Sent</h3>
+                    <p className="text-muted">Thank you for reaching out. We will get back to you shortly.</p>
+                    <Button 
+                      variant="outline" 
+                      className="mt-8"
+                      onClick={() => setSubmitted(false)}
+                    >
+                      Send another message
+                    </Button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-primary mb-2">Name</label>
+                      <Input id="name" required className="bg-background" data-testid="input-contact-name" />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-primary mb-2">Email</label>
+                      <Input id="email" type="email" required className="bg-background" data-testid="input-contact-email" />
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-primary mb-2">Message</label>
+                      <Textarea id="message" required className="bg-background min-h-[150px]" data-testid="input-contact-message" />
+                    </div>
+                    <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-lg" data-testid="button-contact-submit">
+                      Send Message
+                    </Button>
+                  </form>
+                )}
+              </motion.div>
+
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La'Toya Ray, CPA — Author Page &amp; Philosophy Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #2d1b4e;
+    --gold: #c9a84c;
+    --gold-light: #f0d98a;
+    --cream: #f5e6cc;
+    --white: #ffffff;
+    --ink: #1a1410;
+    --muted: #8a7a6a;
+    --soft: #f7f3ee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--soft); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; }
+  .wrapper { max-width: 860px; margin: 0 auto; padding: 60px 40px 100px; }
+
+  /* Designer header */
+  .designer-note { background: var(--purple); color: var(--cream); padding: 20px 28px; margin-bottom: 48px; border-left: 4px solid var(--gold); }
+  .designer-note h1 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; font-style: italic; margin-bottom: 8px; }
+  .designer-note p { font-size: 13px; opacity: 0.85; line-height: 1.6; }
+
+  .section { margin-bottom: 56px; }
+  .section-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); font-family: 'DM Sans', sans-serif; font-weight: 500; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e0d4c0; }
+
+  /* Author bio block */
+  .bio-block { background: var(--white); border: 1px solid #e0d4c0; padding: 36px 40px; }
+  .bio-name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; color: var(--purple); margin-bottom: 4px; }
+  .bio-title { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+  .bio-tagline { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: var(--purple); margin-bottom: 24px; line-height: 1.4; border-left: 3px solid var(--gold); padding-left: 20px; }
+  .bio-body { font-size: 16px; color: #3a2e28; line-height: 1.8; margin-bottom: 16px; }
+  .bio-credentials { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px; }
+  .cred { background: var(--soft); border: 1px solid #e0d4c0; padding: 8px 16px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); }
+
+  /* Philosophy section */
+  .philosophy-hero { background: var(--purple); color: var(--white); padding: 48px 48px; margin-bottom: 0; }
+  .ph-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .ph-statement { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; font-weight: 300; line-height: 1.5; color: var(--cream); margin-bottom: 0; }
+  .ph-statement em { color: var(--gold-light); font-style: normal; }
+
+  /* HEALS acronym */
+  .heals-block { background: var(--white); border: 1px solid #e0d4c0; }
+  .heals-header { background: var(--gold); padding: 24px 36px; }
+  .heals-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 600; color: var(--purple); letter-spacing: 0.15em; }
+  .heals-subtitle { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple); opacity: 0.8; margin-top: 4px; }
+  .heals-pillars { padding: 0; }
+  .pillar { display: flex; gap: 0; border-bottom: 1px solid #f0e8d8; }
+  .pillar:last-child { border-bottom: none; }
+  .pillar-letter { background: var(--purple); color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 600; width: 80px; min-width: 80px; display: flex; align-items: center; justify-content: center; }
+  .pillar-content { padding: 24px 28px; }
+  .pillar-title { font-size: 16px; font-weight: 500; color: var(--purple); margin-bottom: 6px; }
+  .pillar-body { font-size: 14px; color: #5a4a3a; line-height: 1.7; }
+
+  /* Five beliefs */
+  .belief-block { background: var(--white); border: 1px solid #e0d4c0; padding: 36px 40px; margin-bottom: 16px; position: relative; }
+  .belief-num { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: #e8d8c0; position: absolute; top: 20px; right: 28px; line-height: 1; }
+  .belief-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: var(--purple); margin-bottom: 12px; }
+  .belief-body { font-size: 15px; color: #3a2e28; line-height: 1.8; }
+
+  /* Protected line */
+  .signature-line { background: var(--purple); color: var(--cream); padding: 40px 48px; text-align: center; margin: 48px 0; }
+  .sig-text { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-style: italic; color: var(--gold-light); line-height: 1.5; margin-bottom: 12px; }
+  .sig-attr { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); opacity: 0.7; }
+
+  /* Book info */
+  .book-block { background: var(--white); border: 1px solid #e0d4c0; padding: 36px 40px; display: flex; gap: 32px; align-items: flex-start; }
+  .book-info h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--purple); margin-bottom: 4px; }
+  .book-info .book-sub { font-size: 14px; font-style: italic; color: var(--muted); margin-bottom: 16px; }
+  .book-info .book-hook { font-size: 15px; color: #3a2e28; line-height: 1.7; margin-bottom: 16px; border-left: 3px solid var(--gold); padding-left: 16px; }
+  .book-formats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .format { background: var(--purple); color: var(--gold); padding: 6px 14px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  /* Content pillars */
+  .pillars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .content-pillar { background: var(--white); border: 1px solid #e0d4c0; padding: 24px 28px; border-top: 3px solid var(--gold); }
+  .cp-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #e8d8c0; font-weight: 300; }
+  .cp-title { font-size: 15px; font-weight: 500; color: var(--purple); margin-bottom: 8px; }
+  .cp-body { font-size: 13px; color: #5a4a3a; line-height: 1.6; }
+
+  /* Notes for designer */
+  .design-notes { background: #fff8f0; border: 1px dashed var(--gold); padding: 28px 32px; margin-top: 48px; }
+  .design-notes h3 { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .note-item { font-size: 14px; color: #5a4a3a; padding: 6px 0; border-bottom: 1px solid #f0e0c8; }
+  .note-item:last-child { border-bottom: none; }
+  .note-item strong { color: var(--purple); }
+
+  @media (max-width: 600px) {
+    .pillars-grid { grid-template-columns: 1fr; }
+    .book-block { flex-direction: column; }
+    .pillar-letter { width: 60px; min-width: 60px; font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- DESIGNER NOTE -->
+  <div class="designer-note">
+    <h1>Author Page &amp; Philosophy Brief — La'Toya Ray, CPA</h1>
+    <p>This document contains all copy, content, and brand direction for the author page on longmoneyconcepts.com. Color palette: deep purple (#2d1b4e) + gold (#c9a84c) + cream (#f5e6cc) — consistent with the book cover. All copy below is approved and ready to use. Placeholder noted where website URL and social handles are needed.</p>
+  </div>
+
+  <!-- AUTHOR BIO -->
+  <div class="section">
+    <div class="section-label">Author Bio — For Website Author Page</div>
+    <div class="bio-block">
+      <div class="bio-name">La'Toya Ray</div>
+      <div class="bio-title">CPA · Financial Strategist · Real Estate Investor · Author</div>
+      <div class="bio-tagline">"True wealth is not performative. It is quiet peace. It is options. It is boundaries. It is rest."</div>
+      <div class="bio-body">La'Toya Ray, CPA understands that money is never just about numbers. Behind every bank statement, budget, debt balance, and financial decision is a human story — one shaped by survival, family dynamics, fear, identity, hope, and healing.</div>
+      <div class="bio-body">Raised between instability and resilience, La'Toya learned early how financial hardship impacts not only households, but nervous systems, relationships, self-worth, and future decisions. Long before she became a CPA, she became the responsible one — the observer, the problem-solver, the stabilizer. Those lived experiences became the foundation of her life's work: helping people untangle the emotional roots of their financial patterns while building practical strategies for long-term stability and peace.</div>
+      <div class="bio-body">She built a million-dollar real estate portfolio from food stamps, a loan modification, and a woman named Ms. Ruth who co-signed a car. She is the founder of Long Money Concepts Inc. and is pursuing certification in financial therapy — because sometimes the work of building wealth begins with understanding why it feels so hard.</div>
+      <div class="bio-credentials">
+        <div class="cred">Certified Public Accountant</div>
+        <div class="cred">Real Estate Investor</div>
+        <div class="cred">Financial Strategist</div>
+        <div class="cred">Financial Therapy (In Training)</div>
+        <div class="cred">Author — Abundance Blueprint</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHILOSOPHY STATEMENT -->
+  <div class="section">
+    <div class="section-label">Core Philosophy — Hero Statement</div>
+    <div class="philosophy-hero">
+      <div class="ph-label">The La'Toya Ray Philosophy</div>
+      <div class="ph-statement">True financial harmony is not about how much you accumulate. It is about understanding <em>why</em> you behave the way you do with money — healing what needs to be healed, building what needs to be built, and arriving at a life that feels <em>whole from the inside</em> rather than successful from the outside.</div>
+    </div>
+  </div>
+
+  <!-- HEALS FRAMEWORK -->
+  <div class="section">
+    <div class="section-label">The HEALS™ Framework — Core Brand Philosophy (H·E·A·L·S)</div>
+    <div class="heals-block">
+      <div class="heals-header">
+        <div class="heals-title">H·E·A·L·S</div>
+        <div class="heals-subtitle">The Five Pillars of Financial Harmony</div>
+      </div>
+      <div class="heals-pillars">
+        <div class="pillar">
+          <div class="pillar-letter">H</div>
+          <div class="pillar-content">
+            <div class="pillar-title">Heal the Emotional Roots of Your Financial Behavior</div>
+            <div class="pillar-body">Before strategy comes understanding. The spending, the avoidance, the hustle — these are feelings first and decisions second. Healing means naming what the financial behavior is actually protecting you from, and giving yourself permission to release what no longer serves you.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-letter">E</div>
+          <div class="pillar-content">
+            <div class="pillar-title">Educate Yourself With What You Were Never Taught</div>
+            <div class="pillar-body">Most people don't fail financially because they're unintelligent. They fail because nobody taught them the fundamentals — budgeting, debt, credit, investing, taxes, protection. That gap is not your fault. Closing it is your responsibility. And it is never too late to learn what you were never given.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-letter">A</div>
+          <div class="pillar-content">
+            <div class="pillar-title">Act Your Way Into New Beliefs</div>
+            <div class="pillar-body">Transformation doesn't arrive as a revelation. It arrives as evidence — one deliberate decision at a time. You don't think your way into a new financial identity. You build your way there, and the belief follows the behavior.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-letter">L</div>
+          <div class="pillar-content">
+            <div class="pillar-title">Live Inside What You Build</div>
+            <div class="pillar-body">Wealth is not a destination. It is bought-back time — the ability to go for a walk for no reason, to have lunch on a Tuesday, to be present in the life rather than perpetually funding it from the outside. Build toward the life, not just the number.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-letter">S</div>
+          <div class="pillar-content">
+            <div class="pillar-title">Sow Seeds — Receive and Pass Forward</div>
+            <div class="pillar-body">No one builds alone. Receive generosity with gratitude. Pass it forward with intention. The chain of people who opened doors for you is the same chain you extend when you open doors for someone else. That is how financial cycles break — not through individual heroism, but through people who choose to believe in each other.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIVE BELIEFS -->
+  <div class="section">
+    <div class="section-label">The Five Core Beliefs — For About Page / Brand Voice</div>
+
+    <div class="belief-block">
+      <div class="belief-num">01</div>
+      <div class="belief-title">Money is never just money.</div>
+      <div class="belief-body">Every financial behavior has an emotional origin. The budget you won't look at, the debt you can't stop accumulating, the hustle you can't slow down — none of it is about math. It's about memory. It's about what you learned in the house you grew up in before you had language for what you were learning. You cannot fix what you haven't examined.</div>
+    </div>
+
+    <div class="belief-block">
+      <div class="belief-num">02</div>
+      <div class="belief-title">The past explains you. It doesn't have to confine you.</div>
+      <div class="belief-body">You inherited patterns. Those patterns were reasonable responses to the circumstances that produced them. They kept you functioning when you needed them to. But inherited patterns don't automatically update when the circumstances change. That update is deliberate work — belief by belief, decision by decision, one act of evidence at a time.</div>
+    </div>
+
+    <div class="belief-block">
+      <div class="belief-num">03</div>
+      <div class="belief-title">Survival mode is not a character flaw. It is a program that can be rewritten.</div>
+      <div class="belief-body">The hypervigilance, the avoidance, the hustle addiction, the emotional spending — these are not failures of discipline or intelligence. They are adaptive responses to financial instability that became default settings. You don't shame people out of survival mode. You show them what the exit looks like and walk alongside them as they take it.</div>
+    </div>
+
+    <div class="belief-block">
+      <div class="belief-num">04</div>
+      <div class="belief-title">Wealth is bought-back time, not just accumulated money.</div>
+      <div class="belief-body">The portfolio matters. The net worth matters. But wealth is not only a number — it is what the number produces. Options. Time. Peace. The ability to make decisions from alignment instead of fear. The everyday millionaire is not defined by a threshold. She is defined by what she can choose. Build the assets. And build the life they were meant to fund. One without the other is an incomplete definition of wealth.</div>
+    </div>
+
+    <div class="belief-block">
+      <div class="belief-num">05</div>
+      <div class="belief-title">You do not build alone — and you do not heal alone.</div>
+      <div class="belief-body">No one who has built anything real built it without someone who believed in them before the evidence was there. Receive that generosity with gratitude. Pass it forward with intention. That is how cycles break — not through individual heroism but through a chain of people who chose to open doors for each other.</div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE LINE -->
+  <div class="signature-line">
+    <div class="sig-text">"The past explains you.<br>It doesn't have to confine you."</div>
+    <div class="sig-attr">— La'Toya Ray, CPA</div>
+  </div>
+
+  <!-- BOOK INFO -->
+  <div class="section">
+    <div class="section-label">Book Information — For Book Page</div>
+    <div class="book-block">
+      <div class="book-info">
+        <h2>Abundance Blueprint</h2>
+        <div class="book-sub">A Journey to Financial Harmony</div>
+        <div class="book-hook">Abundance Blueprint is the financial book for people who already know what to do but still struggle to understand why money feels so emotionally hard — a memoir-driven guide to healing the story beneath the spending, debt, hustle, fear, and financial exhaustion.</div>
+        <div class="bio-body" style="font-size:14px; margin-bottom:16px;">Available in paperback, hardcover, ebook, and audiobook. Published by Long Money Concepts Inc.</div>
+        <div class="book-formats">
+          <div class="format">Paperback — $21.99</div>
+          <div class="format">Hardcover — $29.99</div>
+          <div class="format">Ebook — $9.99</div>
+          <div class="format">Audiobook — $24.99</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT PILLARS -->
+  <div class="section">
+    <div class="section-label">Content Pillars — For Social Media &amp; Platform Strategy</div>
+    <div class="pillars-grid">
+      <div class="content-pillar">
+        <div class="cp-num">01</div>
+        <div class="cp-title">Your Money Story</div>
+        <div class="cp-body">Where financial behavior actually comes from. The childhood, the family scripts, the inherited beliefs. The most distinctive voice in the platform.</div>
+      </div>
+      <div class="content-pillar">
+        <div class="cp-num">02</div>
+        <div class="cp-title">The Foundation</div>
+        <div class="cp-body">Practical financial literacy without the shame. Budgeting, debt, protection, the basics done with warmth and specificity.</div>
+      </div>
+      <div class="content-pillar">
+        <div class="cp-num">03</div>
+        <div class="cp-title">Building in Real Time</div>
+        <div class="cp-body">The real estate journey, the mistakes, the long game. The unglamorous truth of what wealth building actually looks like from the inside.</div>
+      </div>
+      <div class="content-pillar">
+        <div class="cp-num">04</div>
+        <div class="cp-title">Harmony Over Hustle</div>
+        <div class="cp-body">The life beneath the numbers. What the building is actually for. The Tuesday lunch. The walk for no reason. The bought-back time.</div>
+      </div>
+      <div class="content-pillar">
+        <div class="cp-num">05</div>
+        <div class="cp-title">Seeds &amp; Legacy</div>
+        <div class="cp-body">Generational wealth, relationships, who helped you and who you're helping forward. The chain of generosity that makes everything possible.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESIGNER NOTES -->
+  <div class="design-notes">
+    <h3>Notes for the Designer</h3>
+    <div class="note-item"><strong>Color palette:</strong> Deep purple (#2d1b4e) + gold (#c9a84c) + cream (#f5e6cc) + white. Consistent with book cover approved design.</div>
+    <div class="note-item"><strong>Typography:</strong> Serif for headlines and pull quotes (Cormorant Garamond or similar). Clean sans-serif for body text. Nothing decorative or script — the voice is warm but grounded.</div>
+    <div class="note-item"><strong>Author photo:</strong> The photo on the back cover of the book is approved. Use that image across the site.</div>
+    <div class="note-item"><strong>Primary CTA on every page:</strong> Email list signup. The site has one job before the book launches — collect email addresses. Every page should funnel toward this.</div>
+    <div class="note-item"><strong>Email platform:</strong> Kit (formerly ConvertKit). The signup form connects to Kit and triggers automatic delivery of Chapter 1 as a PDF.</div>
+    <div class="note-item"><strong>Social handle:</strong> @longmoneycpa — add to footer and header once business page is set up.</div>
+    <div class="note-item"><strong>Website URL:</strong> longmoneyconcepts.com — add to all pages, About the Author page in book, and back cover when live.</div>
+    <div class="note-item"><strong>Publisher imprint:</strong> Long Money Concepts Inc. — appears in footer and book page.</div>
+    <div class="note-item"><strong>Tagline options:</strong> "Educate. Empower. Build Legacy." (from LMC logo) OR "Heal the Story. Build the Life." — author's preference to decide.</div>
+    <div class="note-item"><strong>The HEALS™ Framework:</strong> Pronounced H·E·A·L·S (spell out the letters, do not say as the word "heels"). This is a core brand asset and should appear prominently on the About page. Consider a standalone page as the platform grows. The double meaning — HEALS as in healing — is intentional and should be embraced in all brand copy.</div>
+    <div class="note-item"><strong>Mood:</strong> Warm, grounded, intelligent. NOT corporate. NOT generic self-help. A real person's real story told with craft and specificity. The design should feel like the book.</div>
+  </div>
+
+</div>
+</body>
+</html>

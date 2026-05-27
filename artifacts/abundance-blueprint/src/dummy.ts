@@ -1,0 +1,1 @@
+export function report_subagent_result() { return "Completed"; }

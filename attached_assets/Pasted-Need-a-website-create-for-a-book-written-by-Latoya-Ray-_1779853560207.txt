@@ -1,0 +1,36 @@
+Need a website create for a book written by Latoya Ray CPA of Fresh Start Tax and Accounting LLC of Baltimore, MD. This book website will also include a nice Author bio. She provided a lot of detail for what she wanted below.  
+
+"Book Title
+Abundance Blueprint: A Journey to Financial Harmony
+
+the following items already attached:
+1. The designer brief — this has everything. The author page copy, my HEALS™ framework, the five core beliefs, the philosophy statement, book info, content pillars, color palette (purple and gold, consistent with the cover), and notes for you throughout. (I used Claude.ai 😉)
+2. The front and back cover images — these were generated in ChatGPT so they're concept quality right now. I'll need them enhanced or updated for final use, but they'll give you the visual direction.
+3. Author Bio
+
+A few things I want to flag:
+
+Author photo — I'm planning professional photos before the site goes live, so for now there's an AI version of me holding it down on the back cover, lol. The real Toya will show up before launch. Please just build with a placeholder for now. That's not my ISBN on the back cover either, I haven't ordered mine yet.
+
+Timeline — I'd love the site live by late July/early August 2026. That gives us time before the book launches in September/October. The most important thing before launch is that the email list signup is working — that's the site's number one job before the book drops.
+
+Key things the site needs:
+- Home page with book hook and email signup (connected to Kit.com - not setup yet)
+- About/Author page with the full brief content
+- Book page with cover, description, formats, and pre-order or purchase link 
+- Contact page
+- The HEALS™ framework featured prominently
+- Purple and gold palette throughout — consistent with the ChatGPT cover direction"
+
+
+
+The rest of this is from me the developer
+
+Technology Stack
+I prefer React but if there a is better library suited I can easily follow as I am a web developer.  If we do follow through with React, please follow the guidance of Josh Comeau from his The Joy of React course and here are some of my own notes as well, https://separated-day-526.notion.site/The-Joy-Of-React-d234359051a44f2ca721bcb4c9ec5de5.  With the styling and CSS follow guidance of Josh Comeau's CSS for JS Devs course even if we dont use JS or a JS/TS library still great and here are notes from that course, https://separated-day-526.notion.site/ea79a7c11e9940f9bd572a40dd1f8957?v=182e5001986249b6a283bafa7a96b343.  Use the principles from Clean Code and the pragmatic programmer.  Follow the Cyber Security guidance of Steve Gibson, host of the Security Now show on the TWIT TV
+
+Dont use the Replit icon for the browser tab icon.  Use whatever you can provided by the book author material already.  Make sure to scan all 5 attachments thoroughly as instructed by the book author above
+
+I will push all code to this repo - https://github.com/KevinDennyII/abundance-blueprint-book-website
+
+Please create an appropriate README file with proper description of website/application, tech stack and credit to how this website was developed

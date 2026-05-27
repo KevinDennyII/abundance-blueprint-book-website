@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Abundance Blueprint — La'Toya Ray, CPA"
+version = "1.0.0"
+id = "artifacts/abundance-blueprint"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21403
+
+[services.development]
+run = "pnpm --filter @workspace/abundance-blueprint run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/abundance-blueprint", "run", "build" ]
+publicDir = "artifacts/abundance-blueprint/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21403"
+BASE_PATH = "/"

@@ -1,45 +1,65 @@
-# [Project name]
+# Abundance Blueprint — Book Website
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financial Harmony" — a memoir-driven guide to healing the emotional story beneath financial behavior, building a practical foundation, and creating a life of financial harmony.
 
 ## Run & Operate
 
+- `pnpm --filter @workspace/abundance-blueprint run dev` — run the book website (port auto-assigned)
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React + Vite, Tailwind CSS v4, shadcn/ui
+- Routing: wouter
+- Animations: Framer Motion
+- Fonts: Cormorant Garamond (serif headings) + DM Sans (body)
+- API: Express 5 (api-server artifact, /api prefix)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/abundance-blueprint/` — the book website (React + Vite, served at `/`)
+- `artifacts/api-server/` — Express API server (served at `/api`)
+- `attached_assets/` — book cover images and author brief documents
+- `artifacts/abundance-blueprint/public/` — static assets (favicon, etc.)
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- This is a presentation-first site — no backend database needed. The email signup form is built for Kit (formerly ConvertKit) integration, currently wired to a client-side success state placeholder.
+- Cover images are imported via the `@assets` alias (pointing to `attached_assets/`), not served from `public/`, because Vite handles bundling.
+- All approved copy is used verbatim from the designer brief provided by the author.
+- No dark mode — the brand palette (purple/gold/cream) is the single consistent theme.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- **Home** (`/`): Book hook, email list signup (primary CTA), author intro, HEALS™ framework teaser, scroll animations.
+- **About** (`/about`): Full author bio, philosophy statement, HEALS™ framework (all 5 pillars), five core beliefs, credentials.
+- **Book** (`/book`): Cover art, full description, formats/pricing, pre-order CTA, "In These Pages" list.
+- **Contact** (`/contact`): Contact form (client-side only), social handle, publisher info.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- React (Josh Comeau's Joy of React guidance)
+- CSS following Josh Comeau's CSS for JS Devs approach
+- No Replit favicon — use the book cover as the favicon
+- GitHub repo: https://github.com/KevinDennyII/abundance-blueprint-book-website
+- Include a README.md in the artifact with tech stack and credits
+- Email list will connect to Kit (formerly ConvertKit) — placeholder for now
+- Author photo is the AI placeholder from the back cover until professional photos are taken
+- ISBN on the back cover is not the real one (not yet ordered)
+- Timeline: live by late July/early August 2026 before September/October book launch
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Google Fonts @import must be the FIRST line in index.css before @import "tailwindcss"
+- All CSS variables in :root were initialized to "red" and must be replaced with the purple/gold/cream palette
+- Cover images are accessed via `import img from "@assets/AB_Front_Cover_1779852599997.png"` not public URLs
 
 ## Pointers
 
 - See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Brand colors: deep purple #2d1b4e, gold #c9a84c, cream #f5e6cc
+- Brand fonts: Cormorant Garamond (serif), DM Sans (sans)
+- HEALS™ is pronounced H·E·A·L·S — the healing double meaning is intentional
