@@ -101,7 +101,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
               {[
-                { letter: "H", title: "Heal", desc: "the Emotional Roots" },
+                { letter: "H", title: "Honor", desc: "the Story You Inherited" },
                 { letter: "E", title: "Educate", desc: "Yourself" },
                 { letter: "A", title: "Act", desc: "Into New Beliefs" },
                 { letter: "L", title: "Live", desc: "Inside What You Build" },
