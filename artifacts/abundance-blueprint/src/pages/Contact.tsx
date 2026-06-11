@@ -3,15 +3,43 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { submitContactForm } from "@/lib/contact-form";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+const initialForm = {
+  name: "",
+  email: "",
+  message: "",
+};
 
-  const handleSubmit = (e: React.FormEvent) => {
+export default function Contact() {
+  const [form, setForm] = useState(initialForm);
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    setIsSubmitting(true);
+
+    const result = await submitContactForm(form);
+
+    setIsSubmitting(false);
+
+    if (result.ok) {
+      setSubmitted(true);
+      setForm(initialForm);
+      return;
+    }
+
+    setError(result.error);
+  };
+
+  const handleSendAnother = () => {
+    setSubmitted(false);
+    setError(null);
   };
 
   return (
@@ -67,7 +95,7 @@ export default function Contact() {
                     <Button 
                       variant="outline" 
                       className="mt-8"
-                      onClick={() => setSubmitted(false)}
+                      onClick={handleSendAnother}
                     >
                       Send another message
                     </Button>
@@ -76,18 +104,53 @@ export default function Contact() {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-primary mb-2">Name</label>
-                      <Input id="name" required className="bg-background" data-testid="input-contact-name" />
+                      <Input
+                        id="name"
+                        name="name"
+                        required
+                        value={form.name}
+                        onChange={(e) => setForm((current) => ({ ...current, name: e.target.value }))}
+                        className="bg-background"
+                        data-testid="input-contact-name"
+                      />
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-primary mb-2">Email</label>
-                      <Input id="email" type="email" required className="bg-background" data-testid="input-contact-email" />
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        value={form.email}
+                        onChange={(e) => setForm((current) => ({ ...current, email: e.target.value }))}
+                        className="bg-background"
+                        data-testid="input-contact-email"
+                      />
                     </div>
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-primary mb-2">Message</label>
-                      <Textarea id="message" required className="bg-background min-h-[150px]" data-testid="input-contact-message" />
+                      <Textarea
+                        id="message"
+                        name="message"
+                        required
+                        value={form.message}
+                        onChange={(e) => setForm((current) => ({ ...current, message: e.target.value }))}
+                        className="bg-background min-h-[150px]"
+                        data-testid="input-contact-message"
+                      />
                     </div>
-                    <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-lg" data-testid="button-contact-submit">
-                      Send Message
+                    {error ? (
+                      <p className="text-sm text-destructive" role="alert" data-testid="contact-form-error">
+                        {error}
+                      </p>
+                    ) : null}
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-lg"
+                      data-testid="button-contact-submit"
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
                 )}
