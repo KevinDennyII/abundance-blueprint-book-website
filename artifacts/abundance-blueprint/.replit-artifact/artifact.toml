@@ -22,6 +22,11 @@ build = [ "pnpm", "--filter", "@workspace/abundance-blueprint", "run", "build" ]
 publicDir = "artifacts/abundance-blueprint/dist/public"
 serve = "static"
 
+[services.production.build.env]
+NODE_ENV = "production"
+BASE_PATH = "/"
+PORT = "21403"
+
 [[services.production.rewrites]]
 from = "/*"
 to = "/index.html"

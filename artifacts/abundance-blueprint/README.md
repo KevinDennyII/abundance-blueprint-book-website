@@ -42,6 +42,20 @@ In Squarespace → **Settings → Domains → DNS Settings**, point the domain t
 
 Netlify provisions SSL automatically once DNS propagates.
 
+## Deployment (Replit — current production)
+
+Replit is configured via `artifacts/abundance-blueprint/.replit-artifact/artifact.toml`. Production serves the static Vite build from `dist/public`.
+
+### Deploy checklist
+
+1. **Push latest code to GitHub** (Replit syncs from the connected repo).
+2. **Replit Secrets** — confirm `VITE_WEB3FORMS_ACCESS_KEY` is set (required at **build** time for Vite).
+3. In Replit, open **Deployments** and publish a new deployment.
+4. After deploy, test `/contact` on the live URL — submit a test message.
+5. If Web3Forms blocks the Replit domain, approve it in the [Web3Forms dashboard](https://web3forms.com) or contact their support with your deployment URL.
+
+`PORT` and `BASE_PATH` for production builds are set in the artifact config. No database or API server is needed for this site.
+
 ### Local commands
 
 ```bash
