@@ -47,7 +47,7 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 - No Replit favicon — use the book cover as the favicon
 - GitHub repo: https://github.com/KevinDennyII/abundance-blueprint-book-website
 - Include a README.md in the artifact with tech stack and credits
-- Email list will connect to Kit (formerly ConvertKit) — placeholder for now
+- Email signup forms submit to Kit via `/api/kit/subscribe` (API Server on Replit, Netlify Function when migrated)
 - Author photo is the AI placeholder from the back cover until professional photos are taken
 - ISBN on the back cover is not the real one (not yet ordered)
 - Timeline: live by late July/early August 2026 before September/October book launch
