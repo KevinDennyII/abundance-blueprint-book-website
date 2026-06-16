@@ -27,7 +27,7 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 
 ## Architecture decisions
 
-- This is a presentation-first site — no backend database needed. Email signup forms submit to Kit via `/api/kit/subscribe` (Replit: `server.mjs`; Netlify: serverless function; local dev: api-server).
+- This is a presentation-first site — no backend database needed. Email signup forms submit to Kit via `/api/kit/subscribe` (Replit: API Server artifact; Netlify: serverless function; local dev: api-server).
 - Cover images are imported via the `@assets` alias (pointing to `attached_assets/`), not served from `public/`, because Vite handles bundling.
 - All approved copy is used verbatim from the designer brief provided by the author.
 - No dark mode — the brand palette (purple/gold/cream) is the single consistent theme.
@@ -57,6 +57,7 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 - Google Fonts @import must be the FIRST line in index.css before @import "tailwindcss"
 - All CSS variables in :root were initialized to "red" and must be replaced with the purple/gold/cream palette
 - Cover images are accessed via `import img from "@assets/AB_Front_Cover_1779852599997.png"` not public URLs
+- Do not modify `artifacts/abundance-blueprint/.replit-artifact/artifact.toml` — Replit requires `publicDir` + `serve = "static"` for publish. Kit signups use the API Server artifact at `/api`.
 
 ## Pointers
 

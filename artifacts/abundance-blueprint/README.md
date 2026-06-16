@@ -51,7 +51,7 @@ pnpm run dev:local
 
 ### Replit (current production)
 
-Production uses `server.mjs`, which serves the static build and handles `/api/kit/subscribe`. Add `KIT_API_KEY`, `KIT_CHAPTER1_FORM_ID`, and `KIT_CIRCLE_FORM_ID` to **Replit Secrets** (runtime — not build-time).
+Production uses Replit's static artifact config (`publicDir` + `serve = "static"`). Add `KIT_API_KEY`, `KIT_CHAPTER1_FORM_ID`, and `KIT_CIRCLE_FORM_ID` to **Replit Secrets** on the API Server artifact (runtime — not build-time). Do not modify `.replit-artifact/artifact.toml` unless required by Replit's publish flow.
 
 ### Netlify (future)
 
@@ -86,16 +86,18 @@ Netlify provisions SSL automatically once DNS propagates.
 
 Replit is configured via `artifacts/abundance-blueprint/.replit-artifact/artifact.toml`. Production serves the static Vite build from `dist/public`.
 
+**Important:** Do not modify `.replit-artifact/artifact.toml` unless Replit's publish flow requires it. Replit uses `publicDir` + `serve = "static"` for the website artifact. Kit email signups are handled by the separate **API Server** artifact at `/api` (see `artifacts/api-server/.replit-artifact/artifact.toml`).
+
 ### Deploy checklist
 
 1. **Push latest code to GitHub** (Replit syncs from the connected repo).
 2. **Replit Secrets** — confirm `VITE_WEB3FORMS_ACCESS_KEY` is set (required at **build** time for Vite).
-3. **Replit Secrets** — set `KIT_API_KEY`, `KIT_CHAPTER1_FORM_ID`, and `KIT_CIRCLE_FORM_ID` (required at **runtime** for email signups).
+3. **Replit Secrets** — set `KIT_API_KEY`, `KIT_CHAPTER1_FORM_ID`, and `KIT_CIRCLE_FORM_ID` on the **API Server** artifact (required at **runtime** for email signups).
 4. In Replit, open **Deployments** and publish a new deployment.
 5. After deploy, test `/contact` and the Chapter 1 / Circle signup forms on the live URL.
 6. If Web3Forms blocks the Replit domain, approve it in the [Web3Forms dashboard](https://web3forms.com) or contact their support with your deployment URL.
 
-`PORT` and `BASE_PATH` for production builds are set in the artifact config. Production serves via `server.mjs`, which handles static files and the Kit signup API.
+`PORT` and `BASE_PATH` for production builds are set in the artifact config. The website artifact is static-only; `/api/kit/subscribe` is served by the API Server artifact.
 
 ### Local commands
 

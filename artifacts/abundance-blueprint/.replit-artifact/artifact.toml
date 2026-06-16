@@ -19,7 +19,8 @@ run = "pnpm --filter @workspace/abundance-blueprint run dev"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/abundance-blueprint", "run", "build" ]
-serve = "node artifacts/abundance-blueprint/server.mjs"
+publicDir = "artifacts/abundance-blueprint/dist/public"
+serve = "static"
 
 [services.production.build.env]
 NODE_ENV = "production"
