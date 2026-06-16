@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { EmailSignup } from "@/components/EmailSignup";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
 
 export function Footer() {
   return (
@@ -12,8 +13,14 @@ export function Footer() {
               Educate. Empower. Build Legacy.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-background/50 hover:text-accent transition-colors" data-testid="link-social">
-                @longmoneycpa
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-background/50 hover:text-accent transition-colors"
+                data-testid="link-social"
+              >
+                {INSTAGRAM_HANDLE}
               </a>
             </div>
           </div>
@@ -24,6 +31,7 @@ export function Footer() {
               <li><Link href="/" className="hover:text-accent transition-colors">Home</Link></li>
               <li><Link href="/about" className="hover:text-accent transition-colors">About</Link></li>
               <li><Link href="/book" className="hover:text-accent transition-colors">The Book</Link></li>
+              <li><Link href="/circle" className="hover:text-accent transition-colors">Circle</Link></li>
               <li><Link href="/contact" className="hover:text-accent transition-colors">Contact</Link></li>
             </ul>
           </div>
@@ -35,7 +43,7 @@ export function Footer() {
         </div>
         
         <div className="pt-8 border-t border-background/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/40">
-          <p>© {new Date().getFullYear()} La'Toya Ray, CPA. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Long Money Concepts, Inc. All rights reserved.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-background transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-background transition-colors">Terms of Service</Link>

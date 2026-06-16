@@ -1,12 +1,18 @@
 [build]
   command = "pnpm --filter @workspace/abundance-blueprint run build"
   publish = "artifacts/abundance-blueprint/dist/public"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "22"
   PNPM_VERSION = "10.33.4"
   BASE_PATH = "/"
   PORT = "5173"
+
+[[redirects]]
+  from = "/api/kit/subscribe"
+  to = "/.netlify/functions/kit-subscribe"
+  status = 200
 
 # Client-side routing (wouter)
 [[redirects]]

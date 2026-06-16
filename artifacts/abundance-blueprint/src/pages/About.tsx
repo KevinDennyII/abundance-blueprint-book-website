@@ -19,7 +19,7 @@ export default function About() {
       
       <main className="flex-1 pt-24">
         {/* Bio Header */}
-        <section className="py-16 md:py-24 bg-card">
+        <section id="her-story" className="py-16 md:py-24 bg-card scroll-mt-28">
           <div className="container mx-auto px-4 md:px-6">
             <motion.div 
               initial="hidden"
@@ -35,7 +35,7 @@ export default function About() {
               </motion.p>
               
               <motion.div variants={fadeInUp} className="bg-background p-8 rounded-xl shadow-sm border border-border italic font-serif text-xl md:text-2xl text-primary mb-12">
-                "True wealth is not performative. It is quiet peace. It is options. It is boundaries. It is rest."
+                "Real wealth doesn't announce itself. It is peace. It is options. It is boundaries. It is rest. It looks different for everyone but it always feels like freedom."
               </motion.div>
               
               <div className="text-left space-y-6 text-muted text-lg leading-relaxed">
@@ -107,7 +107,7 @@ export default function About() {
         </section>
 
         {/* HEALS Framework */}
-        <section className="py-24 bg-card px-4">
+        <section id="heals-framework" className="py-24 bg-card px-4 scroll-mt-28">
           <div className="container mx-auto max-w-4xl">
             <div className="text-center mb-16">
               <h2 className="font-serif text-3xl md:text-5xl text-primary mb-6">The HEALS™ Framework</h2>

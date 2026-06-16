@@ -20,6 +20,43 @@ The contact form sends messages via [Web3Forms](https://web3forms.com).
 3. Set `VITE_WEB3FORMS_ACCESS_KEY` to your access key.
 4. When the client's email is ready, update the recipient in the Web3Forms dashboard — no code changes needed.
 
+## Kit Email Signup Setup
+
+Chapter 1 and Long Money Circle forms submit to Kit via a server-side proxy (`/api/kit/subscribe`). The purple signup design is preserved — Kit's embed script is not used.
+
+### Environment variables
+
+Set these as **runtime** secrets (Replit Secrets or Netlify environment variables). Do not prefix with `VITE_`.
+
+| Variable | Description |
+|----------|-------------|
+| `KIT_API_KEY` | Kit V4 API key (Kit → Settings → Developer) |
+| `KIT_CHAPTER1_FORM_ID` | Numeric form ID for the Chapter 1 incentive form (embed UID reference: `e30afd8248`) |
+| `KIT_CIRCLE_FORM_ID` | Numeric form ID for The Long Money Circle form (embed UID reference: `87ce6821c1`) |
+
+The embed UIDs are not the API form IDs. In Kit, open each form and copy the numeric ID from the dashboard or API.
+
+### Local development
+
+Run the API server alongside the Vite dev server so `/api` requests are proxied:
+
+```bash
+# Terminal 1
+PORT=5000 KIT_API_KEY=... KIT_CHAPTER1_FORM_ID=... KIT_CIRCLE_FORM_ID=... \
+  pnpm --filter @workspace/api-server run dev
+
+# Terminal 2
+pnpm run dev:local
+```
+
+### Replit (current production)
+
+Production uses `server.mjs`, which serves the static build and handles `/api/kit/subscribe`. Add `KIT_API_KEY`, `KIT_CHAPTER1_FORM_ID`, and `KIT_CIRCLE_FORM_ID` to **Replit Secrets** (runtime — not build-time).
+
+### Netlify (future)
+
+A Netlify Function at `netlify/functions/kit-subscribe.ts` handles the same endpoint. Add the three Kit env vars in Netlify site settings.
+
 ## Deployment (GitHub + Netlify)
 
 This site is static — no database or backend required. Production hosting is configured via `netlify.toml` at the repo root.
@@ -31,6 +68,9 @@ This site is static — no database or backend required. Production hosting is c
 3. Netlify should auto-detect settings from `netlify.toml` (no manual build config needed).
 4. Under **Site configuration → Environment variables**, add:
    - `VITE_WEB3FORMS_ACCESS_KEY` — your Web3Forms access key
+   - `KIT_API_KEY` — Kit V4 API key
+   - `KIT_CHAPTER1_FORM_ID` — numeric Kit form ID for Chapter 1
+   - `KIT_CIRCLE_FORM_ID` — numeric Kit form ID for The Long Money Circle
 5. Deploy. Future pushes to the connected branch auto-deploy.
 
 ### Custom domain (Squarespace DNS)
@@ -50,11 +90,12 @@ Replit is configured via `artifacts/abundance-blueprint/.replit-artifact/artifac
 
 1. **Push latest code to GitHub** (Replit syncs from the connected repo).
 2. **Replit Secrets** — confirm `VITE_WEB3FORMS_ACCESS_KEY` is set (required at **build** time for Vite).
-3. In Replit, open **Deployments** and publish a new deployment.
-4. After deploy, test `/contact` on the live URL — submit a test message.
-5. If Web3Forms blocks the Replit domain, approve it in the [Web3Forms dashboard](https://web3forms.com) or contact their support with your deployment URL.
+3. **Replit Secrets** — set `KIT_API_KEY`, `KIT_CHAPTER1_FORM_ID`, and `KIT_CIRCLE_FORM_ID` (required at **runtime** for email signups).
+4. In Replit, open **Deployments** and publish a new deployment.
+5. After deploy, test `/contact` and the Chapter 1 / Circle signup forms on the live URL.
+6. If Web3Forms blocks the Replit domain, approve it in the [Web3Forms dashboard](https://web3forms.com) or contact their support with your deployment URL.
 
-`PORT` and `BASE_PATH` for production builds are set in the artifact config. No database or API server is needed for this site.
+`PORT` and `BASE_PATH` for production builds are set in the artifact config. Production serves via `server.mjs`, which handles static files and the Kit signup API.
 
 ### Local commands
 

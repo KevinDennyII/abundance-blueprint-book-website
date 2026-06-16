@@ -17,6 +17,7 @@ export function Navbar() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/book", label: "The Book" },
+    { href: "/circle", label: "Circle" },
     { href: "/contact", label: "Contact" },
   ];
 

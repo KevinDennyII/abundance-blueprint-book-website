@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { submitContactForm } from "@/lib/contact-form";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -65,8 +66,14 @@ export default function Contact() {
                 <div className="space-y-8">
                   <div>
                     <h3 className="font-sans font-medium text-sm tracking-widest uppercase mb-2 text-primary">Social</h3>
-                    <a href="#" className="text-secondary hover:text-primary transition-colors text-lg" data-testid="link-contact-social">
-                      @longmoneycpa
+                    <a
+                      href={INSTAGRAM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-secondary hover:text-primary transition-colors text-lg"
+                      data-testid="link-contact-social"
+                    >
+                      {INSTAGRAM_HANDLE}
                     </a>
                   </div>
                   

@@ -27,7 +27,7 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 
 ## Architecture decisions
 
-- This is a presentation-first site — no backend database needed. The email signup form is built for Kit (formerly ConvertKit) integration, currently wired to a client-side success state placeholder.
+- This is a presentation-first site — no backend database needed. Email signup forms submit to Kit via `/api/kit/subscribe` (Replit: `server.mjs`; Netlify: serverless function; local dev: api-server).
 - Cover images are imported via the `@assets` alias (pointing to `attached_assets/`), not served from `public/`, because Vite handles bundling.
 - All approved copy is used verbatim from the designer brief provided by the author.
 - No dark mode — the brand palette (purple/gold/cream) is the single consistent theme.
@@ -37,6 +37,7 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 - **Home** (`/`): Book hook, email list signup (primary CTA), author intro, HEALS™ framework teaser, scroll animations.
 - **About** (`/about`): Full author bio, philosophy statement, HEALS™ framework (all 5 pillars), five core beliefs, credentials.
 - **Book** (`/book`): Cover art, full description, formats/pricing, pre-order CTA, "In These Pages" list.
+- **Circle** (`/circle`): The Long Money Circle community page with Kit signup form.
 - **Contact** (`/contact`): Contact form (client-side only), social handle, publisher info.
 
 ## User preferences

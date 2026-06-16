@@ -88,7 +88,7 @@ export default function Home() {
             className="max-w-4xl mx-auto"
           >
             <p className="font-serif text-3xl md:text-4xl lg:text-5xl leading-tight mb-8 text-accent italic">
-              "The past explains you. It doesn't have to confine you."
+              "Real wealth doesn't announce itself. It is quiet peace."
             </p>
             <p className="font-sans tracking-widest uppercase text-sm opacity-80">
               — La'Toya Ray, CPA
@@ -150,7 +150,7 @@ export default function Home() {
 
             <div className="text-center mt-12">
               <Link
-                href="/about"
+                href="/about#heals-framework"
                 className="inline-block font-sans text-sm font-medium tracking-wide uppercase text-primary border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors"
               >
                 Explore the Framework
@@ -209,7 +209,7 @@ export default function Home() {
                 </motion.p>
                 <motion.div variants={fadeInUp}>
                   <Link
-                    href="/about"
+                    href="/about#her-story"
                     className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors font-medium"
                   >
                     Read Her Story
