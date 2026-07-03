@@ -4,6 +4,7 @@ import { EmailSignup } from "@/components/EmailSignup";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import frontCover from "@assets/AB_Front_Cover_1779852599997.png";
+import authorPhoto from "@assets/LaToya_Ray_Author.png";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -167,13 +168,14 @@ export default function Home() {
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="bg-muted/10 aspect-square rounded-2xl flex items-center justify-center relative overflow-hidden"
+                className="max-w-md mx-auto md:mx-0 w-full"
               >
-                <div className="absolute inset-0 bg-primary/5" />
-                <div className="p-12 text-center relative z-10">
-                  <p className="font-serif text-2xl text-primary italic opacity-60">
-                    "Real wealth doesn't announce itself. It is quiet peace."
-                  </p>
+                <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border border-border">
+                  <img
+                    src={authorPhoto}
+                    alt="La'Toya Ray, CPA"
+                    className="w-full h-full object-cover object-top"
+                  />
                 </div>
               </motion.div>
               <motion.div
