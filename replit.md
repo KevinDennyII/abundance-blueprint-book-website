@@ -38,7 +38,9 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 - **About** (`/about`): Full author bio, philosophy statement, HEALS™ framework (all 5 pillars), five core beliefs, credentials.
 - **Book** (`/book`): Cover art, full description, formats/pricing, pre-order CTA, "In These Pages" list.
 - **Circle** (`/circle`): The Long Money Circle community page with Kit signup form.
-- **Contact** (`/contact`): Contact form (client-side only), social handle, publisher info.
+- **Work With Me** (`/work-with-me`): Contact and future services inquiry form.
+- **Blog** (`/blog`): Blog placeholder — content coming soon.
+- **Contact** (`/contact`): Redirects to `/work-with-me`.
 
 ## User preferences
 

@@ -169,11 +169,10 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="bg-muted/10 aspect-square rounded-2xl flex items-center justify-center relative overflow-hidden"
               >
-                {/* Fallback pattern/image space since no distinct author photo was provided outside the back cover */}
                 <div className="absolute inset-0 bg-primary/5" />
                 <div className="p-12 text-center relative z-10">
                   <p className="font-serif text-2xl text-primary italic opacity-60">
-                    "True wealth is not performative. It is quiet peace."
+                    "Real wealth doesn't announce itself. It is quiet peace."
                   </p>
                 </div>
               </motion.div>

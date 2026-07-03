@@ -58,9 +58,9 @@ export default function Contact() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="font-serif text-4xl md:text-5xl text-primary mb-6">Get in Touch</h1>
+                <h1 className="font-serif text-4xl md:text-5xl text-primary mb-6">Work With Me</h1>
                 <p className="text-muted text-lg leading-relaxed mb-12">
-                  Whether you're interested in speaking engagements, bulk book orders, or simply want to share how the book impacted you, we'd love to hear from you.
+                  Whether you're interested in speaking engagements, bulk book orders, or exploring how we might work together — services are coming soon. For now, send a message and let's start the conversation.
                 </p>
 
                 <div className="space-y-8">

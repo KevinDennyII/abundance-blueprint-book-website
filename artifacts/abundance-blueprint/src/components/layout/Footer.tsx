@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { EmailSignup } from "@/components/EmailSignup";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
+import { navLinks } from "@/lib/navigation";
 
 export function Footer() {
   return (
@@ -28,11 +29,13 @@ export function Footer() {
           <div>
             <h4 className="font-sans font-medium text-sm tracking-wider uppercase mb-6 text-background/50">Navigation</h4>
             <ul className="space-y-3">
-              <li><Link href="/" className="hover:text-accent transition-colors">Home</Link></li>
-              <li><Link href="/about" className="hover:text-accent transition-colors">About</Link></li>
-              <li><Link href="/book" className="hover:text-accent transition-colors">The Book</Link></li>
-              <li><Link href="/circle" className="hover:text-accent transition-colors">Circle</Link></li>
-              <li><Link href="/contact" className="hover:text-accent transition-colors">Contact</Link></li>
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="hover:text-accent transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

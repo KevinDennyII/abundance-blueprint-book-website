@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { useState, useEffect } from "react";
 import { motion, useScroll } from "framer-motion";
+import { navLinks } from "@/lib/navigation";
 
 export function Navbar() {
   const [location] = useLocation();
@@ -12,14 +13,6 @@ export function Navbar() {
       setScrolled(latest > 50);
     });
   }, [scrollY]);
-
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/book", label: "The Book" },
-    { href: "/circle", label: "Circle" },
-    { href: "/contact", label: "Contact" },
-  ];
 
   return (
     <motion.header
@@ -35,12 +28,12 @@ export function Navbar() {
           La'Toya Ray<span className="text-secondary">, CPA</span>
         </Link>
         
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navLinks.map((link) => (
             <Link 
               key={link.href} 
               href={link.href}
-              className={`text-sm tracking-widest uppercase transition-colors hover:text-secondary ${
+              className={`text-xs xl:text-sm tracking-widest uppercase transition-colors hover:text-secondary whitespace-nowrap ${
                 location === link.href ? "text-secondary font-medium" : "text-foreground/80"
               }`}
             >
