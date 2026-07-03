@@ -36,9 +36,9 @@ pnpm run dev:local
 
 ### Replit (current production)
 
-The website artifact serves a static Vite build. Kit signups and other `/api` routes are handled by the **API Server** artifact.
+The website artifact builds with Vite and runs via `pnpm --filter @workspace/abundance-blueprint run serve`. Kit signups and other `/api` routes are handled by the **API Server** artifact.
 
-**Do not modify** `artifacts/abundance-blueprint/.replit-artifact/artifact.toml` unless Replit's publish flow requires it. Replit expects `publicDir` + `serve = "static"` for the website artifact.
+`artifacts/abundance-blueprint/.replit-artifact/artifact.toml` uses explicit `services.production.build` and `services.production.run` commands so Replit Publishing can detect a valid run command.
 
 **Deploy checklist:**
 

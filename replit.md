@@ -59,7 +59,7 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 - Google Fonts @import must be the FIRST line in index.css before @import "tailwindcss"
 - All CSS variables in :root were initialized to "red" and must be replaced with the purple/gold/cream palette
 - Cover images are accessed via `import img from "@assets/AB_Front_Cover_1779852599997.png"` not public URLs
-- Do not modify `artifacts/abundance-blueprint/.replit-artifact/artifact.toml` — Replit requires `publicDir` + `serve = "static"` for publish. Kit signups use the API Server artifact at `/api`.
+- `artifacts/abundance-blueprint/.replit-artifact/artifact.toml` must define explicit `services.production.build` and `services.production.run` commands. Replit Publishing needs a valid run command for the website artifact; Kit signups still use the API Server artifact at `/api`.
 
 ## Pointers
 
