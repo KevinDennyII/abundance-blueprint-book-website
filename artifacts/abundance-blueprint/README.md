@@ -13,24 +13,29 @@ Copy `.env.example` to `.env` for local development.
 | Variable | Where | Purpose |
 |----------|-------|---------|
 | `VITE_WEB3FORMS_ACCESS_KEY` | Build time (Vite) | Contact form via [Web3Forms](https://web3forms.com) |
-| `KIT_API_KEY` | Runtime (API server) | Kit V4 API key |
-| `KIT_CHAPTER1_FORM_ID` | Runtime (API server) | Numeric Kit form ID — Chapter 1 (embed UID ref: `e30afd8248`) |
-| `KIT_CIRCLE_FORM_ID` | Runtime (API server) | Numeric Kit form ID — Long Money Circle (embed UID ref: `87ce6821c1`) |
+| `KIT_API_KEY` | Runtime (API server) | Kit account API key (Settings → Advanced → API) |
+| `KIT_CHAPTER1_FORM_ID` | Runtime (API server) | `9557935` — Chapter 1 incentive form |
+| `KIT_CIRCLE_FORM_ID` | Runtime (API server) | `9564646` — Long Money Circle form |
 
-Embed UIDs are not API form IDs. Copy the numeric IDs from the Kit dashboard.
+Embed UIDs are not API form IDs. The numeric IDs above are configured in Replit/Netlify secrets.
 
 ## Local Development
 
 ```bash
 pnpm install
 
-# Terminal 1 — API server (Kit + health check)
-PORT=5000 KIT_API_KEY=... KIT_CHAPTER1_FORM_ID=... KIT_CIRCLE_FORM_ID=... \
-  pnpm --filter @workspace/api-server run dev
+# Copy API server env (Kit secrets are runtime-only, not in the frontend .env)
+cp artifacts/api-server/.env.example artifacts/api-server/.env
+# Add KIT_API_KEY from Kit → Settings → Advanced → API
 
-# Terminal 2 — frontend (proxies /api to port 5000)
+# Terminal 1 — API server (Kit + health check)
+pnpm --filter @workspace/api-server run dev
+
+# Terminal 2 — frontend (proxies /api to port 5000, or API_PORT if set)
 pnpm run dev:local
 ```
+
+On macOS, port 5000 is often taken by AirPlay — use `PORT=5050` in `artifacts/api-server/.env` and `API_PORT=5050` when starting the frontend.
 
 ## Deployment
 

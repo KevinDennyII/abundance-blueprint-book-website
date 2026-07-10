@@ -2,7 +2,7 @@ import type { Handler, HandlerEvent } from "@netlify/functions";
 
 type KitFormType = "chapter1" | "circle";
 
-const KIT_API_BASE = "https://api.kit.com/v4";
+const KIT_API_BASE = "https://api.convertkit.com/v3";
 const validForms = new Set<KitFormType>(["chapter1", "circle"]);
 
 function getFormId(form: KitFormType): string | undefined {
@@ -15,9 +15,10 @@ function getFormId(form: KitFormType): string | undefined {
 
 async function parseKitError(response: Response): Promise<string> {
   const data = (await response.json().catch(() => ({}))) as {
-    errors?: string[];
+    error?: string;
+    message?: string;
   };
-  return data.errors?.join(", ") ?? "Kit subscription failed";
+  return data.message ?? data.error ?? "Kit subscription failed";
 }
 
 async function subscribeToKitForm(
@@ -35,40 +36,14 @@ async function subscribeToKitForm(
     };
   }
 
-  const headers = {
-    "Content-Type": "application/json",
-    "X-Kit-Api-Key": apiKey,
-  };
-
-  const createResponse = await fetch(`${KIT_API_BASE}/subscribers`, {
+  const response = await fetch(`${KIT_API_BASE}/forms/${formId}/subscribe`, {
     method: "POST",
-    headers,
-    body: JSON.stringify({ email_address: email }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ api_key: apiKey, email }),
   });
 
-  if (
-    !createResponse.ok &&
-    createResponse.status !== 200 &&
-    createResponse.status !== 201
-  ) {
-    return { ok: false, error: await parseKitError(createResponse) };
-  }
-
-  const formResponse = await fetch(
-    `${KIT_API_BASE}/forms/${formId}/subscribers`,
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ email_address: email }),
-    },
-  );
-
-  if (
-    !formResponse.ok &&
-    formResponse.status !== 200 &&
-    formResponse.status !== 201
-  ) {
-    return { ok: false, error: await parseKitError(formResponse) };
+  if (!response.ok) {
+    return { ok: false, error: await parseKitError(response) };
   }
 
   return { ok: true };
