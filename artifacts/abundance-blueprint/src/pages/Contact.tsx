@@ -79,7 +79,7 @@ export default function Contact() {
                   
                   <div>
                     <h3 className="font-sans font-medium text-sm tracking-widest uppercase mb-2 text-primary">Publisher</h3>
-                    <p className="text-muted text-lg">Long Money Concepts Inc.</p>
+                    <p className="text-muted text-lg">Long Money Concepts LLC</p>
                     <p className="text-muted/70 italic mt-1">"Educate. Empower. Build Legacy."</p>
                   </div>
                 </div>

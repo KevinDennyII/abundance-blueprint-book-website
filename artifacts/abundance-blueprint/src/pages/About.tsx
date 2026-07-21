@@ -46,7 +46,7 @@ export default function About() {
                   Raised between instability and resilience, La'Toya learned early how financial hardship impacts not only households, but nervous systems, relationships, self-worth, and future decisions. Long before she became a CPA, she became the responsible one — the observer, the problem-solver, the stabilizer. Those lived experiences became the foundation of her life's work: helping people untangle the emotional roots of their financial patterns while building practical strategies for long-term stability and peace.
                 </motion.p>
                 <motion.p variants={fadeInUp}>
-                  She built a million-dollar real estate portfolio from food stamps, a loan modification, and a woman named Ms. Ruth who co-signed a car. She is the founder of Long Money Concepts Inc. and is pursuing certification in financial therapy — because sometimes the work of building wealth begins with understanding why it feels so hard. She lives in Maryland with her husband and son.
+                  She built a million-dollar real estate portfolio from food stamps, a loan modification, and a woman named Ms. Ruth who co-signed a car. She is the founder of Long Money Concepts LLC and is pursuing certification in financial therapy — because sometimes the work of building wealth begins with understanding why it feels so hard. She lives in Maryland with her husband and son.
                 </motion.p>
               </div>
             </motion.div>
