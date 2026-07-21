@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { submitContactForm } from "@/lib/contact-form";
-import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
+import { Phone } from "lucide-react";
+import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_TEL, INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -64,6 +65,19 @@ export default function Contact() {
                 </p>
 
                 <div className="space-y-8">
+                  <div>
+                    <h3 className="font-sans font-medium text-sm tracking-widest uppercase mb-2 text-primary">Contact</h3>
+                    <a
+                      href={COMPANY_PHONE_TEL}
+                      className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors text-lg"
+                      data-testid="link-contact-phone"
+                    >
+                      <Phone className="size-4 shrink-0" aria-hidden="true" />
+                      {COMPANY_PHONE_DISPLAY}
+                    </a>
+                    <p className="text-muted/70 text-sm mt-1">Call or text</p>
+                  </div>
+
                   <div>
                     <h3 className="font-sans font-medium text-sm tracking-widest uppercase mb-2 text-primary">Social</h3>
                     <a

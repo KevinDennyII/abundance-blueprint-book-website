@@ -1,44 +1,73 @@
 import { Link } from "wouter";
+import { Phone } from "lucide-react";
 import { EmailSignup } from "@/components/EmailSignup";
-import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
+import {
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
+  COMPANY_PHONE_DISPLAY,
+  COMPANY_PHONE_TEL,
+} from "@/lib/social";
 import { navLinks } from "@/lib/navigation";
 import logo from "@assets/Long_Money_Concepts_Logo.png";
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background py-8 mt-12 lg:py-8 lg:mt-10">
+    <footer className="bg-foreground text-background py-8 mt-12 lg:mt-10">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 gap-8 mb-6 lg:mb-5 lg:grid-cols-3 lg:items-start lg:gap-6">
-          <div>
-            <div className="inline-block max-w-full overflow-hidden rounded-2xl bg-white mb-3 shadow-sm">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12 mb-6">
+          {/* Brand + contact — one vertical stack, shared width */}
+          <div className="w-[13rem] shrink-0">
+            <div className="overflow-hidden rounded-2xl bg-white mb-3">
               <img
                 src={logo}
                 alt="Long Money Concepts LLC — There's life beneath the numbers"
-                className="block w-full max-w-[11rem] md:max-w-[13rem] h-auto"
+                className="block w-full h-auto"
               />
             </div>
-            <div className="flex gap-4">
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-background/50 hover:text-accent transition-colors text-sm"
-                data-testid="link-social"
-              >
-                {INSTAGRAM_HANDLE}
-              </a>
+            <div className="rounded-lg border border-background/20 px-3 py-2.5">
+              <h4 className="font-sans font-semibold text-xs tracking-wider uppercase mb-1.5 text-accent">
+                Contact Us
+              </h4>
+              <ul className="space-y-0.5 text-sm leading-snug">
+                <li>
+                  <a
+                    href={COMPANY_PHONE_TEL}
+                    className="inline-flex items-center gap-1.5 hover:text-accent transition-colors"
+                    data-testid="link-phone"
+                  >
+                    <Phone
+                      className="size-3.5 shrink-0 text-accent"
+                      aria-hidden="true"
+                    />
+                    {COMPANY_PHONE_DISPLAY}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-accent transition-colors"
+                    data-testid="link-social"
+                  >
+                    {INSTAGRAM_HANDLE}
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
 
-          <div className="w-full max-w-md lg:min-w-0">
+          {/* Primary CTA */}
+          <div className="w-full max-w-md lg:flex-1 lg:max-w-md lg:mx-auto">
             <EmailSignup compact />
           </div>
 
-          <div className="lg:justify-self-end">
-            <h4 className="font-sans font-medium text-sm tracking-wider uppercase mb-3 text-background/50">
+          {/* Secondary nav */}
+          <div className="shrink-0 lg:w-36">
+            <h4 className="font-sans font-semibold text-xs tracking-wider uppercase mb-1.5 text-background/50">
               Navigation
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5 text-sm leading-snug">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
@@ -53,7 +82,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-5 border-t border-background/10 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-background/40">
+        <div className="pt-5 border-t border-background/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-background/40">
           <p>
             © {new Date().getFullYear()} Long Money Concepts LLC. All rights
             reserved.
