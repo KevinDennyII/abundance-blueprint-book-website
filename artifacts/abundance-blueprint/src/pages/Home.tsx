@@ -126,7 +126,7 @@ export default function Home() {
                   desc: "The Story You Inherited",
                 },
                 { letter: "E", title: "Educate", desc: "Yourself" },
-                { letter: "A", title: "Act", desc: "Into New Beliefs" },
+                { letter: "A", title: "Act", desc: "Your Way Into New Beliefs" },
                 { letter: "L", title: "Live", desc: "Inside What You Build" },
                 { letter: "S", title: "Sow", desc: "Seeds" },
               ].map((item, i) => (

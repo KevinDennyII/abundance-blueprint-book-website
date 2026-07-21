@@ -79,8 +79,12 @@ export default function Book() {
                       <span className="font-medium text-primary">$24.99</span>
                     </div>
                   </div>
-                  <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg py-6">
-                    <a href="#" data-testid="link-preorder">Pre-Order Now</a>
+                  <Button
+                    disabled
+                    className="w-full bg-primary text-primary-foreground text-lg py-6 disabled:opacity-80"
+                    data-testid="link-preorder"
+                  >
+                    Pre-Order Coming Soon
                   </Button>
                 </motion.div>
               </motion.div>

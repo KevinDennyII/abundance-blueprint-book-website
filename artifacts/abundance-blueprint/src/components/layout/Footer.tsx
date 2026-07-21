@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { EmailSignup } from "@/components/EmailSignup";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
 import { navLinks } from "@/lib/navigation";
+import logo from "@assets/Long_Money_Concepts_Logo.png";
 
 export function Footer() {
   return (
@@ -9,7 +10,13 @@ export function Footer() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="lg:col-span-2">
-            <h4 className="font-serif text-2xl mb-4 text-accent">Long Money Concepts LLC</h4>
+            <div className="inline-block max-w-full overflow-hidden rounded-2xl bg-white mb-5 shadow-sm">
+              <img
+                src={logo}
+                alt="Long Money Concepts LLC — There's life beneath the numbers"
+                className="block w-full max-w-[13rem] md:max-w-[17rem] h-auto"
+              />
+            </div>
             <p className="text-background/70 mb-6 max-w-sm leading-relaxed">
               Educate. Empower. Build Legacy.
             </p>
