@@ -17,9 +17,6 @@ export function Footer() {
                 className="block w-full max-w-[13rem] md:max-w-[17rem] h-auto"
               />
             </div>
-            <p className="text-background/70 mb-6 max-w-sm leading-relaxed">
-              Educate. Empower. Build Legacy.
-            </p>
             <div className="flex gap-4">
               <a
                 href={INSTAGRAM_URL}
