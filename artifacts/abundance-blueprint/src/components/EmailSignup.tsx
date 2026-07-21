@@ -12,6 +12,8 @@ type EmailSignupProps = {
   reassurance?: string;
   successTitle?: string;
   successMessage?: string;
+  /** Wider, shorter layout for the site footer */
+  compact?: boolean;
 };
 
 const defaults: Record<
@@ -56,6 +58,7 @@ export function EmailSignup({
   reassurance,
   successTitle,
   successMessage,
+  compact = false,
 }: EmailSignupProps) {
   const copy = defaults[form];
   const [email, setEmail] = useState("");
@@ -82,12 +85,30 @@ export function EmailSignup({
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-primary text-primary-foreground p-8 rounded-xl shadow-lg border border-primary-foreground/10">
-      <div className="text-center mb-6">
-        <h3 className="font-serif text-3xl mb-2 text-accent">
+    <div
+      className={
+        compact
+          ? "w-full bg-primary text-primary-foreground p-5 rounded-xl shadow-lg border border-primary-foreground/10"
+          : "w-full max-w-md mx-auto bg-primary text-primary-foreground p-8 rounded-xl shadow-lg border border-primary-foreground/10"
+      }
+    >
+      <div className={compact ? "mb-4 text-left" : "text-center mb-6"}>
+        <h3
+          className={
+            compact
+              ? "font-serif text-2xl mb-1 text-accent"
+              : "font-serif text-3xl mb-2 text-accent"
+          }
+        >
           {title ?? copy.title}
         </h3>
-        <p className="text-sm opacity-90 leading-relaxed font-sans">
+        <p
+          className={
+            compact
+              ? "text-sm opacity-90 leading-snug font-sans"
+              : "text-sm opacity-90 leading-relaxed font-sans"
+          }
+        >
           {description ?? copy.description}
         </p>
       </div>
@@ -106,34 +127,65 @@ export function EmailSignup({
           </p>
         </motion.div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <form
+          onSubmit={handleSubmit}
+          className={
+            compact
+              ? "flex flex-col sm:flex-row gap-2 sm:items-stretch"
+              : "flex flex-col gap-3"
+          }
+        >
           <Input
             type="email"
             placeholder="Your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="bg-background/10 border-background/20 text-white placeholder:text-white/50 focus-visible:ring-accent"
+            className={
+              compact
+                ? "flex-1 bg-background/10 border-background/20 text-white placeholder:text-white/50 focus-visible:ring-accent"
+                : "bg-background/10 border-background/20 text-white placeholder:text-white/50 focus-visible:ring-accent"
+            }
             data-testid={`input-email-signup-${form}`}
           />
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-medium transition-colors"
+            className={
+              compact
+                ? "sm:w-auto shrink-0 bg-accent text-accent-foreground hover:bg-accent/90 font-medium transition-colors px-5"
+                : "w-full bg-accent text-accent-foreground hover:bg-accent/90 font-medium transition-colors"
+            }
             data-testid={`button-email-submit-${form}`}
           >
             {isSubmitting ? "Submitting..." : (buttonText ?? copy.buttonText)}
           </Button>
+          {!compact ? (
+            <>
+              {error ? (
+                <p className="text-xs text-center text-red-200" role="alert">
+                  {error}
+                </p>
+              ) : null}
+              <p className="text-xs text-center opacity-60 mt-1">
+                {reassurance ?? copy.reassurance}
+              </p>
+            </>
+          ) : null}
+        </form>
+      )}
+      {compact ? (
+        <div className="mt-2 flex flex-col gap-1">
           {error ? (
-            <p className="text-xs text-center text-red-200" role="alert">
+            <p className="text-xs text-red-200" role="alert">
               {error}
             </p>
           ) : null}
-          <p className="text-xs text-center opacity-60 mt-1">
+          <p className="text-xs opacity-60">
             {reassurance ?? copy.reassurance}
           </p>
-        </form>
-      )}
+        </div>
+      ) : null}
     </div>
   );
 }
