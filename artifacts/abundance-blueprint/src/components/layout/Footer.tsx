@@ -6,11 +6,11 @@ import logo from "@assets/Long_Money_Concepts_Logo.png";
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background py-16 mt-20">
+    <footer className="bg-foreground text-background py-12 mt-16 lg:py-10 lg:mt-12">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          <div className="lg:col-span-2">
-            <div className="inline-block max-w-full overflow-hidden rounded-2xl bg-white mb-5 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8 mb-10 lg:mb-8 lg:items-start">
+          <div>
+            <div className="inline-block max-w-full overflow-hidden rounded-2xl bg-white mb-4 shadow-sm">
               <img
                 src={logo}
                 alt="Long Money Concepts LLC — There's life beneath the numbers"
@@ -31,8 +31,8 @@ export function Footer() {
           </div>
           
           <div>
-            <h4 className="font-sans font-medium text-sm tracking-wider uppercase mb-6 text-background/50">Navigation</h4>
-            <ul className="space-y-3">
+            <h4 className="font-sans font-medium text-sm tracking-wider uppercase mb-4 text-background/50">Navigation</h4>
+            <ul className="space-y-2.5">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="hover:text-accent transition-colors">
@@ -43,13 +43,12 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-sans font-medium text-sm tracking-wider uppercase mb-6 text-background/50">Stay Connected</h4>
+          <div className="md:col-span-2 lg:col-span-1">
             <EmailSignup />
           </div>
         </div>
         
-        <div className="pt-8 border-t border-background/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/40">
+        <div className="pt-6 border-t border-background/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/40">
           <p>© {new Date().getFullYear()} Long Money Concepts LLC. All rights reserved.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-background transition-colors">Privacy Policy</Link>
