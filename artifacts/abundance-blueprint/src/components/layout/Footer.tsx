@@ -15,7 +15,6 @@ export function Footer() {
     <footer className="bg-foreground text-background py-8 mt-12 lg:mt-10">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12 mb-6">
-          {/* Brand + contact — one vertical stack, shared width */}
           <div className="w-[13rem] shrink-0">
             <div className="overflow-hidden rounded-2xl bg-white mb-3">
               <img
@@ -24,37 +23,32 @@ export function Footer() {
                 className="block w-full h-auto"
               />
             </div>
-            <div className="rounded-lg border border-background/20 px-3 py-2.5">
-              <h4 className="font-sans font-semibold text-xs tracking-wider uppercase mb-1.5 text-accent">
-                Contact Us
-              </h4>
-              <ul className="space-y-0.5 text-sm leading-snug">
-                <li>
-                  <a
-                    href={COMPANY_PHONE_TEL}
-                    className="inline-flex items-center gap-1.5 hover:text-accent transition-colors"
-                    data-testid="link-phone"
-                  >
-                    <Phone
-                      className="size-3.5 shrink-0 text-accent"
-                      aria-hidden="true"
-                    />
-                    {COMPANY_PHONE_DISPLAY}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={INSTAGRAM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-accent transition-colors"
-                    data-testid="link-social"
-                  >
-                    {INSTAGRAM_HANDLE}
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <ul className="space-y-0.5 text-sm leading-snug">
+              <li>
+                <a
+                  href={COMPANY_PHONE_TEL}
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap hover:text-accent transition-colors"
+                  data-testid="link-phone"
+                >
+                  <Phone
+                    className="size-3.5 shrink-0 text-accent"
+                    aria-hidden="true"
+                  />
+                  <span>{COMPANY_PHONE_DISPLAY}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent transition-colors"
+                  data-testid="link-social"
+                >
+                  {INSTAGRAM_HANDLE}
+                </a>
+              </li>
+            </ul>
           </div>
 
           {/* Primary CTA */}
