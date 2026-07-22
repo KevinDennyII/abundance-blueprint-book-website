@@ -77,10 +77,25 @@ export function Footer() {
         </div>
 
         <div className="pt-5 border-t border-background/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-background/40">
-          <p>
-            © {new Date().getFullYear()} Long Money Concepts LLC. All rights
-            reserved.
-          </p>
+          <div className="flex flex-col items-center sm:items-start gap-1">
+            <p>
+              © {new Date().getFullYear()} Long Money Concepts LLC. All rights
+              reserved.
+            </p>
+            <p className="text-xs text-background/40">
+              Made by{" "}
+              <a
+                href="https://www.ohhdennyservices.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-background transition-colors"
+                data-testid="link-ohhdenny"
+              >
+                OhhDenny Services
+              </a>
+              , LLC with ❤️
+            </p>
+          </div>
           <div className="flex gap-4">
             <Link
               href="/privacy"
