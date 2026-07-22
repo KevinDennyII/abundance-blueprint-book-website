@@ -10,6 +10,8 @@ import Book from "@/pages/Book";
 import Contact from "@/pages/Contact";
 import Circle from "@/pages/Circle";
 import Blog from "@/pages/Blog";
+import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
 import { ScrollToTop } from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -26,6 +28,8 @@ function Router() {
       </Route>
       <Route path="/circle" component={Circle} />
       <Route path="/blog" component={Blog} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>
   );
