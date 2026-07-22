@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Phone } from "lucide-react";
+import { Heart, Phone } from "lucide-react";
 import { EmailSignup } from "@/components/EmailSignup";
 import {
   INSTAGRAM_HANDLE,
@@ -93,7 +93,11 @@ export function Footer() {
               >
                 OhhDenny Services
               </a>
-              , LLC with ❤️
+              , LLC with{" "}
+              <Heart
+                className="inline-block size-3 align-[-0.1em] text-secondary fill-secondary"
+                aria-hidden="true"
+              />
             </p>
           </div>
           <div className="flex gap-4">
