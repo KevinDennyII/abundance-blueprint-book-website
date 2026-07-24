@@ -40,13 +40,13 @@ export default function About() {
               
               <div className="text-left space-y-6 text-muted text-lg leading-relaxed">
                 <motion.p variants={fadeInUp}>
-                  La'Toya Ray, CPA understands that money is never just about numbers. Behind every bank statement, budget, debt balance, and financial decision is a human story — one shaped by survival, family dynamics, fear, identity, hope, and healing.
+                  She knows that story from the inside. She grew up watching financial hardship shape not just households but nervous systems, relationships, and the decisions people make for decades afterward. Long before she became a CPA, she became the responsible one — the observer, the problem-solver, the one who figured things out because somebody had to. She carried that role into a career, and that career into this book.
                 </motion.p>
                 <motion.p variants={fadeInUp}>
-                  Raised between instability and resilience, La'Toya learned early how financial hardship impacts not only households, but nervous systems, relationships, self-worth, and future decisions. Long before she became a CPA, she became the responsible one — the observer, the problem-solver, the stabilizer. Those lived experiences became the foundation of her life's work: helping people untangle the emotional roots of their financial patterns while building practical strategies for long-term stability and peace.
+                  La'Toya built a million-dollar real estate portfolio not because she had the right start but because she refused to let the wrong one be the final word. She did it through a CPA license earned during one of the hardest seasons of her life, a loan modification that bought her time, twenty years of client work that sharpened her strategy, and a woman named Ms. Ruth who co-signed a car when it mattered most. She is the founder of Long Money Concepts LLC and is pursuing certification in financial therapy — because she knows that sometimes the work of building wealth begins long before you open a spreadsheet.
                 </motion.p>
                 <motion.p variants={fadeInUp}>
-                  She built a million-dollar real estate portfolio from food stamps, a loan modification, and a woman named Ms. Ruth who co-signed a car. She is the founder of Long Money Concepts LLC and is pursuing certification in financial therapy — because sometimes the work of building wealth begins with understanding why it feels so hard. She lives in Maryland with her husband and son.
+                  She lives in Maryland with her husband and son.
                 </motion.p>
               </div>
             </motion.div>

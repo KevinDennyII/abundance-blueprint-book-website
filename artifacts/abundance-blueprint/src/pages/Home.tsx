@@ -204,9 +204,11 @@ export default function Home() {
                   variants={fadeInUp}
                   className="text-muted leading-relaxed mb-8"
                 >
-                  She built a million-dollar real estate portfolio from food
-                  stamps, a loan modification, and a woman named Ms. Ruth who
-                  co-signed a car.
+                  She grew up inside financial instability and built a
+                  million-dollar real estate portfolio anyway — through a CPA
+                  license, a loan modification, twenty years of client work, and
+                  a woman named Ms. Ruth who co-signed a car when it mattered
+                  most.
                 </motion.p>
                 <motion.div variants={fadeInUp}>
                   <Link
