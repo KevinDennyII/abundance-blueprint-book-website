@@ -28,19 +28,19 @@ export default function Blog() {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(page);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
 
     (async () => {
       setLoading(true);
-      setError(null);
       const result = await fetchPublishedPosts(page);
       if (cancelled) return;
 
       if (!result.ok) {
-        setError(result.error);
+        setPosts([]);
+        setTotalPages(0);
+        setCurrentPage(1);
         setLoading(false);
         return;
       }
@@ -99,13 +99,7 @@ export default function Blog() {
                 <p className="text-center text-muted">Loading posts…</p>
               )}
 
-              {error && (
-                <p className="text-center text-destructive" role="alert">
-                  {error}
-                </p>
-              )}
-
-              {!loading && !error && posts.length === 0 && (
+              {!loading && posts.length === 0 && (
                 <div className="text-center border border-card-border rounded-2xl p-10 md:p-14 bg-card">
                   <p className="font-serif text-2xl text-primary italic mb-4">
                     &ldquo;Real wealth doesn&apos;t announce itself. It is quiet
@@ -120,7 +114,7 @@ export default function Blog() {
                 </div>
               )}
 
-              {!loading && !error && posts.length > 0 && (
+              {!loading && posts.length > 0 && (
                 <>
                   <ul className="space-y-10">
                     {posts.map((post, index) => (

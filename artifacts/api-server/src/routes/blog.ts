@@ -48,50 +48,66 @@ function publicCommentShape(comment: typeof commentsTable.$inferSelect) {
   };
 }
 
+async function listPublishedPosts(page: number, pageSize: number) {
+  const [totalRow] = await db
+    .select({ value: count() })
+    .from(postsTable)
+    .where(eq(postsTable.status, "published"));
+
+  const total = totalRow?.value ?? 0;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const safePage = Math.min(page, totalPages);
+
+  const posts = await db
+    .select({
+      id: postsTable.id,
+      slug: postsTable.slug,
+      title: postsTable.title,
+      excerpt: postsTable.excerpt,
+      publishedAt: postsTable.publishedAt,
+      createdAt: postsTable.createdAt,
+    })
+    .from(postsTable)
+    .where(eq(postsTable.status, "published"))
+    .orderBy(desc(postsTable.publishedAt), desc(postsTable.createdAt))
+    .limit(pageSize)
+    .offset((safePage - 1) * pageSize);
+
+  return {
+    posts,
+    page: safePage,
+    pageSize,
+    total,
+    totalPages: total === 0 ? 0 : totalPages,
+  };
+}
+
 /** Public: published posts list (paginated, 5 per page) */
 router.get("/posts", async (req, res) => {
   const pageSize = 5;
   const rawPage = Number(req.query.page);
-  const page =
-    Number.isInteger(rawPage) && rawPage > 0 ? rawPage : 1;
-  const offset = (page - 1) * pageSize;
+  const page = Number.isInteger(rawPage) && rawPage > 0 ? rawPage : 1;
 
   try {
-    const [totalRow] = await db
-      .select({ value: count() })
-      .from(postsTable)
-      .where(eq(postsTable.status, "published"));
-
-    const total = totalRow?.value ?? 0;
-    const totalPages = Math.max(1, Math.ceil(total / pageSize));
-    const safePage = Math.min(page, totalPages);
-
-    const posts = await db
-      .select({
-        id: postsTable.id,
-        slug: postsTable.slug,
-        title: postsTable.title,
-        excerpt: postsTable.excerpt,
-        publishedAt: postsTable.publishedAt,
-        createdAt: postsTable.createdAt,
-      })
-      .from(postsTable)
-      .where(eq(postsTable.status, "published"))
-      .orderBy(desc(postsTable.publishedAt), desc(postsTable.createdAt))
-      .limit(pageSize)
-      .offset((safePage - 1) * pageSize);
-
-    res.json({
-      ok: true,
-      posts,
-      page: safePage,
-      pageSize,
-      total,
-      totalPages: total === 0 ? 0 : totalPages,
-    });
-  } catch (err) {
-    req.log?.error?.({ err }, "Failed to list posts");
-    res.status(503).json({ ok: false, error: "Unable to load posts." });
+    const payload = await listPublishedPosts(page, pageSize);
+    res.json({ ok: true, ...payload });
+  } catch (firstErr) {
+    try {
+      const { ensureSchema } = await import("@workspace/db");
+      await ensureSchema();
+      const payload = await listPublishedPosts(page, pageSize);
+      res.json({ ok: true, ...payload });
+    } catch (err) {
+      req.log?.error?.({ err, firstErr }, "Failed to list posts");
+      res.json({
+        ok: true,
+        posts: [],
+        page: 1,
+        pageSize,
+        total: 0,
+        totalPages: 0,
+      });
+    }
   }
 });
 
