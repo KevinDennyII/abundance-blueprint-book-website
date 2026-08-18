@@ -57,11 +57,31 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
+async function bootstrapDatabase(): Promise<void> {
+  if (!process.env.DATABASE_URL) {
+    logger.warn("DATABASE_URL is not set; blog/admin tables will not be available");
+    return;
+  }
+
+  try {
+    const { ensurePageMetaDefaults, ensureSchema } = await import("@workspace/db");
+    await ensureSchema();
+    await ensurePageMetaDefaults();
+    logger.info("Database schema is ready");
+  } catch (err) {
+    logger.error({ err }, "Failed to ensure database schema");
+    return;
+  }
+
+  await bootstrapAdminIfNeeded();
+}
+
 async function bootstrapAdminIfNeeded(): Promise<void> {
   const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
   const password = process.env.ADMIN_PASSWORD;
 
-  if (!process.env.DATABASE_URL || !email || !password) {
+  if (!email || !password) {
+    logger.warn("ADMIN_EMAIL or ADMIN_PASSWORD is missing; skipping admin bootstrap");
     return;
   }
 
@@ -96,5 +116,5 @@ app.listen(port, (err) => {
   }
 
   logger.info({ port }, "Server listening");
-  void bootstrapAdminIfNeeded();
+  void bootstrapDatabase();
 });

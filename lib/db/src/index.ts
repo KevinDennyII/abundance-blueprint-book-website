@@ -52,3 +52,4 @@ export const pool = {
 
 export * from "./schema";
 export * from "./seo-defaults";
+export { ensureSchema, ensurePageMetaDefaults } from "./ensure-schema";

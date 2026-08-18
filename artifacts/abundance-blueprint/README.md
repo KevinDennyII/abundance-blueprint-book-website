@@ -115,8 +115,8 @@ The website artifact builds with Vite and runs via `pnpm --filter @workspace/abu
 1. Push to GitHub (Replit syncs from the connected repo).
 2. **Replit Secrets** — `VITE_WEB3FORMS_ACCESS_KEY` (build time, website artifact).
 3. **Replit Secrets** — `KIT_API_KEY`, `KIT_CHAPTER1_FORM_ID`, `KIT_CIRCLE_FORM_ID` (runtime, API Server artifact).
-4. **Replit Secrets** — `DATABASE_URL`, `SESSION_SECRET`, `ADMIN_PASSWORD` (runtime, API Server artifact). `ADMIN_EMAIL` can stay in Configurations. On first boot with an empty `admins` table, the API creates that login. After she changes the password in Admin → Account, later restarts will not overwrite it.
-5. Publish a new deployment in Replit.
+4. **Replit Database** provides `DATABASE_URL` automatically. **Secrets:** `SESSION_SECRET`, `ADMIN_PASSWORD`. **Configurations:** `ADMIN_EMAIL`. On API start the server creates missing tables, seeds page SEO defaults, and creates the first admin if the `admins` table is empty.
+5. Publish a new deployment in Replit (API Server + website).
 6. Test `/contact`, Chapter 1 signup (home + footer), `/circle` signup, `/blog`, `/admin/login`, **Account** (change password), and the admin **Page SEO** screen.
 
 ### Netlify (future)
