@@ -10,6 +10,7 @@
   --color-foreground: hsl(var(--foreground));
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
+  --color-input-background: hsl(var(--input-background));
   --color-ring: hsl(var(--ring));
 
   --color-card: hsl(var(--card));
@@ -69,6 +70,8 @@
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
   --input: 38 64% 80%;
+  /* Fields stay white so they read as editable against cream cards */
+  --input-background: 0 0% 100%;
   --border: 38 64% 80%;
   --ring: 261 48% 21%;
 
@@ -97,6 +100,7 @@
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
   --input: 30 13% 30%;
+  --input-background: 24 23% 12%;
   --border: 30 13% 30%;
   --ring: 44 54% 54%;
 }

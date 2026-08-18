@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import { PageMeta } from "@/lib/seo";
 import { motion } from "framer-motion";
 import frontCover from "@assets/AB_Front_Cover_1779852599997.png";
 import backCover from "@assets/AB_Back_Cover_1779852599997.png";
@@ -18,6 +19,7 @@ const staggerContainer = {
 export default function Book() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <PageMeta path="/book" />
       <Navbar />
       
       <main className="flex-1 pt-24">

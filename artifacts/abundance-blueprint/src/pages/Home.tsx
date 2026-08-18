@@ -1,17 +1,18 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { EmailSignup } from "@/components/EmailSignup";
-import { motion } from "framer-motion";
+import { PageMeta } from "@/lib/seo";
+import { motion, type Variants } from "framer-motion";
 import { Link } from "wouter";
 import frontCover from "@assets/AB_Front_Cover_1779852599997.png";
 import authorPhoto from "@assets/LaToya_Ray_Author.png";
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
 };
@@ -19,6 +20,7 @@ const staggerContainer = {
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <PageMeta path="/" />
       <Navbar />
 
       <main className="flex-1">

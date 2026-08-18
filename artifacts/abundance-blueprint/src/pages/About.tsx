@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { PageMeta } from "@/lib/seo";
 import { motion } from "framer-motion";
 
 const fadeInUp = {
@@ -15,6 +16,7 @@ const staggerContainer = {
 export default function About() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <PageMeta path="/about" />
       <Navbar />
       
       <main className="flex-1 pt-24">

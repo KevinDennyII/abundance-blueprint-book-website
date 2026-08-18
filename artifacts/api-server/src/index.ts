@@ -57,6 +57,38 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
+async function bootstrapAdminIfNeeded(): Promise<void> {
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!process.env.DATABASE_URL || !email || !password) {
+    return;
+  }
+
+  if (password.length < 8) {
+    logger.warn("ADMIN_PASSWORD is shorter than 8 characters; skipping bootstrap");
+    return;
+  }
+
+  try {
+    const { count } = await import("drizzle-orm");
+    const bcrypt = await import("bcryptjs");
+    const { adminsTable, db } = await import("@workspace/db");
+
+    const [row] = await db.select({ value: count() }).from(adminsTable);
+    if ((row?.value ?? 0) > 0) {
+      logger.info("Admin account already exists; leaving password unchanged");
+      return;
+    }
+
+    const passwordHash = await bcrypt.hash(password, 12);
+    await db.insert(adminsTable).values({ email, passwordHash });
+    logger.info({ email }, "Created initial admin from ADMIN_EMAIL / ADMIN_PASSWORD");
+  } catch (err) {
+    logger.error({ err }, "Failed to bootstrap admin account");
+  }
+}
+
 app.listen(port, (err) => {
   if (err) {
     logger.error({ err }, "Error listening on port");
@@ -64,4 +96,5 @@ app.listen(port, (err) => {
   }
 
   logger.info({ port }, "Server listening");
+  void bootstrapAdminIfNeeded();
 });

@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { PageMeta } from "@/lib/seo";
 import {
   COMPANY_PHONE_DISPLAY,
   COMPANY_PHONE_TEL,
@@ -9,6 +10,7 @@ import {
 export default function Terms() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <PageMeta path="/terms" />
       <Navbar />
 
       <main className="flex-1 pt-24">

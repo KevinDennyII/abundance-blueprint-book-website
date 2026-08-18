@@ -3,10 +3,11 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { PageMeta } from "@/lib/seo";
 import { submitContactForm } from "@/lib/contact-form";
 import { Phone } from "lucide-react";
 import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_TEL, INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/social";
-import { useState } from "react";
+import { useState, type SyntheticEvent } from "react";
 import { motion } from "framer-motion";
 
 const initialForm = {
@@ -21,7 +22,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setIsSubmitting(true);
@@ -46,6 +47,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <PageMeta path="/work-with-me" />
       <Navbar />
       
       <main className="flex-1 pt-24">

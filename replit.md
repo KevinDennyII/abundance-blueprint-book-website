@@ -27,7 +27,7 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 
 ## Architecture decisions
 
-- This is a presentation-first site — no backend database needed. Email signup forms submit to Kit via `/api/kit/subscribe` (Replit: API Server artifact; Netlify: serverless function; local dev: api-server).
+- Blog posts, comments, and the admin account use Postgres via `@workspace/db` (Drizzle). Kit email signup still goes through `/api/kit/subscribe` (Replit: API Server artifact; Netlify: serverless function; local: api-server).
 - Cover images are imported via the `@assets` alias (pointing to `attached_assets/`), not served from `public/`, because Vite handles bundling.
 - All approved copy is used verbatim from the designer brief provided by the author.
 - No dark mode — the brand palette (purple/gold/cream) is the single consistent theme.
@@ -39,7 +39,7 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 - **Book** (`/book`): Cover art, full description, formats/pricing, pre-order CTA, "In These Pages" list.
 - **Circle** (`/circle`): The Long Money Circle community page with Kit signup form.
 - **Work With Me** (`/work-with-me`): Contact and future services inquiry form.
-- **Blog** (`/blog`): Blog placeholder — content coming soon.
+- **Blog** (`/blog`): Published posts with moderated guest comments. Author publishes via `/admin` (email + password session).
 - **Contact** (`/contact`): Redirects to `/work-with-me`.
 
 ## User preferences
