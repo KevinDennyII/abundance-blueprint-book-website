@@ -7,8 +7,11 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Book from "@/pages/Book";
+import WorkWithMe from "@/pages/WorkWithMe";
 import Contact from "@/pages/Contact";
 import Circle from "@/pages/Circle";
+import FinancialWellnessReset from "@/pages/FinancialWellnessReset";
+import ReadinessAssessment from "@/pages/ReadinessAssessment";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Privacy from "@/pages/Privacy";
@@ -34,8 +37,11 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/book" component={Book} />
-      <Route path="/work-with-me" component={Contact} />
-      <Route path="/contact">
+      <Route path="/work-with-me" component={WorkWithMe} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/financial-wellness-reset" component={FinancialWellnessReset} />
+      <Route path="/readiness-assessment" component={ReadinessAssessment} />
+      <Route path="/services">
         <Redirect to="/work-with-me" />
       </Route>
       <Route path="/circle" component={Circle} />

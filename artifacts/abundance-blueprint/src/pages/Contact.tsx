@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -47,7 +48,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <PageMeta path="/work-with-me" />
+      <PageMeta path="/contact" />
       <Navbar />
       
       <main className="flex-1 pt-24">
@@ -61,9 +62,18 @@ export default function Contact() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="font-serif text-4xl md:text-5xl text-primary mb-6">Work With Me</h1>
+                <h1 className="font-serif text-4xl md:text-5xl text-primary mb-6">Contact</h1>
                 <p className="text-muted text-lg leading-relaxed mb-12">
-                  Whether you're interested in speaking engagements, bulk book orders, or exploring how we might work together — services are coming soon. For now, send a message and let's start the conversation.
+                  Looking for speaking engagements, bulk book orders, or press?
+                  Send a message and let&apos;s start the conversation. For coaching
+                  and programs, visit{" "}
+                  <Link
+                    href="/work-with-me"
+                    className="text-secondary hover:text-primary underline underline-offset-2"
+                  >
+                    Work With Me
+                  </Link>
+                  .
                 </p>
 
                 <div className="space-y-8">

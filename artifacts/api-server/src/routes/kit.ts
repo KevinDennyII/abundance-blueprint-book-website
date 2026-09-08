@@ -8,6 +8,10 @@ const validForms = new Set<KitFormType>(["chapter1", "circle"]);
 router.post("/kit/subscribe", async (req, res) => {
   const email = typeof req.body?.email === "string" ? req.body.email.trim() : "";
   const form = req.body?.form as KitFormType;
+  const firstName =
+    typeof req.body?.first_name === "string"
+      ? req.body.first_name.trim()
+      : undefined;
 
   if (!email) {
     res.status(400).json({ ok: false, error: "Email is required." });
@@ -19,7 +23,7 @@ router.post("/kit/subscribe", async (req, res) => {
     return;
   }
 
-  const result = await subscribeToKitForm(email, form);
+  const result = await subscribeToKitForm(email, form, { firstName });
 
   if (!result.ok) {
     res.status(503).json(result);

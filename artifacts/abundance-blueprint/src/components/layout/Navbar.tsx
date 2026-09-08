@@ -4,6 +4,19 @@ import { Menu, X } from "lucide-react";
 import { motion, useScroll } from "framer-motion";
 import { navLinks } from "@/lib/navigation";
 
+function isNavActive(location: string, href: string) {
+  if (location === href) return true;
+  if (
+    href === "/work-with-me" &&
+    (location.startsWith("/financial-wellness-reset") ||
+      location.startsWith("/readiness-assessment") ||
+      location.startsWith("/contact"))
+  ) {
+    return true;
+  }
+  return false;
+}
+
 export function Navbar() {
   const [location] = useLocation();
   const [scrolled, setScrolled] = useState(false);
@@ -58,7 +71,7 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               className={`text-xs xl:text-sm tracking-widest uppercase transition-colors hover:text-secondary whitespace-nowrap ${
-                location === link.href
+                isNavActive(location, link.href)
                   ? "text-secondary font-medium"
                   : "text-foreground/80"
               }`}
@@ -96,7 +109,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   className={`block rounded-md px-3 py-3 text-sm tracking-widest uppercase transition-colors ${
-                    location === link.href
+                    isNavActive(location, link.href)
                       ? "bg-secondary/15 text-secondary font-medium"
                       : "text-foreground/80 hover:bg-primary/5 hover:text-secondary"
                   }`}

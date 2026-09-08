@@ -30,9 +30,27 @@ export const staticPageMetaDefaults: PageMetaDefault[] = [
   },
   {
     path: "/work-with-me",
-    title: "Work With Me — La'Toya Ray, CPA | Abundance Blueprint",
+    title: "Work With Me — HEALS™ Services | Abundance Blueprint",
     description:
-      "Connect with La'Toya Ray, CPA for speaking, financial strategy, and collaboration. Start a conversation about your financial harmony.",
+      "Financial wellness services built on the HEALS™ Method — the Long Money Circle, Financial Wellness Reset, Advisory Membership, and workshops rooted in Abundance Blueprint.",
+  },
+  {
+    path: "/financial-wellness-reset",
+    title: "The Financial Wellness Reset | Abundance Blueprint",
+    description:
+      "A 12-week, one-on-one guided experience built on the HEALS™ Method — moving you from where you are now into real, structural financial change.",
+  },
+  {
+    path: "/readiness-assessment",
+    title: "Readiness Assessment | Abundance Blueprint",
+    description:
+      "A quick check to see where you're starting from — and which Long Money Concepts offering fits next.",
+  },
+  {
+    path: "/contact",
+    title: "Contact — La'Toya Ray, CPA | Abundance Blueprint",
+    description:
+      "Reach La'Toya Ray, CPA for speaking, bulk book orders, press, and collaboration.",
   },
   {
     path: "/circle",

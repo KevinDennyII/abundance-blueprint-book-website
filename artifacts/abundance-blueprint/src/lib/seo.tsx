@@ -25,9 +25,24 @@ export const STATIC_PAGE_META: Record<string, PublicPageSeo> = {
       "Abundance Blueprint is a memoir-driven guide to healing the emotional story beneath money, for people who know what to do but still struggle.",
   },
   "/work-with-me": {
-    title: "Work With Me — La'Toya Ray, CPA | Abundance Blueprint",
+    title: "Work With Me — HEALS™ Services | Abundance Blueprint",
     description:
-      "Connect with La'Toya Ray, CPA for speaking, financial strategy, and collaboration. Start a conversation about your financial harmony.",
+      "Financial wellness services built on the HEALS™ Method — the Long Money Circle, Financial Wellness Reset, Advisory Membership, and workshops rooted in Abundance Blueprint.",
+  },
+  "/financial-wellness-reset": {
+    title: "The Financial Wellness Reset | Abundance Blueprint",
+    description:
+      "A 12-week, one-on-one guided experience built on the HEALS™ Method — moving you from where you are now into real, structural financial change.",
+  },
+  "/readiness-assessment": {
+    title: "Readiness Assessment | Abundance Blueprint",
+    description:
+      "A quick check to see where you're starting from — and which Long Money Concepts offering fits next.",
+  },
+  "/contact": {
+    title: "Contact — La'Toya Ray, CPA | Abundance Blueprint",
+    description:
+      "Reach La'Toya Ray, CPA for speaking, bulk book orders, press, and collaboration.",
   },
   "/circle": {
     title: "The Long Money Circle — Free Community | Abundance Blueprint",

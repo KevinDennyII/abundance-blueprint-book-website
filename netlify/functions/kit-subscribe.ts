@@ -24,6 +24,7 @@ async function parseKitError(response: Response): Promise<string> {
 async function subscribeToKitForm(
   email: string,
   form: KitFormType,
+  options?: { firstName?: string },
 ): Promise<{ ok: true } | { ok: false; error: string }> {
   const apiKey = process.env.KIT_API_KEY;
   const formId = getFormId(form);
@@ -36,10 +37,15 @@ async function subscribeToKitForm(
     };
   }
 
+  const payload: Record<string, string> = { api_key: apiKey, email };
+  if (options?.firstName) {
+    payload.first_name = options.firstName;
+  }
+
   const response = await fetch(`${KIT_API_BASE}/forms/${formId}/subscribe`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ api_key: apiKey, email }),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
@@ -57,7 +63,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     };
   }
 
-  let body: { email?: string; form?: KitFormType };
+  let body: { email?: string; form?: KitFormType; first_name?: string };
   try {
     body = JSON.parse(event.body ?? "{}");
   } catch {
@@ -69,6 +75,8 @@ export const handler: Handler = async (event: HandlerEvent) => {
 
   const email = typeof body.email === "string" ? body.email.trim() : "";
   const form = body.form;
+  const firstName =
+    typeof body.first_name === "string" ? body.first_name.trim() : undefined;
 
   if (!email) {
     return {
@@ -84,7 +92,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     };
   }
 
-  const result = await subscribeToKitForm(email, form);
+  const result = await subscribeToKitForm(email, form, { firstName });
 
   return {
     statusCode: result.ok ? 200 : 503,

@@ -183,10 +183,10 @@ export default function Terms() {
                     Questions about these Terms of Service can be sent through
                     our{" "}
                     <Link
-                      href="/work-with-me"
+                      href="/contact"
                       className="text-secondary hover:text-primary transition-colors"
                     >
-                      Work With Me
+                      Contact
                     </Link>{" "}
                     page or by calling{" "}
                     <a
