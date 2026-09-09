@@ -8,7 +8,7 @@ import { Link, useSearch } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageMeta } from "@/lib/seo";
-import { submitKitForm } from "@/lib/kit-form";
+import { submitReadinessLead } from "@/lib/contact-form";
 import {
   CRISIS_RESOURCE_GUIDE_URL,
   CRISIS_STABILIZATION_ROADMAP_URL,
@@ -294,17 +294,21 @@ export default function ReadinessAssessment() {
     const key = computeResult(selections);
     const data = getResultData(key, source);
 
-    // Best-effort lead capture on the Circle Kit form; always show the result
+    // Best-effort notify via Web3Forms; always show the result
     // so booking CTAs stay reachable (trademark specimen + visitor UX).
-    const kitResult = await submitKitForm(email.trim(), "circle", {
+    const leadResult = await submitReadinessLead({
       firstName: firstName.trim(),
+      email: email.trim(),
+      resultKey: key,
+      resultTitle: data.title,
+      source,
       tag: data.tag,
     });
 
     setIsSubmitting(false);
 
-    if (!kitResult.ok) {
-      setSubmitError(kitResult.error);
+    if (!leadResult.ok) {
+      setSubmitError(leadResult.error);
     }
 
     setResultKey(key);
@@ -472,7 +476,7 @@ export default function ReadinessAssessment() {
             >
               {submitError ? (
                 <p className="font-sans text-xs text-muted mb-4" role="status">
-                  We couldn&apos;t save your email right now, but here&apos;s
+                  We couldn&apos;t notify the team right now, but here&apos;s
                   your result.
                 </p>
               ) : null}
