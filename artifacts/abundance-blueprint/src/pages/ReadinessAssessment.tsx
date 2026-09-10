@@ -477,7 +477,7 @@ export default function ReadinessAssessment() {
               {submitError ? (
                 <p className="font-sans text-xs text-muted mb-4" role="status">
                   We couldn&apos;t notify the team right now, but here&apos;s
-                  your result.
+                  your result. ({submitError})
                 </p>
               ) : null}
               <p
