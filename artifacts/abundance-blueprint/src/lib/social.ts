@@ -15,7 +15,7 @@ export const DISCOVERY_CALL_URL =
   "https://longmoneycpa.as.me/DiscoveryCall";
 
 export const CRISIS_STABILIZATION_ROADMAP_URL =
-  "https://drive.google.com/file/d/1xfEId_2ybLmryPU50kUuwYdNhZ_B-6IW/view?usp=drive_link";
+  "https://drive.google.com/file/d/1jVHMhbSfZbVEyZT4xSdqyV8JYQiMcxN0/view?usp=drive_link";
 
 export const CRISIS_RESOURCE_GUIDE_URL =
-  "https://drive.google.com/file/d/1jVHMhbSfZbVEyZT4xSdqyV8JYQiMcxN0/view?usp=drive_link";
+  "https://drive.google.com/file/d/1xfEId_2ybLmryPU50kUuwYdNhZ_B-6IW/view?usp=drive_link";
