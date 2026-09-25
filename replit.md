@@ -50,7 +50,7 @@ Checkout platforms differ; prefer `/library` as a unified landing that routes to
 | Offering | Platform | Status |
 |----------|----------|--------|
 | Financial Foundations e-guide / workbook (digital) | Kit.com commerce | Live ($27) |
-| Financial Foundations (physical) | Lulu Direct | TBD |
+| Financial Foundations (physical) | Lulu Direct | Live |
 | Workshops / educational content | Coach Accountable | TBD |
 | Merchandise | Printful | TBD — last card on `/library` |
 | Free crisis guides | Google Drive → consider Kit free products | Live on Drive |

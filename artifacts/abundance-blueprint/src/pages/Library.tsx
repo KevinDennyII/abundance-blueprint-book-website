@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
  *
  * - E-guide / Financial Foundations Workbook
  *   Digital: Kit.com commerce (`KIT_COMMERCE_SCRIPT` + product URL below)
- *   Physical: Lulu Direct (price/link TBD)
+ *   Physical: Lulu Direct (`LULU_PHYSICAL_URL`)
  * - Workshops / educational content: Coach Accountable (checkout TBD)
  * - Merchandise: Printful (TBD) — keep as the last catalog card
  * - Free crisis guides: currently Google Drive links in `@/lib/social`
@@ -35,8 +35,9 @@ const KIT_COMMERCE_SCRIPT =
 const WORKBOOK_URL =
   "https://long-money-concepts-inc.kit.com/products/financial-foundations-workbook";
 
-// TODO(Lulu): physical Financial Foundations print-on-demand checkout URL + price
-const LULU_PHYSICAL_URL: string | null = null;
+// Lulu Direct — physical Financial Foundations print checkout
+const LULU_PHYSICAL_URL =
+  "https://svc.lulu.com/?items=49658522-c522-49f0-a220-f3119faac926";
 
 // TODO(Coach Accountable): workshop enrollment / checkout URL + price
 const WORKSHOP_URL: string | null = null;
@@ -214,20 +215,26 @@ export default function Library() {
                     <p className="font-sans text-[10px] tracking-wider uppercase text-muted">
                       Physical
                     </p>
-                    <p className="text-sm text-muted">Price TBD</p>
-                    {/* TODO(Lulu Direct): wire print checkout when live */}
+                    <p className="text-sm text-muted">Print on demand</p>
                     <Button
+                      asChild
                       size="sm"
                       variant="outline"
                       className="mt-auto"
-                      disabled={!LULU_PHYSICAL_URL}
+                      data-testid="link-workbook-print"
                     >
-                      {LULU_PHYSICAL_URL ? "Buy print" : "Notify Me"}
+                      <a
+                        href={LULU_PHYSICAL_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Buy print
+                      </a>
                     </Button>
                   </div>
                 </div>
                 <p className="text-xs text-muted italic text-right mt-3">
-                  Physical copy via Lulu Direct — launching soon
+                  Physical copy via Lulu Direct
                 </p>
               </motion.article>
 
