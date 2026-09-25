@@ -52,7 +52,7 @@ Checkout platforms differ; prefer `/library` as a unified landing that routes to
 | Financial Foundations e-guide / workbook (digital) | Kit.com commerce | Live ($27) |
 | Financial Foundations (physical) | Lulu Direct | Live |
 | Workshops / educational content | Coach Accountable | TBD |
-| Merchandise | Printful | TBD — last card on `/library` |
+| Merchandise | Printful | Live — https://longmoneyconcepts.printful.me/ |
 | Free crisis guides | Google Drive → consider Kit free products | Live on Drive |
 
 ## User preferences

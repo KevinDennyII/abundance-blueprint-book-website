@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
  *   Digital: Kit.com commerce (`KIT_COMMERCE_SCRIPT` + product URL below)
  *   Physical: Lulu Direct (`LULU_PHYSICAL_URL`)
  * - Workshops / educational content: Coach Accountable (checkout TBD)
- * - Merchandise: Printful (TBD) — keep as the last catalog card
+ * - Merchandise: Printful (`PRINTFUL_SHOP_URL`) — last catalog card
  * - Free crisis guides: currently Google Drive links in `@/lib/social`
  *   TODO: evaluate converting to free Kit.com products for delivery + list growth
  *
@@ -42,8 +42,8 @@ const LULU_PHYSICAL_URL =
 // TODO(Coach Accountable): workshop enrollment / checkout URL + price
 const WORKSHOP_URL: string | null = null;
 
-// TODO(Printful): merchandise storefront or embed — last card only when ready
-const PRINTFUL_SHOP_URL: string | null = null;
+// Printful merchandise storefront — last catalog card
+const PRINTFUL_SHOP_URL = "https://longmoneyconcepts.printful.me/";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -271,20 +271,20 @@ export default function Library() {
               </motion.article>
             </motion.div>
 
-            {/* Merchandise last — Printful TBD */}
+            {/* Merchandise last — Printful */}
             <motion.article
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="flex flex-col rounded-xl border border-border bg-white px-7 py-8 md:px-8 md:py-9 text-left"
+              className="flex flex-col rounded-xl border border-secondary/40 bg-white px-7 py-8 md:px-8 md:py-9 text-left"
             >
               <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                 <p className="font-sans text-xs tracking-[0.2em] uppercase text-secondary">
                   Merch
                 </p>
-                <span className="font-sans text-[11px] tracking-wider uppercase bg-card text-primary px-3 py-1 rounded-full border border-border">
-                  Coming soon
+                <span className="font-sans text-[11px] tracking-wider uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full">
+                  Available now
                 </span>
               </div>
               <h2 className="font-serif text-2xl text-primary mb-3">
@@ -296,13 +296,19 @@ export default function Library() {
               </p>
               <div className="flex items-center justify-between gap-4 pt-4 border-t border-border">
                 <p className="text-muted">Various</p>
-                {/* TODO(Printful): last catalog card — wire storefront when ready */}
-                <Button variant="outline" disabled={!PRINTFUL_SHOP_URL}>
-                  {PRINTFUL_SHOP_URL ? "Shop merch" : "Notify Me"}
+                <Button asChild variant="outline">
+                  <a
+                    href={PRINTFUL_SHOP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="link-printful-shop"
+                  >
+                    Shop merch
+                  </a>
                 </Button>
               </div>
               <p className="text-xs text-muted italic text-right mt-3">
-                Printful fulfillment — launching soon
+                Fulfilled by Printful
               </p>
             </motion.article>
 
