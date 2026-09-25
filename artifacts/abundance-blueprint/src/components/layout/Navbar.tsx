@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, useScroll } from "framer-motion";
 import { navLinks } from "@/lib/navigation";
-import logo from "@assets/Long_Money_Concepts_Logo_header.png";
+import logo from "@assets/Long_Money_Concepts_Logo_Tagline_Transparent.png";
 
 function isNavActive(location: string, href: string) {
   if (location === href) return true;
@@ -61,15 +61,15 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between gap-4">
         <Link
           href="/"
-          className="inline-flex shrink-0 items-center overflow-hidden rounded-2xl bg-white p-2 sm:p-2.5 md:p-3"
+          className="inline-flex shrink-0 items-center"
           aria-label="Long Money Concepts — Home"
         >
           <img
             src={logo}
             alt="Long Money Concepts LLC — There's life beneath the numbers"
-            className="block h-auto w-40 sm:w-48 md:w-52 lg:w-56"
-            width={749}
-            height={399}
+            className="block h-auto w-44 sm:w-52 md:w-56 lg:w-64"
+            width={2050}
+            height={736}
           />
         </Link>
 
