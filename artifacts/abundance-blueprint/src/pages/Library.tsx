@@ -245,7 +245,7 @@ export default function Library() {
               >
                 <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                   <p className="font-sans text-xs tracking-[0.2em] uppercase text-secondary">
-                    Live workshop
+                    Self-paced
                   </p>
                   <span className="font-sans text-[11px] tracking-wider uppercase bg-card text-primary px-3 py-1 rounded-full border border-border">
                     Coming soon
@@ -255,8 +255,8 @@ export default function Library() {
                   Financial Foundations Workshop
                 </h2>
                 <p className="text-muted leading-relaxed flex-1 mb-6">
-                  Build real confidence with structure and live guidance —
-                  grounded in the same five foundations.
+                  Build real confidence with structure and clear guidance —
+                  grounded in the same five foundations, on your own schedule.
                 </p>
                 <div className="flex items-center justify-between gap-4 pt-4 border-t border-border mt-auto">
                   <p className="text-muted">Price TBD</p>
