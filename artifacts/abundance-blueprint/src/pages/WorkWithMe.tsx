@@ -44,8 +44,9 @@ const services = [
     eyebrow: "Standalone tools",
     title: "Workshops & guides",
     body: "Standalone tools built from the HEALS™ Method — Honor, Educate, Act, Live, Sow — for people who want the framework without the full program. Built directly from the Abundance Blueprint manuscript. Free crisis resources are available now; a video series is coming soon.",
-    cta: "Coming soon — join the community to hear first",
-    href: "/circle",
+    // TODO: Long Money Library lives on /library (Kit e-guide, Lulu print, Coach Accountable workshops, Printful merch last)
+    cta: "Browse the Library",
+    href: "/library",
     secondary: true,
   },
 ] as const;
@@ -56,7 +57,7 @@ export default function WorkWithMe() {
       <PageMeta path="/work-with-me" />
       <Navbar />
 
-      <main className="flex-1 pt-24">
+      <main className="flex-1 pt-32 md:pt-36">
         <section className="py-16 md:py-20">
           <div className="container mx-auto px-4 md:px-6">
             <motion.div

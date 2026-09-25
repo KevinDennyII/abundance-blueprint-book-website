@@ -51,7 +51,7 @@ export default function Contact() {
       <PageMeta path="/contact" />
       <Navbar />
       
-      <main className="flex-1 pt-24">
+      <main className="flex-1 pt-32 md:pt-36">
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4 md:px-6">
             <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">

@@ -8,6 +8,12 @@ export type ContactFormResult =
   | { ok: true }
   | { ok: false; error: string };
 
+export type ReadinessAnswer = {
+  questionNumber: number;
+  question: string;
+  answer: string;
+};
+
 export type ReadinessLeadData = {
   firstName: string;
   email: string;
@@ -15,6 +21,9 @@ export type ReadinessLeadData = {
   resultTitle: string;
   source: string;
   tag: string;
+  answers: ReadinessAnswer[];
+  score: number;
+  q6ForcedRed: boolean;
 };
 
 async function submitWeb3FormsClient(payload: {
@@ -82,6 +91,12 @@ export async function submitContactForm(
 
 function buildReadinessMessage(data: ReadinessLeadData): string {
   const sourceLabel = data.source || "default";
+  const answerLines = data.answers.flatMap((entry) => [
+    `Q${entry.questionNumber}: ${entry.question}`,
+    `Answer: ${entry.answer}`,
+    "",
+  ]);
+
   return [
     `First name: ${data.firstName}`,
     `Email: ${data.email}`,
@@ -89,6 +104,11 @@ function buildReadinessMessage(data: ReadinessLeadData): string {
     `Title: ${data.resultTitle}`,
     `Source: ${sourceLabel}`,
     `Tag: ${data.tag}`,
+    "",
+    "--- Answers ---",
+    ...answerLines,
+    `Total score (Q1–Q5): ${data.score}`,
+    `Q6 forced Red result: ${data.q6ForcedRed ? "Yes" : "No"}`,
   ].join("\n");
 }
 
@@ -109,6 +129,9 @@ async function submitReadinessLeadViaApi(
         resultTitle: data.resultTitle,
         source: data.source,
         tag: data.tag,
+        answers: data.answers,
+        score: data.score,
+        q6ForcedRed: data.q6ForcedRed,
       }),
     });
 

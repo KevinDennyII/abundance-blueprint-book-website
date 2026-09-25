@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, useScroll } from "framer-motion";
 import { navLinks } from "@/lib/navigation";
+import logo from "@assets/Long_Money_Concepts_Logo_header.png";
 
 function isNavActive(location: string, href: string) {
   if (location === href) return true;
@@ -50,19 +51,26 @@ export function Navbar() {
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         scrolled || mobileOpen
-          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm py-3"
-          : "bg-transparent py-5"
+          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm py-2"
+          : "bg-transparent py-3"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
+      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between gap-4">
         <Link
           href="/"
-          className="font-serif text-xl md:text-2xl font-semibold tracking-wide text-primary"
+          className="inline-flex shrink-0 items-center overflow-hidden rounded-2xl bg-white p-2 sm:p-2.5 md:p-3"
+          aria-label="Long Money Concepts — Home"
         >
-          La'Toya Ray<span className="text-secondary">, CPA</span>
+          <img
+            src={logo}
+            alt="Long Money Concepts LLC — There's life beneath the numbers"
+            className="block h-auto w-40 sm:w-48 md:w-52 lg:w-56"
+            width={749}
+            height={399}
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">

@@ -43,10 +43,11 @@ const phases = [
 
 const included = [
   "Twelve weekly 1:1 sessions with LaToya",
-  "Pre-session material before each session — reflection and preparation, not homework to grade",
-  "Notion client portal for resources, notes, and progress",
-  "Monarch Money dashboard access, beginning Week 3",
-  "Weekly written deliverables and follow-up within 48 business hours",
+  "Pre-session material before each session (reflection & preparation, not graded homework)",
+  "Printed HEALS™ Method guides—one for each phase",
+  "Online client portal for resources, notes, and progress tracking",
+  "Monarch Money dashboard access starting Week 3",
+  "Weekly written deliverables with 48-hour response follow-up",
   "Session recordings available with your consent",
 ] as const;
 
@@ -56,7 +57,7 @@ export default function FinancialWellnessReset() {
       <PageMeta path="/financial-wellness-reset" />
       <Navbar />
 
-      <main className="flex-1 pt-24">
+      <main className="flex-1 pt-32 md:pt-36">
         <section className="py-14 md:py-20">
           <div className="container mx-auto px-4 md:px-6">
             <motion.div
@@ -121,7 +122,7 @@ export default function FinancialWellnessReset() {
                   {included.map((item) => (
                     <li
                       key={item}
-                      className="relative pl-5 text-muted leading-relaxed before:content-['—'] before:absolute before:left-0 before:text-secondary"
+                      className="relative pl-5 text-muted leading-relaxed before:content-['✓'] before:absolute before:left-0 before:text-secondary"
                     >
                       {item}
                     </li>
@@ -181,7 +182,7 @@ export default function FinancialWellnessReset() {
         <section className="bg-primary text-primary-foreground py-14 md:py-16 text-center">
           <div className="container mx-auto px-4 md:px-6 max-w-xl">
             <h2 className="font-serif text-3xl mb-4">
-              Ready to talk it through?
+              There&apos;s Life Beneath the Numbers
             </h2>
             <p className="text-accent/90 mb-7 leading-relaxed">
               Every Reset engagement starts with a discovery call — a chance to

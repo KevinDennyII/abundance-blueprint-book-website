@@ -22,7 +22,7 @@ export default function Book() {
       <PageMeta path="/book" />
       <Navbar />
       
-      <main className="flex-1 pt-24">
+      <main className="flex-1 pt-32 md:pt-36">
         {/* Book Hero */}
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4 md:px-6">

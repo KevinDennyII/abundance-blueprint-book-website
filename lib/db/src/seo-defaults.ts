@@ -29,6 +29,12 @@ export const staticPageMetaDefaults: PageMetaDefault[] = [
       "Abundance Blueprint is a memoir-driven guide to healing the emotional story beneath money, for people who know what to do but still struggle.",
   },
   {
+    path: "/library",
+    title: "The Long Money Library — Guides & Resources | Abundance Blueprint",
+    description:
+      "Free crisis resources, the Financial Foundations guide (digital and print), workshops, and merch — tools that map back to the HEALS™ framework.",
+  },
+  {
     path: "/work-with-me",
     title: "Work With Me — HEALS™ Services | Abundance Blueprint",
     description:

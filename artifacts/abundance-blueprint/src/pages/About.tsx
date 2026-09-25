@@ -19,7 +19,7 @@ export default function About() {
       <PageMeta path="/about" />
       <Navbar />
       
-      <main className="flex-1 pt-24">
+      <main className="flex-1 pt-32 md:pt-36">
         {/* Bio Header */}
         <section id="her-story" className="py-16 md:py-24 bg-card scroll-mt-28">
           <div className="container mx-auto px-4 md:px-6">

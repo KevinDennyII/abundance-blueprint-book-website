@@ -10,6 +10,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/": "Home",
   "/about": "About",
   "/book": "The Book",
+  "/library": "Library",
   "/work-with-me": "Work With Me",
   "/financial-wellness-reset": "Financial Wellness Reset",
   "/readiness-assessment": "Readiness Assessment",

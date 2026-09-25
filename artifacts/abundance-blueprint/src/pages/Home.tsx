@@ -25,7 +25,7 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+        <section className="relative pt-36 pb-20 md:pt-40 md:pb-32 overflow-hidden">
           <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
           <div className="container mx-auto px-4 md:px-6 relative z-10">
             <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">

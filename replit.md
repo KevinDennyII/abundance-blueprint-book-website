@@ -37,10 +37,23 @@ A book website for La'Toya Ray, CPA's "Abundance Blueprint: A Journey to Financi
 - **Home** (`/`): Book hook, email list signup (primary CTA), author intro, HEALS™ framework teaser, scroll animations.
 - **About** (`/about`): Full author bio, philosophy statement, HEALS™ framework (all 5 pillars), five core beliefs, credentials.
 - **Book** (`/book`): Cover art, full description, formats/pricing, pre-order CTA, "In These Pages" list.
+- **Library** (`/library`): Long Money Library hub — free crisis resources, Financial Foundations (Kit digital + Lulu physical TBD), workshops (Coach Accountable TBD), merch last (Printful TBD). `/shop` redirects here. See TODOs in `Library.tsx` / `social.ts`.
 - **Circle** (`/circle`): The Long Money Circle community page with Kit signup form.
-- **Work With Me** (`/work-with-me`): Contact and future services inquiry form.
+- **Work With Me** (`/work-with-me`): HEALS™ services (Reset, Advisory, Circle, Library link).
 - **Blog** (`/blog`): Published posts with moderated guest comments. Author publishes via `/admin` (email + password session).
-- **Contact** (`/contact`): Redirects to `/work-with-me`.
+- **Contact** (`/contact`): Inquiry form.
+
+### Product ecosystem (incomplete — future commerce)
+
+Checkout platforms differ; prefer `/library` as a unified landing that routes to each checkout rather than embedding multiple storefronts.
+
+| Offering | Platform | Status |
+|----------|----------|--------|
+| Financial Foundations e-guide / workbook (digital) | Kit.com commerce | Live ($27) |
+| Financial Foundations (physical) | Lulu Direct | TBD |
+| Workshops / educational content | Coach Accountable | TBD |
+| Merchandise | Printful | TBD — last card on `/library` |
+| Free crisis guides | Google Drive → consider Kit free products | Live on Drive |
 
 ## User preferences
 

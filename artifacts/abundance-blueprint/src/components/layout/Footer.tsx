@@ -8,20 +8,20 @@ import {
   COMPANY_PHONE_TEL,
 } from "@/lib/social";
 import { navLinks } from "@/lib/navigation";
-import logo from "@assets/Long_Money_Concepts_Logo.png";
 
 export function Footer() {
   return (
     <footer className="bg-foreground text-background py-8 mt-12 lg:mt-10">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12 mb-6">
-          <div className="w-[13rem] shrink-0">
-            <div className="overflow-hidden rounded-2xl bg-white mb-3">
-              <img
-                src={logo}
-                alt="Long Money Concepts LLC — There's life beneath the numbers"
-                className="block w-full h-auto"
-              />
+          <div className="shrink-0">
+            <div className="mb-3">
+              <p className="font-serif text-lg text-background leading-snug">
+                Long Money Concepts, LLC
+              </p>
+              <p className="font-serif text-base text-accent leading-snug">
+                La&apos;Toya Ray, CPA
+              </p>
             </div>
             <ul className="space-y-0.5 text-sm leading-snug">
               <li>

@@ -184,15 +184,16 @@ function getSource(search: string): QuizSource {
   return params.get("source") === "advisory" ? "advisory" : "reset";
 }
 
-function computeResult(selections: Array<number | null>): ResultKey {
+function computeResult(selections: Array<number | null>): {
+  key: ResultKey;
+  score: number;
+  q6ForcedRed: boolean;
+} {
   const crisisQ = QUESTIONS.findIndex((q) => q.isCrisisCheck);
   const crisisAnswerIndex = selections[crisisQ];
-  if (
+  const q6ForcedRed =
     crisisAnswerIndex !== null &&
-    QUESTIONS[crisisQ].options[crisisAnswerIndex]?.crisis === true
-  ) {
-    return "red";
-  }
+    QUESTIONS[crisisQ].options[crisisAnswerIndex]?.crisis === true;
 
   let score = 0;
   QUESTIONS.forEach((q, i) => {
@@ -203,9 +204,28 @@ function computeResult(selections: Array<number | null>): ResultKey {
     if (typeof points === "number") score += points;
   });
 
-  if (score >= 12) return "green";
-  if (score >= 8) return "yellow";
-  return "red";
+  if (q6ForcedRed) {
+    return { key: "red", score, q6ForcedRed: true };
+  }
+
+  if (score >= 12) return { key: "green", score, q6ForcedRed: false };
+  if (score >= 8) return { key: "yellow", score, q6ForcedRed: false };
+  return { key: "red", score, q6ForcedRed: false };
+}
+
+function buildAnswerSummary(selections: Array<number | null>) {
+  return QUESTIONS.map((q, i) => {
+    const selected = selections[i];
+    const answer =
+      selected === null
+        ? "(no answer)"
+        : (q.options[selected]?.label ?? "(unknown)");
+    return {
+      questionNumber: i + 1,
+      question: q.text,
+      answer,
+    };
+  });
 }
 
 function getResultData(key: ResultKey, source: QuizSource): ResultData {
@@ -291,7 +311,7 @@ export default function ReadinessAssessment() {
     setIsSubmitting(true);
     setSubmitError(null);
 
-    const key = computeResult(selections);
+    const { key, score, q6ForcedRed } = computeResult(selections);
     const data = getResultData(key, source);
 
     // Best-effort notify via Web3Forms; always show the result
@@ -303,6 +323,9 @@ export default function ReadinessAssessment() {
       resultTitle: data.title,
       source,
       tag: data.tag,
+      answers: buildAnswerSummary(selections),
+      score,
+      q6ForcedRed,
     });
 
     setIsSubmitting(false);
@@ -320,7 +343,7 @@ export default function ReadinessAssessment() {
       <PageMeta path="/readiness-assessment" />
       <Navbar />
 
-      <main className="flex-1 pt-24">
+      <main className="flex-1 pt-32 md:pt-36">
         <div className="max-w-xl mx-auto px-4 md:px-6 py-14 md:py-16">
           <header className="text-center mb-10">
             <div
