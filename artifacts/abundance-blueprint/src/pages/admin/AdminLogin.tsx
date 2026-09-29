@@ -74,7 +74,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <PageMeta title="Admin login — Abundance Blueprint" noindex />
+      <PageMeta title="Admin login — Long Money Concepts" noindex />
       <div className="w-full max-w-md">
         <h1 className="font-serif text-3xl text-primary mb-2 text-center">
           Admin login

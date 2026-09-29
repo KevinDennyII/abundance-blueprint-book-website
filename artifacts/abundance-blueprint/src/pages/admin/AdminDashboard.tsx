@@ -160,7 +160,7 @@ export default function AdminDashboard() {
   return (
     <AdminShell
       title="Dashboard"
-      description="A snapshot of your blog and site metadata. Everything here is live on abundanceblueprint.com."
+      description="A snapshot of your blog and site metadata. Everything here is live on longmoneyconcepts.com."
       actions={
         <Link
           href="/admin/posts/new"

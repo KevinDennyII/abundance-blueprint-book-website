@@ -5,7 +5,7 @@ import { PageMeta } from "@/lib/seo";
 export default function NotFound() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <PageMeta title="Page not found | Abundance Blueprint" noindex />
+      <PageMeta title="Page not found | Long Money Concepts" noindex />
       <Card className="w-full max-w-md mx-4">
         <CardContent className="pt-6">
           <div className="flex mb-4 gap-2">

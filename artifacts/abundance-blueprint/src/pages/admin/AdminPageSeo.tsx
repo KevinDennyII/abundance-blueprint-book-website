@@ -170,7 +170,7 @@ export default function AdminPageSeo() {
                       Search result preview
                     </p>
                     <p className="text-xs text-muted">
-                      abundanceblueprint.com
+                      longmoneyconcepts.com
                       {page.path === "/" ? "" : page.path}
                     </p>
                     <p className="truncate text-base text-primary">

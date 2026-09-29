@@ -102,7 +102,12 @@ export default function BlogPostPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <PageMeta path="/blog" title={metaTitle} description={metaDescription} />
+      <PageMeta
+        path="/blog"
+        title={metaTitle}
+        description={metaDescription}
+        canonicalPath={slug ? `/blog/${slug}` : "/blog"}
+      />
       <Navbar />
 
       <main className="flex-1 pt-32 md:pt-36">

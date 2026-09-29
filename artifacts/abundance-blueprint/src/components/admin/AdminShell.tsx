@@ -167,7 +167,7 @@ export function AdminShell({
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <PageMeta title={`${title} · Admin — Abundance Blueprint`} noindex />
+      <PageMeta title={`${title} · Admin — Long Money Concepts`} noindex />
 
       <div className="sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-card-border bg-card px-4 py-3 lg:hidden">
         <BrandMark />
