@@ -55,7 +55,9 @@ export default function Blog() {
         page !== result.data.page
       ) {
         setLocation(
-          result.data.page <= 1 ? "/blog" : `/blog?page=${result.data.page}`,
+          result.data.page <= 1
+            ? "/articles"
+            : `/articles?page=${result.data.page}`,
           { replace: true },
         );
       }
@@ -67,13 +69,13 @@ export default function Blog() {
   }, [page, setLocation]);
 
   function goToPage(next: number) {
-    setLocation(next <= 1 ? "/blog" : `/blog?page=${next}`);
+    setLocation(next <= 1 ? "/articles" : `/articles?page=${next}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <PageMeta path="/blog" />
+      <PageMeta path="/articles" />
       <Navbar />
 
       <main className="flex-1 pt-32 md:pt-36">
@@ -87,11 +89,12 @@ export default function Blog() {
             >
               <div className="text-center mb-14">
                 <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-primary mb-6">
-                  Blog
+                  The Long Money Letter
                 </h1>
                 <p className="text-muted text-lg md:text-xl leading-relaxed">
-                  Stories, reflections, and practical notes on money, healing,
-                  and building a life of financial harmony.
+                  There&apos;s more to money than numbers. Explore the stories
+                  behind our financial decisions, the lessons that shape our
+                  habits, and the journey toward Financial Harmony.
                 </p>
               </div>
 
@@ -126,7 +129,7 @@ export default function Blog() {
                       >
                         <article>
                           <Link
-                            href={`/blog/${post.slug}`}
+                            href={`/articles/${post.slug}`}
                             className="group block"
                           >
                             <time className="text-sm text-muted tracking-wide uppercase">
@@ -157,7 +160,7 @@ export default function Blog() {
                   {totalPages > 1 && (
                     <nav
                       className="mt-14 flex items-center justify-between gap-4"
-                      aria-label="Blog pagination"
+                      aria-label="Articles pagination"
                     >
                       <Button
                         type="button"

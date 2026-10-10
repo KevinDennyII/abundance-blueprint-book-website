@@ -16,7 +16,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/readiness-assessment": "Readiness Assessment",
   "/contact": "Contact",
   "/circle": "The Long Money Circle",
-  "/blog": "Blog",
+  "/articles": "Articles",
   "/privacy": "Privacy Policy",
   "/terms": "Terms of Service",
 };

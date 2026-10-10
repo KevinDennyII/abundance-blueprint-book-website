@@ -63,10 +63,11 @@ export const STATIC_PAGE_META: Record<string, PublicPageSeo> = {
     description:
       "A free Facebook community for honest conversations about money, financial healing, and building Financial Harmony — led by La'Toya Ray, CPA.",
   },
-  "/blog": {
-    title: "Blog — Money, Healing & Financial Harmony | Long Money Concepts",
+  "/articles": {
+    title:
+      "The Long Money Letter — Articles | Long Money Concepts",
     description:
-      "Stories, reflections, and practical notes on money, healing, and building a life of financial harmony from La'Toya Ray, CPA and Long Money Concepts.",
+      "There's more to money than numbers. Explore the stories behind our financial decisions, the lessons that shape our habits, and the journey toward Financial Harmony.",
   },
   "/privacy": {
     title: "Privacy Policy | Long Money Concepts",

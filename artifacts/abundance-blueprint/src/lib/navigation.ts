@@ -5,5 +5,5 @@ export const navLinks = [
   { href: "/circle", label: "Community" },
   { href: "/work-with-me", label: "Work With Me" },
   { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
+  { href: "/articles", label: "Articles" },
 ] as const;

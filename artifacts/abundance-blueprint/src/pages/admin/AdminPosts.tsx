@@ -121,7 +121,7 @@ export default function AdminPosts() {
                   </span>
                 </div>
                 <p className="mt-1 truncate text-sm text-muted">
-                  /blog/{post.slug}
+                  /articles/{post.slug}
                   {post.publishedAt
                     ? ` · ${formatPostDate(post.publishedAt)}`
                     : ` · edited ${formatPostDate(post.updatedAt)}`}
@@ -138,7 +138,7 @@ export default function AdminPosts() {
                 </Link>
                 {post.status === "published" && (
                   <a
-                    href={`/blog/${post.slug}`}
+                    href={`/articles/${post.slug}`}
                     target="_blank"
                     rel="noreferrer"
                     className={cn(

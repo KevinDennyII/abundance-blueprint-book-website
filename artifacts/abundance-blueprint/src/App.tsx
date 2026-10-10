@@ -50,8 +50,14 @@ function Router() {
         <Redirect to="/work-with-me" />
       </Route>
       <Route path="/circle" component={Circle} />
-      <Route path="/blog/:slug" component={BlogPost} />
-      <Route path="/blog" component={Blog} />
+      <Route path="/articles/:slug" component={BlogPost} />
+      <Route path="/articles" component={Blog} />
+      <Route path="/blog/:slug">
+        {(params) => <Redirect to={`/articles/${params.slug}`} />}
+      </Route>
+      <Route path="/blog">
+        <Redirect to="/articles" />
+      </Route>
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
 

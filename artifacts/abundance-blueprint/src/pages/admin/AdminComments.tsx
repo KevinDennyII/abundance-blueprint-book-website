@@ -121,7 +121,7 @@ export default function AdminComments() {
                   <p className="text-xs text-muted mt-1">
                     on{" "}
                     <Link
-                      href={`/blog/${comment.postSlug}`}
+                      href={`/articles/${comment.postSlug}`}
                       className="underline underline-offset-2"
                     >
                       {comment.postTitle}

@@ -103,10 +103,10 @@ export default function BlogPostPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <PageMeta
-        path="/blog"
+        path="/articles"
         title={metaTitle}
         description={metaDescription}
-        canonicalPath={slug ? `/blog/${slug}` : "/blog"}
+        canonicalPath={slug ? `/articles/${slug}` : "/articles"}
       />
       <Navbar />
 
@@ -115,10 +115,10 @@ export default function BlogPostPage() {
           <div className="container mx-auto px-4 md:px-6">
             <div className="max-w-3xl mx-auto">
               <Link
-                href="/blog"
+                href="/articles"
                 className="text-sm text-muted hover:text-primary transition-colors"
               >
-                ← Back to blog
+                ← Back to articles
               </Link>
 
               {loading && (
