@@ -28,6 +28,7 @@ import AdminAccount from "@/pages/admin/AdminAccount";
 import { AdminAuthProvider } from "@/components/admin/AdminAuth";
 import { RequireAdmin } from "@/components/admin/RequireAdmin";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { SeoProvider } from "@/lib/seo";
 
 const queryClient = new QueryClient();
@@ -137,6 +138,7 @@ function App() {
             base={(import.meta.env.BASE_URL ?? "/").replace(/\/$/, "")}
           >
             <ScrollToTop />
+            <GoogleAnalytics />
             <Router />
           </WouterRouter>
         </SeoProvider>

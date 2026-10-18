@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js). One tag for the whole SPA — every route shares this document. -->
+    <!-- send_page_view is false so React can send page_view after each route title is set. -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      (function () {
+        var id = "G-ER7ZW6KKG6";
+        var host = location.hostname;
+        if (host !== "www.longmoneyconcepts.com" && host !== "longmoneyconcepts.com") {
+          return;
+        }
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=" + id;
+        document.head.appendChild(script);
+        gtag("js", new Date());
+        gtag("config", id, { send_page_view: false });
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>Long Money Concepts — Abundance Blueprint by La&#39;Toya Ray, CPA</title>

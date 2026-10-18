@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import { PageMeta } from "@/lib/seo";
 import {
   LONG_MONEY_CIRCLE_FACEBOOK_URL,
   SIMPLETEXTING_JOIN_FORM_URL,
@@ -28,6 +29,7 @@ const circleHighlights = [
 export default function Circle() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <PageMeta path="/circle" />
       <Navbar />
 
       <main className="flex-1 pt-32 md:pt-36">

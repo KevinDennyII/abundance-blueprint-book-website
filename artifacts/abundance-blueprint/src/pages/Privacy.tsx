@@ -21,7 +21,7 @@ export default function Privacy() {
                 Privacy Policy
               </h1>
               <p className="font-sans text-sm text-muted mb-12">
-                Last updated: July 21, 2026
+                Last updated: October 18, 2026
               </p>
 
               <div className="space-y-10 text-muted text-base md:text-lg leading-relaxed">
@@ -95,9 +95,19 @@ export default function Privacy() {
                   </h2>
                   <p>
                     We use trusted service providers to operate this site,
-                    including hosting, email delivery, and form processing. Those
-                    providers may process information on our behalf under their
-                    own privacy practices.
+                    including hosting, email delivery, form processing, and
+                    Google Analytics. Those providers may process information on
+                    our behalf under their own privacy practices. Google&apos;s
+                    privacy policy is at{" "}
+                    <a
+                      href="https://policies.google.com/privacy"
+                      className="text-secondary hover:text-primary transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      policies.google.com/privacy
+                    </a>
+                    .
                   </p>
                 </section>
 
@@ -108,8 +118,19 @@ export default function Privacy() {
                   <p>
                     This site may use cookies or similar technologies that are
                     necessary for functionality or that help us understand how
-                    the site is used. You can control cookies through your
-                    browser settings.
+                    the site is used. Google Analytics uses cookies to measure
+                    visits, pages viewed, and similar usage data. You can
+                    control cookies through your browser settings, or opt out of
+                    Google Analytics with the{" "}
+                    <a
+                      href="https://tools.google.com/dlpage/gaoptout"
+                      className="text-secondary hover:text-primary transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Google Analytics opt-out browser add-on
+                    </a>
+                    .
                   </p>
                 </section>
 
