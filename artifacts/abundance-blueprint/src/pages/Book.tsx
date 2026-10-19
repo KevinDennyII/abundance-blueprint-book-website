@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { PageMeta } from "@/lib/seo";
+import { KIT_BOOK_LAUNCH_URL } from "@/lib/social";
 import { motion } from "framer-motion";
 import frontCover from "@assets/AB_Front_Cover_1779852599997.png";
 import backCover from "@assets/AB_Back_Cover_1779852599997.png";
@@ -82,11 +83,17 @@ export default function Book() {
                     </div>
                   </div>
                   <Button
-                    disabled
-                    className="w-full bg-primary text-primary-foreground text-lg py-6 disabled:opacity-80"
+                    asChild
+                    className="w-full bg-primary text-primary-foreground text-lg py-6"
                     data-testid="link-preorder"
                   >
-                    Pre-Order Coming Soon
+                    <a
+                      href={KIT_BOOK_LAUNCH_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Join the Book Launch List
+                    </a>
                   </Button>
                 </motion.div>
               </motion.div>

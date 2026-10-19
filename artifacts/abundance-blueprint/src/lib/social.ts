@@ -20,6 +20,21 @@ export const CRISIS_STABILIZATION_ROADMAP_URL =
 export const CRISIS_RESOURCE_GUIDE_URL =
   "https://drive.google.com/file/d/1xfEId_2ybLmryPU50kUuwYdNhZ_B-6IW/view?usp=drive_link";
 
+/** Kit (ConvertKit) creator site — The Long Money Letter. */
+export const KIT_SITE_URL = "https://long-money-concepts-llc.kit.com/";
+
+/** Kit commerce script for this creator account. */
+export const KIT_COMMERCE_SCRIPT_URL =
+  "https://long-money-concepts-llc.kit.com/commerce.js";
+
+/** Book launch / Chapter 1 landing page on Kit. */
+export const KIT_BOOK_LAUNCH_URL =
+  "https://long-money-concepts-llc.kit.com/e30afd8248";
+
+/** Financial Foundations digital e-guide / workbook checkout. */
+export const KIT_FINANCIAL_FOUNDATIONS_URL =
+  "https://long-money-concepts-llc.kit.com/products/financial-foundations-workbook";
+
 // TODO(Kit): consider converting free crisis PDFs (Drive above) into Kit.com
 // free products so downloads capture email + tags; keep /library as the hub.
 // TODO(Commerce): checkout platforms differ (Kit, Lulu Direct, Coach Accountable,

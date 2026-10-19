@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { PageMeta } from "@/lib/seo";
+import { KIT_SITE_URL } from "@/lib/social";
 import {
   fetchPublishedPosts,
   formatPostDate,
@@ -95,6 +96,16 @@ export default function Blog() {
                   There&apos;s more to money than numbers. Explore the stories
                   behind our financial decisions, the lessons that shape our
                   habits, and the journey toward Financial Harmony.
+                </p>
+                <p className="mt-4 text-muted text-base">
+                  <a
+                    href={KIT_SITE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-secondary hover:text-primary transition-colors"
+                  >
+                    Read The Long Money Letter on Kit
+                  </a>
                 </p>
               </div>
 

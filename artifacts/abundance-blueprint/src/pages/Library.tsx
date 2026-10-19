@@ -6,6 +6,8 @@ import { PageMeta } from "@/lib/seo";
 import {
   CRISIS_RESOURCE_GUIDE_URL,
   CRISIS_STABILIZATION_ROADMAP_URL,
+  KIT_COMMERCE_SCRIPT_URL,
+  KIT_FINANCIAL_FOUNDATIONS_URL,
 } from "@/lib/social";
 import { motion } from "framer-motion";
 
@@ -13,7 +15,7 @@ import { motion } from "framer-motion";
  * Product ecosystem (incomplete — capture for future implementation):
  *
  * - E-guide / Financial Foundations Workbook
- *   Digital: Kit.com commerce (`KIT_COMMERCE_SCRIPT` + product URL below)
+ *   Digital: Kit.com commerce (`KIT_COMMERCE_SCRIPT_URL` + `KIT_FINANCIAL_FOUNDATIONS_URL`)
  *   Physical: Lulu Direct (`LULU_PHYSICAL_URL`)
  * - Workshops / educational content: Coach Accountable (checkout TBD)
  * - Merchandise: Printful (`PRINTFUL_SHOP_URL`) — last catalog card
@@ -27,13 +29,6 @@ import { motion } from "framer-motion";
  * Design reference: Long Money Library mockup (guide + workshop side-by-side;
  * merch last).
  */
-
-const KIT_COMMERCE_SCRIPT =
-  "https://long-money-concepts-inc.kit.com/commerce.js";
-
-// TODO(Kit): confirm canonical product slug if workbook is renamed to "e-guide"
-const WORKBOOK_URL =
-  "https://long-money-concepts-inc.kit.com/products/financial-foundations-workbook";
 
 // Lulu Direct — physical Financial Foundations print checkout
 const LULU_PHYSICAL_URL =
@@ -58,12 +53,12 @@ const staggerContainer = {
 export default function Library() {
   useEffect(() => {
     const existing = document.querySelector(
-      `script[src="${KIT_COMMERCE_SCRIPT}"]`,
+      `script[src="${KIT_COMMERCE_SCRIPT_URL}"]`,
     );
     if (existing) return;
 
     const script = document.createElement("script");
-    script.src = KIT_COMMERCE_SCRIPT;
+    script.src = KIT_COMMERCE_SCRIPT_URL;
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
@@ -208,7 +203,7 @@ export default function Library() {
                       className="bg-primary text-primary-foreground mt-auto"
                       data-testid="link-workbook"
                     >
-                      <a href={WORKBOOK_URL}>Buy Now</a>
+                      <a href={KIT_FINANCIAL_FOUNDATIONS_URL}>Buy Now</a>
                     </Button>
                   </div>
                   <div className="rounded-lg bg-background px-4 py-4 flex flex-col gap-2">
