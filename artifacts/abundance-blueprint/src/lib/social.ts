@@ -35,6 +35,12 @@ export const KIT_BOOK_LAUNCH_URL =
 export const KIT_FINANCIAL_FOUNDATIONS_URL =
   "https://long-money-concepts-llc.kit.com/products/financial-foundations-workbook";
 
+/**
+ * The Long Money Letter newsletter form (Articles page embed).
+ * Form ID 10072568 — embed: https://long-money-concepts-llc.kit.com/22838ec47f
+ */
+export const KIT_LETTER_FORM_UID = "22838ec47f";
+
 // TODO(Kit): consider converting free crisis PDFs (Drive above) into Kit.com
 // free products so downloads capture email + tags; keep /library as the hub.
 // TODO(Commerce): checkout platforms differ (Kit, Lulu Direct, Coach Accountable,
