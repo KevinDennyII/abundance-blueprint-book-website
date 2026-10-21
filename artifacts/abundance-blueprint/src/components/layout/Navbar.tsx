@@ -74,19 +74,28 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-xs xl:text-sm tracking-widest uppercase transition-colors hover:text-secondary whitespace-nowrap ${
-                isNavActive(location, link.href)
-                  ? "text-secondary font-medium"
-                  : "text-foreground/80"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const className = `text-xs xl:text-sm tracking-widest uppercase transition-colors hover:text-secondary whitespace-nowrap ${
+              !link.external && isNavActive(location, link.href)
+                ? "text-secondary font-medium"
+                : "text-foreground/80"
+            }`;
+            return link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                className={className}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.href} href={link.href} className={className}>
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <button
@@ -112,21 +121,37 @@ export function Navbar() {
           className="lg:hidden border-t border-border bg-background/98 backdrop-blur-md"
         >
           <ul className="container mx-auto px-4 md:px-6 py-4 flex flex-col gap-1">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`block rounded-md px-3 py-3 text-sm tracking-widest uppercase transition-colors ${
-                    isNavActive(location, link.href)
-                      ? "bg-secondary/15 text-secondary font-medium"
-                      : "text-foreground/80 hover:bg-primary/5 hover:text-secondary"
-                  }`}
-                  data-testid={`link-mobile-nav-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const className = `block rounded-md px-3 py-3 text-sm tracking-widest uppercase transition-colors ${
+                !link.external && isNavActive(location, link.href)
+                  ? "bg-secondary/15 text-secondary font-medium"
+                  : "text-foreground/80 hover:bg-primary/5 hover:text-secondary"
+              }`;
+              const testId = `link-mobile-nav-${link.label.toLowerCase().replace(/\s+/g, "-")}`;
+              return (
+                <li key={link.href}>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      className={className}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid={testId}
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className={className}
+                      data-testid={testId}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
       ) : null}

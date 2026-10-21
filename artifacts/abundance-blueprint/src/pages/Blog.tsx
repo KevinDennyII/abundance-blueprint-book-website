@@ -4,9 +4,7 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { KitFormEmbed } from "@/components/KitFormEmbed";
 import { PageMeta } from "@/lib/seo";
-import { KIT_LETTER_FORM_UID } from "@/lib/social";
 import {
   fetchPublishedPosts,
   formatPostDate,
@@ -89,7 +87,7 @@ export default function Blog() {
               transition={{ duration: 0.6 }}
               className="max-w-3xl mx-auto"
             >
-              <div className="text-center mb-10">
+              <div className="text-center mb-14">
                 <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-primary mb-6">
                   The Long Money Letter
                 </h1>
@@ -98,10 +96,6 @@ export default function Blog() {
                   behind our financial decisions, the lessons that shape our
                   habits, and the journey toward Financial Harmony.
                 </p>
-              </div>
-
-              <div className="mb-14 max-w-md mx-auto w-full text-left">
-                <KitFormEmbed uid={KIT_LETTER_FORM_UID} />
               </div>
 
               {loading && (

@@ -19,6 +19,31 @@
   to = "/.netlify/functions/readiness-lead"
   status = 200
 
+# The Long Money Letter lives on the letter subdomain
+[[redirects]]
+  from = "/articles"
+  to = "https://letter.longmoneyconcepts.com"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articles/*"
+  to = "https://letter.longmoneyconcepts.com"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog"
+  to = "https://letter.longmoneyconcepts.com"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/*"
+  to = "https://letter.longmoneyconcepts.com"
+  status = 301
+  force = true
+
 # Client-side routing (wouter)
 [[redirects]]
   from = "/*"

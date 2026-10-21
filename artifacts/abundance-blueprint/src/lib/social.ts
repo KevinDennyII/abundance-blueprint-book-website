@@ -20,7 +20,13 @@ export const CRISIS_STABILIZATION_ROADMAP_URL =
 export const CRISIS_RESOURCE_GUIDE_URL =
   "https://drive.google.com/file/d/1xfEId_2ybLmryPU50kUuwYdNhZ_B-6IW/view?usp=drive_link";
 
-/** Kit (ConvertKit) creator site — The Long Money Letter. */
+/**
+ * The Long Money Letter — public newsletter/articles host.
+ * `/articles` and `/blog` on the main site permanently redirect here.
+ */
+export const LETTER_SITE_URL = "https://letter.longmoneyconcepts.com";
+
+/** Kit (ConvertKit) creator site (legacy Kit domain; letter subdomain is canonical). */
 export const KIT_SITE_URL = "https://long-money-concepts-llc.kit.com/";
 
 /** Kit commerce script for this creator account. */
@@ -34,12 +40,6 @@ export const KIT_BOOK_LAUNCH_URL =
 /** Financial Foundations digital e-guide / workbook checkout. */
 export const KIT_FINANCIAL_FOUNDATIONS_URL =
   "https://long-money-concepts-llc.kit.com/products/financial-foundations-workbook";
-
-/**
- * The Long Money Letter newsletter form (Articles page embed).
- * Form ID 10072568 — embed: https://long-money-concepts-llc.kit.com/22838ec47f
- */
-export const KIT_LETTER_FORM_UID = "22838ec47f";
 
 // TODO(Kit): consider converting free crisis PDFs (Drive above) into Kit.com
 // free products so downloads capture email + tags; keep /library as the hub.

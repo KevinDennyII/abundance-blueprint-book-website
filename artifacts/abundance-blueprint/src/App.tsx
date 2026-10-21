@@ -13,8 +13,6 @@ import Contact from "@/pages/Contact";
 import Circle from "@/pages/Circle";
 import FinancialWellnessReset from "@/pages/FinancialWellnessReset";
 import ReadinessAssessment from "@/pages/ReadinessAssessment";
-import Blog from "@/pages/Blog";
-import BlogPost from "@/pages/BlogPost";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import AdminLogin from "@/pages/admin/AdminLogin";
@@ -27,9 +25,11 @@ import AdminPasskeys from "@/pages/admin/AdminPasskeys";
 import AdminAccount from "@/pages/admin/AdminAccount";
 import { AdminAuthProvider } from "@/components/admin/AdminAuth";
 import { RequireAdmin } from "@/components/admin/RequireAdmin";
+import { ExternalRedirect } from "@/components/ExternalRedirect";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { SeoProvider } from "@/lib/seo";
+import { LETTER_SITE_URL } from "@/lib/social";
 
 const queryClient = new QueryClient();
 
@@ -51,13 +51,18 @@ function Router() {
         <Redirect to="/work-with-me" />
       </Route>
       <Route path="/circle" component={Circle} />
-      <Route path="/articles/:slug" component={BlogPost} />
-      <Route path="/articles" component={Blog} />
+      {/* Public letter lives on letter.longmoneyconcepts.com (host 301 + SPA fallback). */}
+      <Route path="/articles/:slug">
+        <ExternalRedirect href={LETTER_SITE_URL} />
+      </Route>
+      <Route path="/articles">
+        <ExternalRedirect href={LETTER_SITE_URL} />
+      </Route>
       <Route path="/blog/:slug">
-        {(params) => <Redirect to={`/articles/${params.slug}`} />}
+        <ExternalRedirect href={LETTER_SITE_URL} />
       </Route>
       <Route path="/blog">
-        <Redirect to="/articles" />
+        <ExternalRedirect href={LETTER_SITE_URL} />
       </Route>
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
