@@ -41,6 +41,13 @@ export const KIT_BOOK_LAUNCH_URL =
 export const KIT_FINANCIAL_FOUNDATIONS_URL =
   "https://long-money-concepts-llc.kit.com/products/financial-foundations-workbook";
 
+/**
+ * Okayinaire list — Kit form 10086596 (UID ae4843bb11).
+ * Used as a client embed fallback when KIT_OKAYINAIRE_FORM_ID is not set.
+ */
+export const KIT_OKAYINAIRE_EMBED_URL =
+  "https://long-money-concepts-llc.kit.com/ae4843bb11/index.js";
+
 // TODO(Kit): consider converting free crisis PDFs (Drive above) into Kit.com
 // free products so downloads capture email + tags; keep /library as the hub.
 // TODO(Commerce): checkout platforms differ (Kit, Lulu Direct, Coach Accountable,

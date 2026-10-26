@@ -13,6 +13,7 @@ import Contact from "@/pages/Contact";
 import Circle from "@/pages/Circle";
 import FinancialWellnessReset from "@/pages/FinancialWellnessReset";
 import ReadinessAssessment from "@/pages/ReadinessAssessment";
+import Okayinaire from "@/pages/Okayinaire";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import AdminLogin from "@/pages/admin/AdminLogin";
@@ -51,6 +52,8 @@ function Router() {
         <Redirect to="/work-with-me" />
       </Route>
       <Route path="/circle" component={Circle} />
+      {/* Unlisted landing — not in nav; share URL only. */}
+      <Route path="/okayinaire" component={Okayinaire} />
       {/* Public letter lives on letter.longmoneyconcepts.com (host 301 + SPA fallback). */}
       <Route path="/articles/:slug">
         <ExternalRedirect href={LETTER_SITE_URL} />

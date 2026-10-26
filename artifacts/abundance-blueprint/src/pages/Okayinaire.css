@@ -1,0 +1,329 @@
+/* Scoped to .okay-page so site styles stay untouched. */
+.okay-page {
+  --okay-purple: #2e1c4f;
+  --okay-gold: #c9a74a;
+  --okay-gold-light: #efd88a;
+  --okay-cream: #f4e6cd;
+  --okay-offwhite: #f5f1ec;
+  --okay-ink: #2e1c4f;
+  --okay-muted: #6d6084;
+  --okay-line: #d5d2dc;
+  font-family: var(--app-font-sans), system-ui, sans-serif;
+  color: var(--okay-ink);
+  background: var(--okay-cream);
+  line-height: 1.65;
+  font-size: 17px;
+}
+
+.okay-page * {
+  box-sizing: border-box;
+}
+
+.okay-page h1,
+.okay-page h2,
+.okay-page h3 {
+  font-family: var(--app-font-serif), Georgia, serif;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  color: var(--okay-purple);
+}
+
+.okay-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.okay-section {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--okay-line);
+}
+
+.okay-section:last-child {
+  border-bottom: none;
+}
+
+.okay-hero {
+  background: var(--okay-purple);
+  color: #fff;
+  padding: 64px 0 72px;
+}
+
+.okay-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 13px;
+  color: var(--okay-gold-light);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.okay-hero h1 {
+  color: #fff;
+  font-size: clamp(48px, 10vw, 84px);
+  margin-bottom: 6px;
+}
+
+.okay-pron {
+  font-size: 18px;
+  opacity: 0.85;
+  margin-bottom: 28px;
+}
+
+.okay-pron em {
+  font-family: var(--app-font-serif), Georgia, serif;
+  font-style: italic;
+  margin-left: 10px;
+}
+
+.okay-def {
+  font-family: var(--app-font-serif), Georgia, serif;
+  font-size: clamp(20px, 3.2vw, 26px);
+  line-height: 1.45;
+  border-left: 3px solid var(--okay-gold-light);
+  padding-left: 20px;
+  margin: 0;
+}
+
+.okay-example {
+  margin-top: 24px;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.okay-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.okay-card {
+  background: var(--okay-offwhite);
+  border: 1px solid var(--okay-line);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.okay-card h3 {
+  font-size: 22px;
+}
+
+.okay-card.is-feature {
+  border: 2px solid var(--okay-purple);
+}
+
+.okay-card ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.okay-card li {
+  margin-bottom: 6px;
+}
+
+.okay-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.okay-stat {
+  background: var(--okay-offwhite);
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid var(--okay-line);
+}
+
+.okay-stat strong {
+  display: block;
+  font-family: var(--app-font-serif), Georgia, serif;
+  font-size: 34px;
+  color: var(--okay-purple);
+  line-height: 1.1;
+}
+
+.okay-stat span {
+  font-size: 14px;
+  color: var(--okay-muted);
+}
+
+.okay-note {
+  font-size: 13px;
+  color: var(--okay-muted);
+  margin-top: 14px;
+}
+
+.okay-quiz {
+  background: var(--okay-offwhite);
+  border: 1px solid var(--okay-line);
+  border-radius: 16px;
+  padding: 28px;
+  margin-top: 24px;
+}
+
+.okay-q {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--okay-line);
+}
+
+.okay-q:last-of-type {
+  border-bottom: none;
+}
+
+.okay-q p {
+  margin: 0 0 10px;
+  font-weight: 500;
+}
+
+.okay-opts {
+  display: flex;
+  gap: 10px;
+}
+
+.okay-opts button {
+  font: inherit;
+  font-size: 15px;
+  padding: 8px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1.5px solid var(--okay-purple);
+  background: transparent;
+  color: var(--okay-purple);
+}
+
+.okay-opts button.is-on {
+  background: var(--okay-purple);
+  color: #fff;
+}
+
+.okay-result {
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--okay-cream);
+  border-left: 4px solid var(--okay-gold);
+}
+
+.okay-result h3 {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.okay-btn {
+  display: inline-block;
+  font: inherit;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: var(--okay-gold-light);
+  color: var(--okay-purple);
+  text-decoration: none;
+}
+
+.okay-btn:hover {
+  filter: brightness(1.05);
+}
+
+.okay-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.okay-signup {
+  background: var(--okay-purple);
+  color: #fff;
+  border-radius: 18px;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.okay-signup h2 {
+  color: #fff;
+}
+
+.okay-signup-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 480px;
+  margin: 22px auto 0;
+}
+
+.okay-signup-fields input {
+  width: 100%;
+  font: inherit;
+  padding: 13px 18px;
+  border-radius: 999px;
+  border: none;
+  min-width: 0;
+}
+
+.okay-signup-error {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #fde8e2;
+}
+
+.okay-signup-success {
+  margin: 22px auto 0;
+  max-width: 480px;
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(239, 216, 138, 0.35);
+}
+
+.okay-signup-success p {
+  margin: 0;
+}
+
+.okay-kit-embed {
+  max-width: 700px;
+  margin: 28px auto 0;
+  text-align: left;
+}
+
+.okay-share {
+  margin-top: 18px;
+  font-size: 15px;
+}
+
+.okay-share button {
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  color: var(--okay-purple);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+@media (max-width: 640px) {
+  .okay-page {
+    font-size: 16px;
+  }
+
+  .okay-section {
+    padding: 48px 0;
+  }
+
+  .okay-hero {
+    padding: 48px 0 52px;
+  }
+
+  .okay-compare,
+  .okay-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .okay-signup {
+    padding: 32px 20px;
+  }
+}

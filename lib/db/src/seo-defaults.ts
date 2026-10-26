@@ -65,6 +65,12 @@ export const staticPageMetaDefaults: PageMetaDefault[] = [
       "Join the Long Money Circle, a free community hosted by La'Toya Ray, CPA, for honest conversations about financial healing and wellness.",
   },
   {
+    path: "/okayinaire",
+    title: "okayinaire — a new word from Long Money Concepts",
+    description:
+      "okayinaire (n.): a millionaire on paper who is comfortable, not rich. Investments cover the basics; you work by choice for lifestyle extras.",
+  },
+  {
     path: "/articles",
     title:
       "The Long Money Letter — Articles | Long Money Concepts",

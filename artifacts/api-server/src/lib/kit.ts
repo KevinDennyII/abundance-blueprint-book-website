@@ -1,6 +1,6 @@
 const KIT_API_BASE = "https://api.convertkit.com/v3";
 
-export type KitFormType = "chapter1" | "circle";
+export type KitFormType = "chapter1" | "circle" | "okayinaire";
 
 type KitErrorResponse = {
   error?: string;
@@ -11,7 +11,9 @@ function getFormId(form: KitFormType): string | undefined {
   if (form === "chapter1") {
     return process.env.KIT_CHAPTER1_FORM_ID;
   }
-
+  if (form === "okayinaire") {
+    return process.env.KIT_OKAYINAIRE_FORM_ID;
+  }
   return process.env.KIT_CIRCLE_FORM_ID;
 }
 

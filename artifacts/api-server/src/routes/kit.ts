@@ -3,7 +3,7 @@ import { subscribeToKitForm, type KitFormType } from "../lib/kit";
 
 const router: IRouter = Router();
 
-const validForms = new Set<KitFormType>(["chapter1", "circle"]);
+const validForms = new Set<KitFormType>(["chapter1", "circle", "okayinaire"]);
 
 router.post("/kit/subscribe", async (req, res) => {
   const email = typeof req.body?.email === "string" ? req.body.email.trim() : "";

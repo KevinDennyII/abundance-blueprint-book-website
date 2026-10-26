@@ -48,6 +48,16 @@ const defaults: Record<
     successTitle: "You're in.",
     successMessage: "Check your inbox for next steps from The Long Money Circle.",
   },
+  okayinaire: {
+    title: "Become an okayinaire",
+    description:
+      "Get the Long Money Concepts newsletter: practical steps for building wealth that buys back your time.",
+    buttonText: "Count me in!",
+    reassurance: "We respect your privacy. Unsubscribe at anytime.",
+    successTitle: "You're in.",
+    successMessage:
+      "Welcome to the okayinaires. Watch your inbox for your first letter.",
+  },
 };
 
 export function EmailSignup({

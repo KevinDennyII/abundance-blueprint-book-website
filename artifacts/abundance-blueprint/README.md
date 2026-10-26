@@ -16,6 +16,7 @@ Copy `.env.example` to `.env` for local development.
 | `KIT_API_KEY` | Runtime (API server) | Kit account API key (Settings → Advanced → API) |
 | `KIT_CHAPTER1_FORM_ID` | Runtime (API server) | `9557935` — Chapter 1 incentive form |
 | `KIT_CIRCLE_FORM_ID` | Runtime (API server) | `9564646` — Long Money Circle form |
+| `KIT_OKAYINAIRE_FORM_ID` | Runtime (API server) | `10086596` — Okayinaire / Long Money Letter form |
 | `DATABASE_URL` | Runtime (API server + db package) | Postgres connection string for blog posts/comments |
 | `SESSION_SECRET` | Runtime (API server) | Signs the admin session cookie (min 16 chars) |
 | `ADMIN_EMAIL` | Bootstrap / seed | Creates the first admin if none exists; also used by `pnpm --filter @workspace/db run seed` |
@@ -115,7 +116,7 @@ The website artifact builds with Vite and runs via `pnpm --filter @workspace/abu
 1. Push to GitHub (Replit syncs from the connected repo).
 2. **Replit Secrets** — `VITE_WEB3FORMS_ACCESS_KEY` (build time, website artifact) for `/contact`.
 3. **Replit Secrets** — `WEB3FORMS_ACCESS_KEY` (runtime, API Server artifact) for readiness assessment lead emails. Same Web3Forms access key value; if only `VITE_WEB3FORMS_ACCESS_KEY` is set workspace-wide, the API will use it as a fallback.
-4. **Replit Secrets** — `KIT_API_KEY`, `KIT_CHAPTER1_FORM_ID`, `KIT_CIRCLE_FORM_ID` (runtime, API Server artifact).
+4. **Replit Secrets** — `KIT_API_KEY`, `KIT_CHAPTER1_FORM_ID`, `KIT_CIRCLE_FORM_ID`, `KIT_OKAYINAIRE_FORM_ID` (runtime, API Server artifact).
 5. **Replit Database** provides `DATABASE_URL` automatically. **Secrets:** `SESSION_SECRET`, `ADMIN_PASSWORD`. **Configurations:** `ADMIN_EMAIL`. On API start the server creates missing tables, seeds page SEO defaults, and creates the first admin if the `admins` table is empty.
 6. Publish a new deployment in Replit (API Server + website).
 7. Test `/contact`, `/readiness-assessment`, Chapter 1 signup (home + footer), `/circle` signup, `/blog`, `/admin/login`, **Account** (change password), and the admin **Page SEO** screen.

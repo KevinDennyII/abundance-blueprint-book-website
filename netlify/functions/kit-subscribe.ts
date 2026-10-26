@@ -1,15 +1,17 @@
 import type { Handler, HandlerEvent } from "@netlify/functions";
 
-type KitFormType = "chapter1" | "circle";
+type KitFormType = "chapter1" | "circle" | "okayinaire";
 
 const KIT_API_BASE = "https://api.convertkit.com/v3";
-const validForms = new Set<KitFormType>(["chapter1", "circle"]);
+const validForms = new Set<KitFormType>(["chapter1", "circle", "okayinaire"]);
 
 function getFormId(form: KitFormType): string | undefined {
   if (form === "chapter1") {
     return process.env.KIT_CHAPTER1_FORM_ID;
   }
-
+  if (form === "okayinaire") {
+    return process.env.KIT_OKAYINAIRE_FORM_ID;
+  }
   return process.env.KIT_CIRCLE_FORM_ID;
 }
 

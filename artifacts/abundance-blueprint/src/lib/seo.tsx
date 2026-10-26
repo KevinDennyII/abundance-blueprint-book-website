@@ -63,6 +63,11 @@ export const STATIC_PAGE_META: Record<string, PublicPageSeo> = {
     description:
       "A free Facebook community for honest conversations about money, financial healing, and building Financial Harmony — led by La'Toya Ray, CPA.",
   },
+  "/okayinaire": {
+    title: "okayinaire — a new word from Long Money Concepts",
+    description:
+      "okayinaire (n.): a millionaire on paper who is comfortable, not rich. Investments cover the basics; you work by choice for lifestyle extras.",
+  },
   "/articles": {
     title:
       "The Long Money Letter — Articles | Long Money Concepts",
