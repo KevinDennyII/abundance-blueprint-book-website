@@ -48,6 +48,10 @@ export const KIT_FINANCIAL_FOUNDATIONS_URL =
 export const KIT_OKAYINAIRE_EMBED_URL =
   "https://long-money-concepts-llc.kit.com/ae4843bb11/index.js";
 
+/** Official Urban Dictionary entry for okayinaire. */
+export const OKAYINAIRE_URBAN_DICTIONARY_URL =
+  "https://www.urbandictionary.com/define.php?term=okayinaire&defid=18752636";
+
 // TODO(Kit): consider converting free crisis PDFs (Drive above) into Kit.com
 // free products so downloads capture email + tags; keep /library as the hub.
 // TODO(Commerce): checkout platforms differ (Kit, Lulu Direct, Coach Accountable,

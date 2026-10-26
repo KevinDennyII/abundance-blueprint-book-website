@@ -2,7 +2,10 @@ import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageMeta } from "@/lib/seo";
-import { KIT_OKAYINAIRE_EMBED_URL } from "@/lib/social";
+import {
+  KIT_OKAYINAIRE_EMBED_URL,
+  OKAYINAIRE_URBAN_DICTIONARY_URL,
+} from "@/lib/social";
 import { submitKitForm } from "@/lib/kit-form";
 import "./Okayinaire.css";
 
@@ -205,6 +208,16 @@ export default function Okayinaire() {
                 &ldquo;People hear &lsquo;millionaire&rsquo; and think yachts.
                 We&rsquo;re okayinaires — the bills are handled, and we bought
                 back our time.&rdquo;
+              </p>
+              <p className="okay-ud">
+                Also listed in{" "}
+                <a
+                  href={OKAYINAIRE_URBAN_DICTIONARY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Urban Dictionary
+                </a>
               </p>
             </div>
           </header>

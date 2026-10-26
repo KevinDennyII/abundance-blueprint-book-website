@@ -91,6 +91,23 @@
   opacity: 0.9;
 }
 
+.okay-ud {
+  margin-top: 28px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.okay-ud a {
+  color: var(--okay-gold-light);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.okay-ud a:hover {
+  opacity: 1;
+}
+
 .okay-compare {
   display: grid;
   grid-template-columns: 1fr 1fr;
