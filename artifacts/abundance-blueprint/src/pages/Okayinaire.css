@@ -28,6 +28,15 @@
   color: var(--okay-purple);
 }
 
+/* Tailwind preflight zeros <p> margins — restore spacing between section paragraphs. */
+.okay-section .okay-wrap > p {
+  margin: 0 0 1.15em;
+}
+
+.okay-section .okay-wrap > p:last-child {
+  margin-bottom: 0;
+}
+
 .okay-wrap {
   max-width: 760px;
   margin: 0 auto;
