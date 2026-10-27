@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
+import { Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageMeta } from "@/lib/seo";
@@ -226,24 +227,32 @@ export default function Okayinaire() {
             <div className="okay-wrap">
               <h2>Why we made up a word</h2>
               <p>
-                My husband, Damien, and I are millionaires on paper. But every
-                time that word came up, it didn&rsquo;t fit. People hear
-                &ldquo;millionaire&rdquo; and picture private jets and never
-                worrying about money again. That isn&rsquo;t our life, and it
-                isn&rsquo;t the life $1 million buys anymore.
+                People hear &ldquo;millionaire&rdquo; and picture private jets
+                and never worrying about money again. That isn&rsquo;t the life
+                $1 million buys anymore.
               </p>
               <p>
                 In the 1990s, a million dollars made you rich. Today, it makes
-                you <em>okay</em>. It covers a modest lifestyle. It means we no
-                longer have to work 40 hours a week, because our investments
-                handle our basic living expenses. We still work, but now we work
-                for our lifestyle, not our survival.
+                you <em>okay</em>. It covers a modest lifestyle. It means your
+                investments handle your basic living expenses, so you no longer
+                have to work 40 hours a week. You still work, but you work for
+                your lifestyle, not your survival.
               </p>
               <p>
                 That&rsquo;s real freedom. It just isn&rsquo;t &ldquo;rich.&rdquo;
-                So we gave it a name: <strong>okayinaire</strong>.
+                Damien and I needed a word for it, so we made one up:{" "}
+                <strong>okayinaire</strong>.
+              </p>
+              <p>
+                Why we needed that word is a longer story. It&rsquo;s in the
+                book.
               </p>
               <p>— LaToya Ray, founder of Long Money Concepts</p>
+              <p>
+                <Link href="/book" className="okay-book-link">
+                  Read Abundance Blueprint →
+                </Link>
+              </p>
             </div>
           </section>
 

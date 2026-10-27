@@ -37,6 +37,17 @@
   margin-bottom: 0;
 }
 
+.okay-book-link {
+  color: var(--okay-purple);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.okay-book-link:hover {
+  color: var(--okay-gold);
+}
+
 .okay-wrap {
   max-width: 760px;
   margin: 0 auto;
