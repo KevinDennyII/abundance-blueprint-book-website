@@ -72,18 +72,20 @@ function OkayinaireSignup() {
 
   return (
     <div className="okay-signup">
-      <h2>Become an okayinaire</h2>
+      <h2 className="okay-signup-title">
+        Find your <span className="okay-signup-accent">okayinaire</span> number
+      </h2>
       <p style={{ margin: "0 auto", maxWidth: 520 }}>
-        Get the Long Money Concepts newsletter: practical steps for building
-        wealth that buys back your time.
+        Sign up for The Long Money Letter, and we&rsquo;ll email you a free
+        worksheet to help you find your okayinaire number.
       </p>
 
       {submitted ? (
         <div className="okay-signup-success">
           <p>
-            You’re in. Welcome to the okayinaires. Watch your inbox for your
-            first letter. If you don’t see it, check your Promotions folder and
-            drag it to your main inbox.
+            You’re in. Watch your inbox for your worksheet and your first
+            letter. If you don’t see it, check your Promotions folder and drag
+            it to your main inbox.
           </p>
         </div>
       ) : (
@@ -109,7 +111,7 @@ function OkayinaireSignup() {
             autoComplete="email"
           />
           <button className="okay-btn" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Submitting…" : "Count me in!"}
+            {isSubmitting ? "Submitting…" : "Send my worksheet"}
           </button>
           {error ? (
             <p className="okay-signup-error" role="alert">
