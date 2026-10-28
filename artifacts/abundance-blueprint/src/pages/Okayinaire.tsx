@@ -1,12 +1,9 @@
-import { useEffect, useRef, useState, type SyntheticEvent } from "react";
+import { useState, type SyntheticEvent } from "react";
 import { Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageMeta } from "@/lib/seo";
-import {
-  KIT_OKAYINAIRE_EMBED_URL,
-  OKAYINAIRE_URBAN_DICTIONARY_URL,
-} from "@/lib/social";
+import { OKAYINAIRE_URBAN_DICTIONARY_URL } from "@/lib/social";
 import { submitKitForm } from "@/lib/kit-form";
 import "./Okayinaire.css";
 
@@ -41,8 +38,9 @@ function scoreQuiz(answers: Record<number, number>): QuizResult {
 }
 
 /**
- * Kit form 10086596 (UID ae4843bb11). Prefer the server subscribe path so the
- * page keeps its own signup chrome; fall back to the Kit embed script if needed.
+ * Kit form 10086596 — subscribed via /api/kit/subscribe.
+ * Form ID defaults server-side when KIT_OKAYINAIRE_FORM_ID is unset, so this
+ * no longer falls back to a second Kit embed that re-asks for name/email.
  */
 function OkayinaireSignup() {
   const [firstName, setFirstName] = useState("");
@@ -50,25 +48,6 @@ function OkayinaireSignup() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [useEmbed, setUseEmbed] = useState(false);
-  const embedRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!useEmbed || !embedRef.current) return;
-    const container = embedRef.current;
-    if (container.querySelector("script")) return;
-
-    const script = document.createElement("script");
-    script.async = true;
-    script.setAttribute("data-uid", "ae4843bb11");
-    script.src = KIT_OKAYINAIRE_EMBED_URL;
-    container.appendChild(script);
-
-    return () => {
-      script.remove();
-      container.replaceChildren();
-    };
-  }, [useEmbed]);
 
   const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -88,12 +67,6 @@ function OkayinaireSignup() {
       return;
     }
 
-    // If the new form ID isn't in secrets yet, drop to the Kit embed.
-    if (/not configured/i.test(result.error)) {
-      setUseEmbed(true);
-      return;
-    }
-
     setError(result.error);
   };
 
@@ -105,9 +78,7 @@ function OkayinaireSignup() {
         wealth that buys back your time.
       </p>
 
-      {useEmbed ? (
-        <div className="okay-kit-embed" ref={embedRef} />
-      ) : submitted ? (
+      {submitted ? (
         <div className="okay-signup-success">
           <p>
             You’re in. Welcome to the okayinaires. Watch your inbox for your

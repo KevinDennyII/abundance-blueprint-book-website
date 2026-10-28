@@ -10,7 +10,8 @@ function getFormId(form: KitFormType): string | undefined {
     return process.env.KIT_CHAPTER1_FORM_ID;
   }
   if (form === "okayinaire") {
-    return process.env.KIT_OKAYINAIRE_FORM_ID;
+    // Form ID is public; default so signup works if the secret was never added.
+    return process.env.KIT_OKAYINAIRE_FORM_ID?.trim() || "10086596";
   }
   return process.env.KIT_CIRCLE_FORM_ID;
 }
