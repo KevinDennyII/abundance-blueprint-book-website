@@ -43,7 +43,14 @@ const previousDefaultsByPath: Record<
     {
       title: "The Long Money Library — Guides & Resources | Abundance Blueprint",
       description:
-        "Free crisis resources, the Financial Foundations guide (digital and print), workshops, and merch — tools that map back to the HEALS™ framework.",
+        "Free crisis resources, the Weekly Pulse, guides, workshops, and merch — tools that map back to the HEALS™ framework.",
+    },
+  ],
+  "/crisis": [
+    {
+      title: "Crisis Resources — Free Downloads | Abundance Blueprint",
+      description:
+        "Free crisis stabilization resources — download the Stabilization Roadmap and Resource Guide with no signup required.",
     },
   ],
   "/work-with-me": [

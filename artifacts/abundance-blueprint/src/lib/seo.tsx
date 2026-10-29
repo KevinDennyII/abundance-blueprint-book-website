@@ -36,7 +36,12 @@ export const STATIC_PAGE_META: Record<string, PublicPageSeo> = {
   "/library": {
     title: "The Long Money Library — Guides & Resources | Long Money Concepts",
     description:
-      "Free crisis resources, the Financial Foundations guide (digital and print), workshops, and merch from Long Money Concepts — tools that map back to the HEALS™ framework.",
+      "Free crisis resources, the Weekly Pulse, guides, workshops, and merch from Long Money Concepts — tools that map back to the HEALS™ framework.",
+  },
+  "/crisis": {
+    title: "Crisis Resources — Free Downloads | Long Money Concepts",
+    description:
+      "Free crisis stabilization resources from Long Money Concepts — download the Stabilization Roadmap and Resource Guide with no signup required.",
   },
   "/work-with-me": {
     title: "Work With Me — HEALS™ Services | Long Money Concepts",

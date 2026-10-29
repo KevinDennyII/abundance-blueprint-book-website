@@ -116,3 +116,9 @@
     @apply font-serif;
   }
 }
+
+/* Compact Shopify Buy Button slots inside Library guide cards */
+.shopify-buy-slot iframe {
+  max-width: 100% !important;
+  min-height: 44px !important;
+}

@@ -32,7 +32,13 @@ export const staticPageMetaDefaults: PageMetaDefault[] = [
     path: "/library",
     title: "The Long Money Library — Guides & Resources | Long Money Concepts",
     description:
-      "Free crisis resources, the Financial Foundations guide (digital and print), workshops, and merch from Long Money Concepts — tools that map back to the HEALS™ framework.",
+      "Free crisis resources, the Weekly Pulse, guides, workshops, and merch from Long Money Concepts — tools that map back to the HEALS™ framework.",
+  },
+  {
+    path: "/crisis",
+    title: "Crisis Resources — Free Downloads | Long Money Concepts",
+    description:
+      "Free crisis stabilization resources from Long Money Concepts — download the Stabilization Roadmap and Resource Guide with no signup required.",
   },
   {
     path: "/work-with-me",

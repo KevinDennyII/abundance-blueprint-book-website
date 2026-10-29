@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Book from "@/pages/Book";
 import Library from "@/pages/Library";
+import Crisis from "@/pages/Crisis";
 import WorkWithMe from "@/pages/WorkWithMe";
 import Contact from "@/pages/Contact";
 import Circle from "@/pages/Circle";
@@ -41,6 +42,7 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/book" component={Book} />
       <Route path="/library" component={Library} />
+      <Route path="/crisis" component={Crisis} />
       <Route path="/shop">
         <Redirect to="/library" />
       </Route>

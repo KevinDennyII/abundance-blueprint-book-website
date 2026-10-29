@@ -21,6 +21,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.longmoneyconcepts.com/crisis</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.longmoneyconcepts.com/work-with-me</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

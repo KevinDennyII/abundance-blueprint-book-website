@@ -1,44 +1,20 @@
-import { useEffect } from "react";
+import { type ReactNode } from "react";
+import { Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import { ShopifyBuyCollection } from "@/components/ShopifyBuyCollection";
+import { ShopifyBuyProduct } from "@/components/ShopifyBuyProduct";
 import { PageMeta } from "@/lib/seo";
+import { SHOPIFY_GUIDES } from "@/lib/shopify-buy-button";
 import {
-  CRISIS_RESOURCE_GUIDE_URL,
-  CRISIS_STABILIZATION_ROADMAP_URL,
-  KIT_COMMERCE_SCRIPT_URL,
-  KIT_FINANCIAL_FOUNDATIONS_URL,
+  CRISIS_PAGE_PATH,
+  KIT_WEEKLY_PULSE_BUSINESS_FORM_URL,
+  KIT_WEEKLY_PULSE_PERSONAL_FORM_URL,
+  WORKSHOP_COMING_LABEL,
+  WORKSHOP_WAITLIST_URL,
 } from "@/lib/social";
 import { motion } from "framer-motion";
-
-/**
- * Product ecosystem (incomplete — capture for future implementation):
- *
- * - E-guide / Financial Foundations Workbook
- *   Digital: Kit.com commerce (`KIT_COMMERCE_SCRIPT_URL` + `KIT_FINANCIAL_FOUNDATIONS_URL`)
- *   Physical: Lulu Direct (`LULU_PHYSICAL_URL`)
- * - Workshops / educational content: Coach Accountable (checkout TBD)
- * - Merchandise: Printful (`PRINTFUL_SHOP_URL`) — last catalog card
- * - Free crisis guides: currently Google Drive links in `@/lib/social`
- *   TODO: evaluate converting to free Kit.com products for delivery + list growth
- *
- * Checkout platforms differ (Kit, Lulu, Coach Accountable, Printful, Drive).
- * TODO: centralize or keep `/library` as a unified landing that routes each CTA
- * to its respective checkout rather than embedding multiple storefronts.
- *
- * Design reference: Long Money Library mockup (guide + workshop side-by-side;
- * merch last).
- */
-
-// Lulu Direct — physical Financial Foundations print checkout
-const LULU_PHYSICAL_URL =
-  "https://svc.lulu.com/?items=49658522-c522-49f0-a220-f3119faac926";
-
-// TODO(Coach Accountable): workshop enrollment / checkout URL + price
-const WORKSHOP_URL: string | null = null;
-
-// Printful merchandise storefront — last catalog card
-const PRINTFUL_SHOP_URL = "https://longmoneyconcepts.printful.me/";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -50,24 +26,98 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
 };
 
-export default function Library() {
-  useEffect(() => {
-    const existing = document.querySelector(
-      `script[src="${KIT_COMMERCE_SCRIPT_URL}"]`,
+function SectionLabel({ children }: { children: ReactNode }) {
+  return (
+    <p className="font-sans text-xs tracking-[0.2em] uppercase text-secondary mb-5">
+      {children}
+    </p>
+  );
+}
+
+function StatusBadge({
+  children,
+  tone = "solid",
+}: {
+  children: ReactNode;
+  tone?: "solid" | "outline" | "new";
+}) {
+  if (tone === "outline") {
+    return (
+      <span className="font-sans text-[11px] tracking-wider uppercase bg-card text-primary px-3 py-1 rounded-full border border-border shrink-0">
+        {children}
+      </span>
     );
-    if (existing) return;
+  }
+  if (tone === "new") {
+    return (
+      <span className="font-sans text-[11px] tracking-wider uppercase bg-secondary text-secondary-foreground px-3 py-1 rounded-full shrink-0">
+        {children}
+      </span>
+    );
+  }
+  return (
+    <span className="font-sans text-[11px] tracking-wider uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full shrink-0">
+      {children}
+    </span>
+  );
+}
 
-    const script = document.createElement("script");
-    script.src = KIT_COMMERCE_SCRIPT_URL;
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
+type GuideConfig = (typeof SHOPIFY_GUIDES)[keyof typeof SHOPIFY_GUIDES];
 
-    return () => {
-      script.remove();
-    };
-  }, []);
+function GuideCard({ guide }: { guide: GuideConfig }) {
+  return (
+    <motion.article
+      variants={fadeInUp}
+      className="flex flex-col rounded-xl border border-secondary/40 bg-white px-7 py-8 md:px-8 md:py-9 text-left shadow-sm"
+    >
+      <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+        <p className="font-sans text-xs tracking-[0.2em] uppercase text-secondary">
+          {guide.eyebrow}
+        </p>
+        <StatusBadge tone={guide.badge === "New" ? "new" : "solid"}>
+          {guide.badge}
+        </StatusBadge>
+      </div>
+      <h2 className="font-serif text-2xl text-primary mb-2">{guide.title}</h2>
+      <p className="font-sans text-sm text-muted mb-3">{guide.audience}</p>
+      <p className="text-muted leading-relaxed flex-1 mb-6">{guide.body}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-border">
+        <div className="rounded-lg bg-background px-4 py-4 flex flex-col gap-2">
+          <p className="font-sans text-[10px] tracking-wider uppercase text-muted">
+            Digital
+          </p>
+          <p className="font-serif text-lg text-primary">
+            {guide.digital.priceLabel}
+          </p>
+          <ShopifyBuyProduct
+            className="mt-auto shopify-buy-slot"
+            productId={guide.productId}
+            variantId={guide.digital.variantId}
+            nodeId={guide.digital.nodeId}
+            buttonText={guide.digital.buttonText}
+            tone="solid"
+          />
+        </div>
+        <div className="rounded-lg bg-background px-4 py-4 flex flex-col gap-2">
+          <p className="font-sans text-[10px] tracking-wider uppercase text-muted">
+            Print
+          </p>
+          <p className="text-sm text-muted">{guide.print.priceLabel}</p>
+          <ShopifyBuyProduct
+            className="mt-auto shopify-buy-slot"
+            productId={guide.productId}
+            variantId={guide.print.variantId}
+            nodeId={guide.print.nodeId}
+            buttonText={guide.print.buttonText}
+            tone="outline"
+          />
+        </div>
+      </div>
+    </motion.article>
+  );
+}
 
+export default function Library() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <PageMeta path="/library" />
@@ -99,213 +149,215 @@ export default function Library() {
                 className="text-lg md:text-xl text-muted leading-relaxed max-w-2xl mx-auto"
               >
                 Guides, tools, and programs that map back to the HEALS™
-                framework — and the work of building real financial harmony.
+                framework, and the work of building real financial harmony.
               </motion.p>
             </motion.div>
 
-            {/* Free crisis resources — Drive today; Kit product TBD */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-              className="mb-12 md:mb-14 rounded-xl border border-border bg-card px-6 py-7 md:px-8 md:py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-            >
-              <div className="text-left max-w-xl">
-                <div className="flex flex-wrap items-center gap-3 mb-2">
-                  <h2 className="font-serif text-2xl text-primary">
-                    Crisis resources
-                  </h2>
-                  <span className="font-sans text-[11px] tracking-wider uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full">
-                    Available now
-                  </span>
-                </div>
-                <p className="text-muted leading-relaxed">
-                  If you&apos;re facing a financial emergency right now, start
-                  here — practical, judgment-free guidance for the moment
-                  you&apos;re in.
-                </p>
-                {/* TODO: convert Drive PDFs → free Kit.com products for delivery + tagging */}
-                <p className="text-sm text-muted/80 italic mt-2">
-                  A printed copy will be available soon, at printing cost only.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-                <Button asChild className="bg-primary text-primary-foreground">
-                  <a
-                    href={CRISIS_STABILIZATION_ROADMAP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Stabilization Roadmap
-                  </a>
-                </Button>
-                <Button asChild variant="outline">
-                  <a
-                    href={CRISIS_RESOURCE_GUIDE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Resource Guide
-                  </a>
-                </Button>
-              </div>
-            </motion.div>
-
+            {/* 1) Free (Start Here) */}
+            <SectionLabel>Free · Start here</SectionLabel>
             <motion.p
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="font-sans text-xs tracking-[0.2em] uppercase text-secondary mb-5"
+              className="text-muted leading-relaxed mb-6 max-w-2xl"
             >
-              Guides &amp; programs
+              No cost, no catch. Start with whichever fits where you are this
+              week.
             </motion.p>
-
-            {/* Guide + workshop side by side; merch is the last card below */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={staggerContainer}
-              className="grid md:grid-cols-2 gap-6 md:gap-7 mb-6 md:mb-7"
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7 mb-12 md:mb-14"
             >
-              {/* E-guide: Kit digital + Lulu physical */}
               <motion.article
                 variants={fadeInUp}
-                className="flex flex-col rounded-xl border border-secondary/40 bg-white px-7 py-8 md:px-8 md:py-9 text-left"
+                className="flex flex-col rounded-xl border border-border bg-card px-7 py-8 md:px-8 md:py-9 text-left"
               >
                 <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-                  <p className="font-sans text-xs tracking-[0.2em] uppercase text-secondary">
-                    Guide + workbook
-                  </p>
-                  <span className="font-sans text-[11px] tracking-wider uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full">
-                    Available now
-                  </span>
+                  <h2 className="font-serif text-2xl text-primary">
+                    Crisis resources
+                  </h2>
+                  <StatusBadge>Free</StatusBadge>
                 </div>
-                <h2 className="font-serif text-2xl text-primary mb-3">
-                  Financial Foundations
-                </h2>
                 <p className="text-muted leading-relaxed flex-1 mb-6">
-                  A guide and workbook — five foundations, plain-language
-                  teaching, and real journal space to make it yours.
+                  If you&apos;re facing a financial emergency right now, start
+                  here. Practical, judgment-free guidance for the moment
+                  you&apos;re in.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-border">
-                  <div className="rounded-lg bg-background px-4 py-4 flex flex-col gap-2">
-                    <p className="font-sans text-[10px] tracking-wider uppercase text-muted">
-                      Digital
-                    </p>
-                    <p className="font-serif text-lg text-primary">$27</p>
-                    {/* Kit.com commerce checkout */}
-                    <Button
-                      asChild
-                      size="sm"
-                      className="bg-primary text-primary-foreground mt-auto"
-                      data-testid="link-workbook"
-                    >
-                      <a href={KIT_FINANCIAL_FOUNDATIONS_URL}>Buy Now</a>
-                    </Button>
-                  </div>
-                  <div className="rounded-lg bg-background px-4 py-4 flex flex-col gap-2">
-                    <p className="font-sans text-[10px] tracking-wider uppercase text-muted">
-                      Physical
-                    </p>
-                    <p className="text-sm text-muted">Print on demand</p>
-                    <Button
-                      asChild
-                      size="sm"
-                      variant="outline"
-                      className="mt-auto"
-                      data-testid="link-workbook-print"
-                    >
-                      <a
-                        href={LULU_PHYSICAL_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Buy print
-                      </a>
-                    </Button>
-                  </div>
+                <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border mt-auto">
+                  <Button
+                    asChild
+                    className="bg-primary text-primary-foreground"
+                  >
+                    <Link href={CRISIS_PAGE_PATH}>Stabilization Roadmap</Link>
+                  </Button>
+                  <Button asChild variant="outline">
+                    <Link href={CRISIS_PAGE_PATH}>Resource Guide</Link>
+                  </Button>
                 </div>
-                <p className="text-xs text-muted italic text-right mt-3">
-                  Physical copy via Lulu Direct
+                <p className="text-sm text-muted/80 italic mt-4">
+                  A printed copy will be available soon, at printing cost only.
                 </p>
               </motion.article>
 
-              {/* Workshop: Coach Accountable */}
               <motion.article
                 variants={fadeInUp}
-                className="flex flex-col rounded-xl border border-border bg-white px-7 py-8 md:px-8 md:py-9 text-left"
+                className="flex flex-col rounded-xl border border-secondary/40 bg-white px-8 py-9 md:px-10 md:py-10 text-left"
               >
-                <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-                  <p className="font-sans text-xs tracking-[0.2em] uppercase text-secondary">
-                    Self-paced
-                  </p>
-                  <span className="font-sans text-[11px] tracking-wider uppercase bg-card text-primary px-3 py-1 rounded-full border border-border">
-                    Coming soon
-                  </span>
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                  <h2 className="font-serif text-2xl md:text-[1.75rem] text-primary">
+                    The Weekly Pulse
+                  </h2>
+                  <StatusBadge>Free</StatusBadge>
                 </div>
-                <h2 className="font-serif text-2xl text-primary mb-3">
-                  Financial Foundations Workshop
-                </h2>
-                <p className="text-muted leading-relaxed flex-1 mb-6">
-                  Build real confidence with structure and clear guidance —
-                  grounded in the same five foundations, on your own schedule.
+                <p className="text-muted leading-relaxed flex-1 mb-7">
+                  Money is alive. It comes in, it moves, it leaves. One short
+                  weekly check-in helps you notice where it&apos;s going before
+                  the month gets away from you.
                 </p>
-                <div className="flex items-center justify-between gap-4 pt-4 border-t border-border mt-auto">
-                  <p className="text-muted">Price TBD</p>
-                  {/* TODO(Coach Accountable): workshop checkout / enrollment */}
-                  <Button variant="outline" disabled={!WORKSHOP_URL}>
-                    {WORKSHOP_URL ? "Enroll" : "Notify Me"}
-                  </Button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
+                  {KIT_WEEKLY_PULSE_BUSINESS_FORM_URL ? (
+                    <Button
+                      asChild
+                      className="bg-primary text-primary-foreground hover:bg-primary/90"
+                    >
+                      <a
+                        href={KIT_WEEKLY_PULSE_BUSINESS_FORM_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Business Edition
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90"
+                      aria-disabled="true"
+                      title="Kit form link pending"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      Business Edition
+                    </Button>
+                  )}
+                  {KIT_WEEKLY_PULSE_PERSONAL_FORM_URL ? (
+                    <Button asChild variant="outline">
+                      <a
+                        href={KIT_WEEKLY_PULSE_PERSONAL_FORM_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Personal Edition
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      aria-disabled="true"
+                      title="Kit form link pending"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      Personal Edition
+                    </Button>
+                  )}
                 </div>
-                <p className="text-xs text-muted italic text-right mt-3">
-                  Hosted on Coach Accountable — launching next month
+                <p className="text-sm text-muted italic mt-5">
+                  Business Edition is built for irregular income: owners,
+                  owner-operators, and 1099 contractors.
                 </p>
               </motion.article>
             </motion.div>
 
-            {/* Merchandise last — Printful */}
+            {/* 2) Guides — Claude card layout + Shopify variant Buy Buttons */}
+            <SectionLabel>Guides</SectionLabel>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7 mb-12 md:mb-14"
+            >
+              <GuideCard guide={SHOPIFY_GUIDES.financialFoundations} />
+              <GuideCard guide={SHOPIFY_GUIDES.businessNotAtm} />
+            </motion.div>
+
+            {/* 3) Programs */}
+            <SectionLabel>Programs</SectionLabel>
             <motion.article
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="flex flex-col rounded-xl border border-secondary/40 bg-white px-7 py-8 md:px-8 md:py-9 text-left"
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 rounded-xl border border-border bg-white px-7 py-8 md:px-8 md:py-9 text-left mb-12 md:mb-14 shadow-sm"
             >
-              <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-                <p className="font-sans text-xs tracking-[0.2em] uppercase text-secondary">
-                  Merch
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-wrap items-start gap-3 mb-3">
+                  <p className="font-sans text-xs tracking-[0.2em] uppercase text-secondary">
+                    Self-paced
+                  </p>
+                  <StatusBadge tone="outline">{WORKSHOP_COMING_LABEL}</StatusBadge>
+                </div>
+                <h2 className="font-serif text-2xl text-primary mb-3">
+                  Financial Foundations Workshop
+                </h2>
+                <p className="text-muted leading-relaxed max-w-xl">
+                  Build real confidence with structure and clear guidance,
+                  grounded in the same five foundations, on your own schedule.
                 </p>
-                <span className="font-sans text-[11px] tracking-wider uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full">
-                  Available now
-                </span>
               </div>
-              <h2 className="font-serif text-2xl text-primary mb-3">
-                Long Money Shop
-              </h2>
-              <p className="text-muted leading-relaxed mb-6 max-w-2xl">
-                Everyday pieces carrying the words already part of how you
-                think about money.
-              </p>
-              <div className="flex items-center justify-between gap-4 pt-4 border-t border-border">
-                <p className="text-muted">Various</p>
-                <Button asChild variant="outline">
-                  <a
-                    href={PRINTFUL_SHOP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-testid="link-printful-shop"
-                  >
-                    Shop merch
-                  </a>
-                </Button>
+              <div className="flex flex-col items-stretch sm:items-end gap-3 shrink-0">
+                <p className="text-muted text-sm sm:text-right">
+                  Price announced at launch
+                </p>
+                {WORKSHOP_WAITLIST_URL ? (
+                  <Button asChild variant="outline">
+                    <a
+                      href={WORKSHOP_WAITLIST_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Join the Waitlist
+                    </a>
+                  </Button>
+                ) : (
+                  <Button variant="outline" disabled>
+                    Join the Waitlist
+                  </Button>
+                )}
               </div>
-              <p className="text-xs text-muted italic text-right mt-3">
-                Fulfilled by Printful
-              </p>
             </motion.article>
+
+            {/* 4) Merch — Claude card chrome; Shopify collection for products */}
+            <SectionLabel>Merch</SectionLabel>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="rounded-xl border border-secondary/40 bg-white px-7 py-8 md:px-8 md:py-9 shadow-sm"
+            >
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+                <div className="max-w-2xl">
+                  <h2 className="font-serif text-2xl text-primary mb-2">
+                    Long Money Shop
+                  </h2>
+                  <p className="text-muted leading-relaxed">
+                    Everyday pieces carrying the words already part of how you
+                    think about money.
+                  </p>
+                </div>
+              </div>
+              <div className="pt-4 border-t border-border">
+                <ShopifyBuyCollection
+                  className="shopify-merch-collection min-h-[8rem]"
+                  data-testid="shopify-merch-collection"
+                />
+              </div>
+            </motion.div>
 
             <motion.p
               initial="hidden"
