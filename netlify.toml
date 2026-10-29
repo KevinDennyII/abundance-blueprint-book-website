@@ -9,6 +9,9 @@
   BASE_PATH = "/"
   PORT = "5173"
 
+# Site hosting is Replit (vite preview). Security headers live in
+# artifacts/abundance-blueprint/vite.config.ts — not here.
+
 [[redirects]]
   from = "/api/kit/subscribe"
   to = "/.netlify/functions/kit-subscribe"

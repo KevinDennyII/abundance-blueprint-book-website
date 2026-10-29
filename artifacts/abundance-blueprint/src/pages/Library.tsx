@@ -1,12 +1,14 @@
 import { type ReactNode } from "react";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { ShopifyBuyCollection } from "@/components/ShopifyBuyCollection";
 import { ShopifyBuyProduct } from "@/components/ShopifyBuyProduct";
+import { usePageMotion } from "@/lib/page-motion";
 import { PageMeta } from "@/lib/seo";
-import { SHOPIFY_GUIDES } from "@/lib/shopify-buy-button";
+import { SHOPIFY_GUIDES, type GuideBadgeTone } from "@/lib/shopify-buy-button";
 import {
   CRISIS_PAGE_PATH,
   KIT_WEEKLY_PULSE_BUSINESS_FORM_URL,
@@ -14,17 +16,9 @@ import {
   WORKSHOP_COMING_LABEL,
   WORKSHOP_WAITLIST_URL,
 } from "@/lib/social";
-import { motion } from "framer-motion";
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
-};
+const CARD =
+  "flex flex-col rounded-xl border bg-white px-7 py-8 md:px-8 md:py-9 text-left shadow-sm";
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
@@ -34,90 +28,110 @@ function SectionLabel({ children }: { children: ReactNode }) {
   );
 }
 
+type BadgeTone = GuideBadgeTone | "outline";
+
+const BADGE_TONES: Record<BadgeTone, string> = {
+  solid:
+    "font-sans text-[11px] tracking-wider uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full shrink-0",
+  outline:
+    "font-sans text-[11px] tracking-wider uppercase bg-card text-primary px-3 py-1 rounded-full border border-border shrink-0",
+  new: "font-sans text-[11px] tracking-wider uppercase bg-secondary text-secondary-foreground px-3 py-1 rounded-full shrink-0",
+};
+
 function StatusBadge({
   children,
   tone = "solid",
 }: {
   children: ReactNode;
-  tone?: "solid" | "outline" | "new";
+  tone?: BadgeTone;
 }) {
-  if (tone === "outline") {
-    return (
-      <span className="font-sans text-[11px] tracking-wider uppercase bg-card text-primary px-3 py-1 rounded-full border border-border shrink-0">
-        {children}
-      </span>
-    );
-  }
-  if (tone === "new") {
-    return (
-      <span className="font-sans text-[11px] tracking-wider uppercase bg-secondary text-secondary-foreground px-3 py-1 rounded-full shrink-0">
-        {children}
-      </span>
-    );
-  }
-  return (
-    <span className="font-sans text-[11px] tracking-wider uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full shrink-0">
-      {children}
-    </span>
-  );
+  return <span className={BADGE_TONES[tone]}>{children}</span>;
 }
 
 type GuideConfig = (typeof SHOPIFY_GUIDES)[keyof typeof SHOPIFY_GUIDES];
 
-function GuideCard({ guide }: { guide: GuideConfig }) {
+type GuideOffer = {
+  variantId: string;
+  priceLabel: string;
+  nodeId: string;
+  buttonText: string;
+};
+
+function GuideOfferSlot({
+  label,
+  offer,
+  productId,
+  tone,
+}: {
+  label: string;
+  offer: GuideOffer;
+  productId: string;
+  tone: "solid" | "outline";
+}) {
+  return (
+    <div className="rounded-lg bg-background px-4 py-4 flex flex-col gap-2">
+      <p className="font-sans text-[10px] tracking-wider uppercase text-muted">
+        {label}
+      </p>
+      {tone === "solid" ? (
+        <p className="font-serif text-lg text-primary">{offer.priceLabel}</p>
+      ) : (
+        <p className="text-sm text-muted">{offer.priceLabel}</p>
+      )}
+      <ShopifyBuyProduct
+        className="mt-auto shopify-buy-slot"
+        productId={productId}
+        variantId={offer.variantId}
+        nodeId={offer.nodeId}
+        buttonText={offer.buttonText}
+        tone={tone}
+      />
+    </div>
+  );
+}
+
+function GuideCard({
+  guide,
+  fadeInUp,
+}: {
+  guide: GuideConfig;
+  fadeInUp: ReturnType<typeof usePageMotion>["fadeInUp"];
+}) {
   return (
     <motion.article
       variants={fadeInUp}
-      className="flex flex-col rounded-xl border border-secondary/40 bg-white px-7 py-8 md:px-8 md:py-9 text-left shadow-sm"
+      className={`${CARD} border-secondary/40`}
     >
       <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
         <p className="font-sans text-xs tracking-[0.2em] uppercase text-secondary">
           {guide.eyebrow}
         </p>
-        <StatusBadge tone={guide.badge === "New" ? "new" : "solid"}>
-          {guide.badge}
-        </StatusBadge>
+        <StatusBadge tone={guide.badgeTone}>{guide.badge}</StatusBadge>
       </div>
       <h2 className="font-serif text-2xl text-primary mb-2">{guide.title}</h2>
       <p className="font-sans text-sm text-muted mb-3">{guide.audience}</p>
       <p className="text-muted leading-relaxed flex-1 mb-6">{guide.body}</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-border">
-        <div className="rounded-lg bg-background px-4 py-4 flex flex-col gap-2">
-          <p className="font-sans text-[10px] tracking-wider uppercase text-muted">
-            Digital
-          </p>
-          <p className="font-serif text-lg text-primary">
-            {guide.digital.priceLabel}
-          </p>
-          <ShopifyBuyProduct
-            className="mt-auto shopify-buy-slot"
-            productId={guide.productId}
-            variantId={guide.digital.variantId}
-            nodeId={guide.digital.nodeId}
-            buttonText={guide.digital.buttonText}
-            tone="solid"
-          />
-        </div>
-        <div className="rounded-lg bg-background px-4 py-4 flex flex-col gap-2">
-          <p className="font-sans text-[10px] tracking-wider uppercase text-muted">
-            Print
-          </p>
-          <p className="text-sm text-muted">{guide.print.priceLabel}</p>
-          <ShopifyBuyProduct
-            className="mt-auto shopify-buy-slot"
-            productId={guide.productId}
-            variantId={guide.print.variantId}
-            nodeId={guide.print.nodeId}
-            buttonText={guide.print.buttonText}
-            tone="outline"
-          />
-        </div>
+        <GuideOfferSlot
+          label="Digital"
+          offer={guide.digital}
+          productId={guide.productId}
+          tone="solid"
+        />
+        <GuideOfferSlot
+          label="Print"
+          offer={guide.print}
+          productId={guide.productId}
+          tone="outline"
+        />
       </div>
     </motion.article>
   );
 }
 
 export default function Library() {
+  const { fadeInUp, staggerContainer } = usePageMotion();
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <PageMeta path="/library" />
@@ -153,7 +167,6 @@ export default function Library() {
               </motion.p>
             </motion.div>
 
-            {/* 1) Free (Start Here) */}
             <SectionLabel>Free · Start here</SectionLabel>
             <motion.p
               initial="hidden"
@@ -248,7 +261,6 @@ export default function Library() {
               </motion.article>
             </motion.div>
 
-            {/* 2) Guides — Claude card layout + Shopify variant Buy Buttons */}
             <SectionLabel>Guides</SectionLabel>
             <motion.div
               initial="hidden"
@@ -257,18 +269,24 @@ export default function Library() {
               variants={staggerContainer}
               className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7 mb-12 md:mb-14"
             >
-              <GuideCard guide={SHOPIFY_GUIDES.financialFoundations} />
-              <GuideCard guide={SHOPIFY_GUIDES.businessNotAtm} />
+              {(
+                Object.values(SHOPIFY_GUIDES) as GuideConfig[]
+              ).map((guide) => (
+                <GuideCard
+                  key={guide.productId}
+                  guide={guide}
+                  fadeInUp={fadeInUp}
+                />
+              ))}
             </motion.div>
 
-            {/* 3) Programs */}
             <SectionLabel>Programs</SectionLabel>
             <motion.article
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 rounded-xl border border-border bg-white px-7 py-8 md:px-8 md:py-9 text-left mb-12 md:mb-14 shadow-sm"
+              className={`${CARD} border-border md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-14`}
             >
               <div className="flex-1 min-w-0">
                 <div className="flex flex-wrap items-start gap-3 mb-3">
@@ -307,7 +325,6 @@ export default function Library() {
               </div>
             </motion.article>
 
-            {/* 4) Merch — Claude card chrome; Shopify collection for products */}
             <SectionLabel>Merch</SectionLabel>
             <motion.div
               initial="hidden"
@@ -316,16 +333,14 @@ export default function Library() {
               variants={fadeInUp}
               className="rounded-xl border border-secondary/40 bg-white px-7 py-8 md:px-8 md:py-9 shadow-sm"
             >
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-                <div className="max-w-2xl">
-                  <h2 className="font-serif text-2xl text-primary mb-2">
-                    Long Money Shop
-                  </h2>
-                  <p className="text-muted leading-relaxed">
-                    Everyday pieces carrying the words already part of how you
-                    think about money.
-                  </p>
-                </div>
+              <div className="mb-6 max-w-2xl">
+                <h2 className="font-serif text-2xl text-primary mb-2">
+                  Long Money Shop
+                </h2>
+                <p className="text-muted leading-relaxed">
+                  Everyday pieces carrying the words already part of how you
+                  think about money.
+                </p>
               </div>
               <div className="pt-4 border-t border-border">
                 <ShopifyBuyCollection

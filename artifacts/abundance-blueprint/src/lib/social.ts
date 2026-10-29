@@ -33,42 +33,9 @@ export const KIT_SITE_URL = "https://long-money-concepts-llc.kit.com/";
 export const KIT_BOOK_LAUNCH_URL =
   "https://long-money-concepts-llc.kit.com/e30afd8248";
 
-/**
- * Weekly Pulse Kit signup forms (Business / Personal).
- * Embed scripts (for reference):
- *   <script async data-uid="c01e8fb0af" src="…/c01e8fb0af/index.js"></script>
- *   <script async data-uid="b240865c92" src="…/b240865c92/index.js"></script>
- * Library CTAs link to the hosted form pages so the card keeps its button layout.
- */
-export const KIT_WEEKLY_PULSE_BUSINESS_FORM_UID = "c01e8fb0af";
-export const KIT_WEEKLY_PULSE_PERSONAL_FORM_UID = "b240865c92";
-export const KIT_WEEKLY_PULSE_BUSINESS_FORM_URL = `${KIT_SITE_URL}${KIT_WEEKLY_PULSE_BUSINESS_FORM_UID}`;
-export const KIT_WEEKLY_PULSE_PERSONAL_FORM_URL = `${KIT_SITE_URL}${KIT_WEEKLY_PULSE_PERSONAL_FORM_UID}`;
-
-/** Weekly Pulse card art (Library). */
-export const WEEKLY_PULSE_IMAGE_URL = "/library/weekly-pulse.png";
-
-/**
- * Guides checkout moved to Shopify Buy Button collection — see
- * `@/lib/shopify-buy-button` and `ShopifyBuyCollection`.
- *
- * Legacy Kit / Lulu guide URLs kept for reference only (no longer linked on Library).
- */
-export const KIT_COMMERCE_SCRIPT_URL = `${LETTER_SITE_URL}/commerce.js`;
-export const KIT_FINANCIAL_FOUNDATIONS_URL =
-  "https://long-money-concepts-llc.kit.com/products/financial-foundations-workbook";
-export const KIT_BUSINESS_NOT_ATM_URL = `${LETTER_SITE_URL}/products/yourbusinessisnotyouratm`;
-export const LULU_FINANCIAL_FOUNDATIONS_URL =
-  "https://svc.lulu.com/?items=49658522-c522-49f0-a220-f3119faac926";
-export const LULU_BUSINESS_NOT_ATM_URL =
-  "https://svc.lulu.com/?items=92680474-6caf-4551-8c3c-bae84a27fe89";
-
-/**
- * Merch checkout moved to Shopify Buy Button — see `@/lib/shopify-buy-button`
- * (`SHOPIFY_MERCH_COLLECTION_*`) and `ShopifyBuyCollection` on /library.
- * Legacy Printful storefront kept for reference only.
- */
-export const PRINTFUL_SHOP_URL = "https://longmoneyconcepts.printful.me/";
+/** Weekly Pulse Kit signup forms (Business / Personal) — hosted form pages. */
+export const KIT_WEEKLY_PULSE_BUSINESS_FORM_URL = `${KIT_SITE_URL}c01e8fb0af`;
+export const KIT_WEEKLY_PULSE_PERSONAL_FORM_URL = `${KIT_SITE_URL}b240865c92`;
 
 /**
  * Workshop waitlist — confirm Kit/form URL + month with client.

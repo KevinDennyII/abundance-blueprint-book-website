@@ -4,13 +4,8 @@ import {
   SHOPIFY_MERCH_COLLECTION_NODE_ID,
   SHOPIFY_MERCH_COLLECTION_OPTIONS,
   SHOPIFY_MONEY_FORMAT,
-  SHOPIFY_STORE_DOMAIN,
-  SHOPIFY_STOREFRONT_ACCESS_TOKEN,
 } from "@/lib/shopify-buy-button";
-import {
-  loadBuyButtonScript,
-  mountedShopifyNodes,
-} from "@/lib/shopify-buy-loader";
+import { mountShopifyBuyComponent } from "@/lib/shopify-buy-loader";
 
 type ShopifyBuyCollectionProps = {
   className?: string;
@@ -19,9 +14,7 @@ type ShopifyBuyCollectionProps = {
   "data-testid"?: string;
 };
 
-/**
- * Shopify Buy Button collection embed (Merch grid inside branded Library card).
- */
+/** Buy Button collection embed (Merch grid inside branded Library card). */
 export function ShopifyBuyCollection({
   className,
   nodeId = SHOPIFY_MERCH_COLLECTION_NODE_ID,
@@ -36,39 +29,21 @@ export function ShopifyBuyCollection({
 
     let cancelled = false;
 
-    async function mount() {
-      try {
-        await loadBuyButtonScript();
-        if (cancelled || !node || !window.ShopifyBuy?.UI) return;
-        if (mountedShopifyNodes.has(nodeId)) return;
-
-        mountedShopifyNodes.add(nodeId);
-        node.replaceChildren();
-
-        const client = window.ShopifyBuy.buildClient({
-          domain: SHOPIFY_STORE_DOMAIN,
-          storefrontAccessToken: SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-        });
-
-        const ui = await window.ShopifyBuy.UI.onReady(client);
-        if (cancelled) {
-          mountedShopifyNodes.delete(nodeId);
-          return;
-        }
-
+    void mountShopifyBuyComponent({
+      nodeId,
+      node,
+      cancelled: () => cancelled,
+      create: (ui) => {
         ui.createComponent("collection", {
           id: collectionId,
           node,
           moneyFormat: SHOPIFY_MONEY_FORMAT,
           options: SHOPIFY_MERCH_COLLECTION_OPTIONS,
         });
-      } catch (err) {
-        mountedShopifyNodes.delete(nodeId);
-        console.error("[ShopifyBuyCollection]", err);
-      }
-    }
-
-    void mount();
+      },
+    }).catch((err) => {
+      console.error("[ShopifyBuyCollection]", err);
+    });
 
     return () => {
       cancelled = true;

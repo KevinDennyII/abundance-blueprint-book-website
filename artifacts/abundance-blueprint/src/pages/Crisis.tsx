@@ -1,25 +1,33 @@
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import { usePageMotion } from "@/lib/page-motion";
 import { PageMeta } from "@/lib/seo";
 import {
   CRISIS_RESOURCE_GUIDE_URL,
   CRISIS_STABILIZATION_ROADMAP_URL,
 } from "@/lib/social";
-import { motion } from "framer-motion";
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
-};
+const DOWNLOADS = [
+  {
+    title: "Crisis Stabilization Roadmap",
+    body: "A clear first path when money feels unstable — what to do now, next, and this week.",
+    href: CRISIS_STABILIZATION_ROADMAP_URL,
+    tone: "solid" as const,
+  },
+  {
+    title: "Crisis Resource Guide",
+    body: "Supporting resources and next steps when you need steady ground under you.",
+    href: CRISIS_RESOURCE_GUIDE_URL,
+    tone: "outline" as const,
+  },
+] as const;
 
 export default function Crisis() {
+  const { fadeInUp, staggerContainer } = usePageMotion();
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <PageMeta path="/crisis" />
@@ -62,58 +70,38 @@ export default function Crisis() {
               variants={staggerContainer}
               className="space-y-5"
             >
-              <motion.article
-                variants={fadeInUp}
-                className="rounded-xl border border-border bg-card px-6 py-7 md:px-8 md:py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5"
-              >
-                <div className="text-left">
-                  <h2 className="font-serif text-2xl text-primary mb-2">
-                    Crisis Stabilization Roadmap
-                  </h2>
-                  <p className="text-muted leading-relaxed">
-                    A clear first path when money feels unstable — what to do
-                    now, next, and this week.
-                  </p>
-                </div>
-                <Button
-                  asChild
-                  className="bg-primary text-primary-foreground shrink-0"
+              {DOWNLOADS.map((item) => (
+                <motion.article
+                  key={item.href}
+                  variants={fadeInUp}
+                  className="rounded-xl border border-border bg-card px-6 py-7 md:px-8 md:py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5"
                 >
-                  <a
-                    href={CRISIS_STABILIZATION_ROADMAP_URL}
-                    download
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <div className="text-left">
+                    <h2 className="font-serif text-2xl text-primary mb-2">
+                      {item.title}
+                    </h2>
+                    <p className="text-muted leading-relaxed">{item.body}</p>
+                  </div>
+                  <Button
+                    asChild
+                    variant={item.tone === "outline" ? "outline" : "default"}
+                    className={
+                      item.tone === "solid"
+                        ? "bg-primary text-primary-foreground shrink-0"
+                        : "shrink-0"
+                    }
                   >
-                    Download PDF
-                  </a>
-                </Button>
-              </motion.article>
-
-              <motion.article
-                variants={fadeInUp}
-                className="rounded-xl border border-border bg-card px-6 py-7 md:px-8 md:py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5"
-              >
-                <div className="text-left">
-                  <h2 className="font-serif text-2xl text-primary mb-2">
-                    Crisis Resource Guide
-                  </h2>
-                  <p className="text-muted leading-relaxed">
-                    Supporting resources and next steps when you need steady
-                    ground under you.
-                  </p>
-                </div>
-                <Button asChild variant="outline" className="shrink-0">
-                  <a
-                    href={CRISIS_RESOURCE_GUIDE_URL}
-                    download
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download PDF
-                  </a>
-                </Button>
-              </motion.article>
+                    <a
+                      href={item.href}
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download PDF
+                    </a>
+                  </Button>
+                </motion.article>
+              ))}
             </motion.div>
 
             <motion.p
@@ -124,7 +112,10 @@ export default function Crisis() {
               className="text-center text-muted mt-12"
             >
               Looking for more tools?{" "}
-              <Link href="/library" className="text-primary underline-offset-4 hover:underline">
+              <Link
+                href="/library"
+                className="text-primary underline-offset-4 hover:underline"
+              >
                 Browse the Library
               </Link>
             </motion.p>

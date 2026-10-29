@@ -1,7 +1,12 @@
 /**
  * Shopify Buy Button (Storefront) — Guides + Merch on /library.
- * The storefront access token is public by design (Buy Button embeds ship it
- * client-side). It is not an Admin API token.
+ *
+ * Security notes:
+ * - SHOPIFY_STOREFRONT_ACCESS_TOKEN must remain a Storefront API token
+ *   (catalog/checkout only). Never put an Admin API token (`shpat_…`) here.
+ * - Script URL uses `/latest/` because Shopify requires the current Storefront
+ *   Buy Button build after Checkout API deprecation; versioned CDN paths 404.
+ *   Compensating control: Vite/Replit CSP allowlists `sdks.shopifycdn.com`.
  */
 
 export const SHOPIFY_BUY_BUTTON_SCRIPT_URL =
@@ -9,7 +14,11 @@ export const SHOPIFY_BUY_BUTTON_SCRIPT_URL =
 
 export const SHOPIFY_STORE_DOMAIN = "9uqgh1-a9.myshopify.com";
 
-/** Public Storefront API token for Buy Button embeds. */
+/**
+ * Public Storefront API token for Buy Button embeds (intentional client exposure).
+ * Verify in Shopify Admin → Buy Button / Storefront API that scopes are
+ * storefront-only; rotate if this was ever issued as Admin credentials.
+ */
 export const SHOPIFY_STOREFRONT_ACCESS_TOKEN =
   "574e3072a5a90306f8f65f4509bc86a0";
 
@@ -23,17 +32,16 @@ export const SHOPIFY_BRAND = {
   border: "#2d1b4e",
 } as const;
 
-/** Guides collection (reference / admin). */
-export const SHOPIFY_GUIDES_COLLECTION_ID = "512265125997";
-
 /** Merch collection. */
 export const SHOPIFY_MERCH_COLLECTION_ID = "512265158765";
 export const SHOPIFY_MERCH_COLLECTION_NODE_ID =
   "collection-component-1793233624648";
 
+export type GuideBadgeTone = "solid" | "new";
+
 /**
  * Guide products + variants from Storefront API (numeric Buy Button ids).
- * Digital / Print map to the Claude Library card CTAs.
+ * Digital / Print map to the Library card CTAs.
  */
 export const SHOPIFY_GUIDES = {
   financialFoundations: {
@@ -42,7 +50,8 @@ export const SHOPIFY_GUIDES = {
     eyebrow: "Guide + workbook",
     audience: "For anyone building their footing",
     body: "A guide and workbook with five foundations, plain-language teaching, and real journal space to make it yours.",
-    badge: "Available now" as const,
+    badge: "Available now",
+    badgeTone: "solid" as GuideBadgeTone,
     digital: {
       variantId: "67895113711725",
       priceLabel: "$27",
@@ -62,7 +71,8 @@ export const SHOPIFY_GUIDES = {
     eyebrow: "Guide + workbook",
     audience: "For business owners, owner-operators & 1099 contractors",
     body: "Separate what the business earns from what you live on. Learn to treat taxes as a regular weekly bill instead of a yearly surprise, and pay yourself on purpose.",
-    badge: "New" as const,
+    badge: "New",
+    badgeTone: "new" as GuideBadgeTone,
     digital: {
       variantId: "67895103029357",
       priceLabel: "$47",
@@ -78,7 +88,47 @@ export const SHOPIFY_GUIDES = {
   },
 } as const;
 
-/** Compact product button options for Digital (solid primary). */
+const shopifyCheckoutChrome = {
+  modalProduct: {
+    contents: {
+      img: false,
+      imgWithCarousel: true,
+      button: false,
+      buttonWithQuantity: true,
+    },
+    styles: {
+      button: {
+        "background-color": SHOPIFY_BRAND.primary,
+        color: SHOPIFY_BRAND.primaryForeground,
+        "border-radius": "6px",
+      },
+    },
+    text: {
+      button: "Add to cart",
+    },
+  },
+  cart: {
+    text: {
+      total: "Subtotal",
+      button: "Checkout",
+    },
+    styles: {
+      button: {
+        "background-color": SHOPIFY_BRAND.primary,
+        color: SHOPIFY_BRAND.primaryForeground,
+      },
+    },
+  },
+  toggle: {
+    styles: {
+      toggle: {
+        "background-color": SHOPIFY_BRAND.primary,
+      },
+    },
+  },
+} as const;
+
+/** Compact product button options for guide Digital / Print CTAs. */
 export function shopifyProductButtonOptions(
   buttonText: string,
   tone: "solid" | "outline" = "solid",
@@ -111,10 +161,14 @@ export function shopifyProductButtonOptions(
           padding: "10px 16px",
           width: "100%",
           "background-color": isSolid ? SHOPIFY_BRAND.primary : "transparent",
-          color: isSolid ? SHOPIFY_BRAND.primaryForeground : SHOPIFY_BRAND.primary,
+          color: isSolid
+            ? SHOPIFY_BRAND.primaryForeground
+            : SHOPIFY_BRAND.primary,
           border: `1px solid ${SHOPIFY_BRAND.border}`,
           ":hover": {
-            "background-color": isSolid ? "#24163f" : "rgba(45, 27, 78, 0.06)",
+            "background-color": isSolid
+              ? "#24163f"
+              : "rgba(45, 27, 78, 0.06)",
           },
         },
       },
@@ -122,47 +176,11 @@ export function shopifyProductButtonOptions(
         button: buttonText,
       },
     },
-    modalProduct: {
-      contents: {
-        img: false,
-        imgWithCarousel: true,
-        button: false,
-        buttonWithQuantity: true,
-      },
-      styles: {
-        button: {
-          "background-color": SHOPIFY_BRAND.primary,
-          color: SHOPIFY_BRAND.primaryForeground,
-          "border-radius": "6px",
-        },
-      },
-      text: {
-        button: "Add to cart",
-      },
-    },
-    cart: {
-      text: {
-        total: "Subtotal",
-        button: "Checkout",
-      },
-      styles: {
-        button: {
-          "background-color": SHOPIFY_BRAND.primary,
-          color: SHOPIFY_BRAND.primaryForeground,
-        },
-      },
-    },
-    toggle: {
-      styles: {
-        toggle: {
-          "background-color": SHOPIFY_BRAND.primary,
-        },
-      },
-    },
-  } as const;
+    ...shopifyCheckoutChrome,
+  };
 }
 
-/** Merch collection embed options — branded, denser grid inside our card. */
+/** Merch collection embed options — branded grid inside our card. */
 export const SHOPIFY_MERCH_COLLECTION_OPTIONS = {
   product: {
     styles: {
@@ -207,42 +225,6 @@ export const SHOPIFY_MERCH_COLLECTION_OPTIONS = {
       },
     },
   },
-  modalProduct: {
-    contents: {
-      img: false,
-      imgWithCarousel: true,
-      button: false,
-      buttonWithQuantity: true,
-    },
-    styles: {
-      button: {
-        "background-color": SHOPIFY_BRAND.primary,
-        color: SHOPIFY_BRAND.primaryForeground,
-        "border-radius": "6px",
-      },
-    },
-    text: {
-      button: "Add to cart",
-    },
-  },
   option: {},
-  cart: {
-    text: {
-      total: "Subtotal",
-      button: "Checkout",
-    },
-    styles: {
-      button: {
-        "background-color": SHOPIFY_BRAND.primary,
-        color: SHOPIFY_BRAND.primaryForeground,
-      },
-    },
-  },
-  toggle: {
-    styles: {
-      toggle: {
-        "background-color": SHOPIFY_BRAND.primary,
-      },
-    },
-  },
-} as const;
+  ...shopifyCheckoutChrome,
+};
