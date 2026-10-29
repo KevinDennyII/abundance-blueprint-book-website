@@ -34,11 +34,16 @@ export const KIT_BOOK_LAUNCH_URL =
   "https://long-money-concepts-llc.kit.com/e30afd8248";
 
 /**
- * Weekly Pulse Kit signup forms.
- * TODO(client): replace placeholders with live Business / Personal form URLs.
+ * Weekly Pulse Kit signup forms (Business / Personal).
+ * Embed scripts (for reference):
+ *   <script async data-uid="c01e8fb0af" src="…/c01e8fb0af/index.js"></script>
+ *   <script async data-uid="b240865c92" src="…/b240865c92/index.js"></script>
+ * Library CTAs link to the hosted form pages so the card keeps its button layout.
  */
-export const KIT_WEEKLY_PULSE_BUSINESS_FORM_URL: string | null = null;
-export const KIT_WEEKLY_PULSE_PERSONAL_FORM_URL: string | null = null;
+export const KIT_WEEKLY_PULSE_BUSINESS_FORM_UID = "c01e8fb0af";
+export const KIT_WEEKLY_PULSE_PERSONAL_FORM_UID = "b240865c92";
+export const KIT_WEEKLY_PULSE_BUSINESS_FORM_URL = `${KIT_SITE_URL}${KIT_WEEKLY_PULSE_BUSINESS_FORM_UID}`;
+export const KIT_WEEKLY_PULSE_PERSONAL_FORM_URL = `${KIT_SITE_URL}${KIT_WEEKLY_PULSE_PERSONAL_FORM_UID}`;
 
 /** Weekly Pulse card art (Library). */
 export const WEEKLY_PULSE_IMAGE_URL = "/library/weekly-pulse.png";

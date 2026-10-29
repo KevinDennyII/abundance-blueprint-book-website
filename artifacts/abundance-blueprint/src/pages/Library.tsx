@@ -219,51 +219,27 @@ export default function Library() {
                   the month gets away from you.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
-                  {KIT_WEEKLY_PULSE_BUSINESS_FORM_URL ? (
-                    <Button
-                      asChild
-                      className="bg-primary text-primary-foreground hover:bg-primary/90"
-                    >
-                      <a
-                        href={KIT_WEEKLY_PULSE_BUSINESS_FORM_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Business Edition
-                      </a>
-                    </Button>
-                  ) : (
-                    <Button
-                      type="button"
-                      className="bg-primary text-primary-foreground hover:bg-primary/90"
-                      aria-disabled="true"
-                      title="Kit form link pending"
-                      onClick={(e) => e.preventDefault()}
+                  <Button
+                    asChild
+                    className="bg-primary text-primary-foreground hover:bg-primary/90"
+                  >
+                    <a
+                      href={KIT_WEEKLY_PULSE_BUSINESS_FORM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Business Edition
-                    </Button>
-                  )}
-                  {KIT_WEEKLY_PULSE_PERSONAL_FORM_URL ? (
-                    <Button asChild variant="outline">
-                      <a
-                        href={KIT_WEEKLY_PULSE_PERSONAL_FORM_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Personal Edition
-                      </a>
-                    </Button>
-                  ) : (
-                    <Button
-                      type="button"
-                      variant="outline"
-                      aria-disabled="true"
-                      title="Kit form link pending"
-                      onClick={(e) => e.preventDefault()}
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline">
+                    <a
+                      href={KIT_WEEKLY_PULSE_PERSONAL_FORM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Personal Edition
-                    </Button>
-                  )}
+                    </a>
+                  </Button>
                 </div>
                 <p className="text-sm text-muted italic mt-5">
                   Business Edition is built for irregular income: owners,
