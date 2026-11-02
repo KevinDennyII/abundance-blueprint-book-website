@@ -50,6 +50,20 @@ export const KIT_OKAYINAIRE_FORM_ID = "10086596";
 /** Okayinaire Kit form embed UID (reference / Tag Assistant). */
 export const KIT_OKAYINAIRE_FORM_UID = "ae4843bb11";
 
+/** Long Money Live waitlist — Kit form ID (public, not a secret). */
+export const KIT_LIVE_FORM_ID = "10117125";
+
+/** Long Money Live Kit form embed UID (reference / Tag Assistant). */
+export const KIT_LIVE_FORM_UID = "aeeec1565c";
+
+/** Kit tag applied to Long Money Live waitlist subscribers. */
+export const KIT_LIVE_TAG = "long-money-live";
+
+/** Hosting inquiry for Long Money Live. */
+export const LIVE_HOSTING_EMAIL = "latoya@longmoneyconcepts.com";
+export const LIVE_HOSTING_MAILTO =
+  "mailto:latoya@longmoneyconcepts.com?subject=Hosting%20Long%20Money%20Live";
+
 /** Official Urban Dictionary entry for okayinaire. */
 export const OKAYINAIRE_URBAN_DICTIONARY_URL =
   "https://www.urbandictionary.com/define.php?term=okayinaire&defid=18752636";

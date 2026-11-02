@@ -1,4 +1,4 @@
-export type KitFormType = "chapter1" | "circle" | "okayinaire";
+export type KitFormType = "chapter1" | "circle" | "okayinaire" | "live";
 
 export type KitFormResult = { ok: true } | { ok: false; error: string };
 

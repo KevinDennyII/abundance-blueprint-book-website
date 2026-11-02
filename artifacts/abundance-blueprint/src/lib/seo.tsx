@@ -38,6 +38,11 @@ export const STATIC_PAGE_META: Record<string, PublicPageSeo> = {
     description:
       "Free crisis resources, the Weekly Pulse, guides, workshops, and merch from Long Money Concepts — tools that map back to the HEALS™ framework.",
   },
+  "/live": {
+    title: "Long Money Live — Free In-Person Events | Long Money Concepts",
+    description:
+      "Free in-person workshops, trainings, and book signings from Long Money Concepts — honest conversations about the money lessons we inherited.",
+  },
   "/crisis": {
     title: "Crisis Resources — Free Downloads | Long Money Concepts",
     description:

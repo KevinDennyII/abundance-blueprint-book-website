@@ -3,7 +3,12 @@ import { subscribeToKitForm, type KitFormType } from "../lib/kit";
 
 const router: IRouter = Router();
 
-const validForms = new Set<KitFormType>(["chapter1", "circle", "okayinaire"]);
+const validForms = new Set<KitFormType>([
+  "chapter1",
+  "circle",
+  "okayinaire",
+  "live",
+]);
 
 router.post("/kit/subscribe", async (req, res) => {
   const email = typeof req.body?.email === "string" ? req.body.email.trim() : "";
@@ -12,6 +17,8 @@ router.post("/kit/subscribe", async (req, res) => {
     typeof req.body?.first_name === "string"
       ? req.body.first_name.trim()
       : undefined;
+  const tag =
+    typeof req.body?.tag === "string" ? req.body.tag.trim() : undefined;
 
   if (!email) {
     res.status(400).json({ ok: false, error: "Email is required." });
@@ -23,7 +30,7 @@ router.post("/kit/subscribe", async (req, res) => {
     return;
   }
 
-  const result = await subscribeToKitForm(email, form, { firstName });
+  const result = await subscribeToKitForm(email, form, { firstName, tag });
 
   if (!result.ok) {
     res.status(503).json(result);

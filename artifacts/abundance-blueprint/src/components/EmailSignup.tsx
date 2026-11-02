@@ -58,6 +58,15 @@ const defaults: Record<
     successMessage:
       "Welcome to the okayinaires. Watch your inbox for your first letter.",
   },
+  live: {
+    title: "New dates are on the way.",
+    description:
+      "Leave your email and you'll be the first to know when a conversation is set near you.",
+    buttonText: "Let me know",
+    reassurance: "No spam. Just new Long Money Live dates.",
+    successTitle: "Got it, thank you.",
+    successMessage: "We'll let you know when new dates are set.",
+  },
 };
 
 export function EmailSignup({
@@ -81,7 +90,11 @@ export function EmailSignup({
     setError(null);
     setIsSubmitting(true);
 
-    const result = await submitKitForm(email, form);
+    const result = await submitKitForm(
+      email,
+      form,
+      form === "live" ? { tag: "long-money-live" } : undefined,
+    );
 
     setIsSubmitting(false);
 
