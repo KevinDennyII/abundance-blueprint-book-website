@@ -3,4 +3,5 @@ export * from "./posts";
 export * from "./comments";
 export * from "./passkeys";
 export * from "./page-meta";
+export * from "./live-events";
 export * from "./relations";

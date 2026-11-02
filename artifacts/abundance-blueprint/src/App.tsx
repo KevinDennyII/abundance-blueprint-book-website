@@ -22,6 +22,8 @@ import AdminLogin from "@/pages/admin/AdminLogin";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import AdminPosts from "@/pages/admin/AdminPosts";
 import AdminPostEditor from "@/pages/admin/AdminPostEditor";
+import AdminEvents from "@/pages/admin/AdminEvents";
+import AdminEventEditor from "@/pages/admin/AdminEventEditor";
 import AdminComments from "@/pages/admin/AdminComments";
 import AdminPageSeo from "@/pages/admin/AdminPageSeo";
 import AdminPasskeys from "@/pages/admin/AdminPasskeys";
@@ -97,6 +99,27 @@ function Router() {
         <AdminAuthProvider>
           <RequireAdmin>
             <AdminPosts />
+          </RequireAdmin>
+        </AdminAuthProvider>
+      </Route>
+      <Route path="/admin/events/new">
+        <AdminAuthProvider>
+          <RequireAdmin>
+            <AdminEventEditor mode="new" />
+          </RequireAdmin>
+        </AdminAuthProvider>
+      </Route>
+      <Route path="/admin/events/:id/edit">
+        <AdminAuthProvider>
+          <RequireAdmin>
+            <AdminEventEditor mode="edit" />
+          </RequireAdmin>
+        </AdminAuthProvider>
+      </Route>
+      <Route path="/admin/events">
+        <AdminAuthProvider>
+          <RequireAdmin>
+            <AdminEvents />
           </RequireAdmin>
         </AdminAuthProvider>
       </Route>

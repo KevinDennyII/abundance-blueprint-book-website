@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
 import {
+  CalendarDays,
   ExternalLink,
   FileText,
   KeyRound,
@@ -29,6 +30,12 @@ const nav = [
     label: "Posts",
     icon: FileText,
     match: (loc: string) => loc.startsWith("/admin/posts"),
+  },
+  {
+    href: "/admin/events",
+    label: "Events",
+    icon: CalendarDays,
+    match: (loc: string) => loc.startsWith("/admin/events"),
   },
   {
     href: "/admin/comments",

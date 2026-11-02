@@ -11,7 +11,8 @@
     "push": "drizzle-kit push --config ./drizzle.config.ts",
     "push-force": "drizzle-kit push --force --config ./drizzle.config.ts",
     "seed": "tsx ./src/seed-admin.ts",
-    "seed-seo": "tsx ./src/seed-page-meta.ts"
+    "seed-seo": "tsx ./src/seed-page-meta.ts",
+    "seed-live-events": "tsx ./src/seed-live-events.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

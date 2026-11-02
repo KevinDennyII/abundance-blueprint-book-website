@@ -19,6 +19,8 @@ Copy `.env.example` to `.env` for local development.
 | `KIT_OKAYINAIRE_FORM_ID` | Runtime (API server) | `10086596` — Okayinaire / Long Money Letter form |
 | `KIT_LIVE_FORM_ID` | Runtime (API server) | `10117125` — Long Money Live waitlist form |
 | `KIT_LIVE_TAG_ID` | Runtime (API server, optional) | Numeric ID for the `long-money-live` tag (looked up by name if unset) |
+
+Long Money Live events are managed in **Admin → Events** (`/admin/events`), stored in Postgres (`live_events`). Past dates drop off `/live` automatically. The published Google Sheet is no longer the site source of truth.
 | `DATABASE_URL` | Runtime (API server + db package) | Postgres connection string for blog posts/comments |
 | `SESSION_SECRET` | Runtime (API server) | Signs the admin session cookie (min 16 chars) |
 | `ADMIN_EMAIL` | Bootstrap / seed | Creates the first admin if none exists; also used by `pnpm --filter @workspace/db run seed` |
@@ -53,8 +55,14 @@ pnpm --filter @workspace/db run seed
 DATABASE_URL="postgres://..." pnpm --filter @workspace/db run seed-seo
 ```
 
-5. Set `SESSION_SECRET` (and the same `DATABASE_URL`) in `artifacts/api-server/.env`.
-6. Start the API server and site. Admin UI: `/admin/login` (not linked in the public nav).
+5. Optional: seed the initial Live event (also runs automatically on API boot when the table is empty):
+
+```bash
+DATABASE_URL="postgres://..." pnpm --filter @workspace/db run seed-live-events
+```
+
+6. Set `SESSION_SECRET` (and the same `DATABASE_URL`) in `artifacts/api-server/.env`.
+7. Start the API server and site. Admin UI: `/admin/login` (not linked in the public nav).
 
 > Whenever the database schema changes (e.g. this SEO update added `page_meta`
 > plus `posts.meta_title` / `posts.meta_description`), re-run
@@ -72,6 +80,9 @@ sidebar has everything she can manage:
 - **Posts** (`/admin/posts`) — write, edit, publish, or delete blog posts. Each
   post has optional **SEO** fields (meta title + meta description); leave them
   blank to fall back to the post title and excerpt.
+- **Events** (`/admin/events`) — Long Money Live dates (add / edit / remove,
+  optional weekly / biweekly / monthly series). Past dates drop off `/live`
+  automatically; toggle **Show on site** to publish.
 - **Comments** — approve or reject reader comments before they appear. The
   sidebar shows a badge with the number still awaiting review.
 - **Page SEO** — set a unique title and meta description for every fixed public

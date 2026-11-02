@@ -1,13 +1,22 @@
 import { Router, type IRouter } from "express";
+import { and, asc, desc, eq, gte, lt } from "drizzle-orm";
+import { db, liveEventsTable, type LiveEventRow } from "@workspace/db";
+import { requireAdmin, type AuthedRequest } from "../lib/require-admin";
+import {
+  expandOccurrenceDates,
+  isIsoDate,
+  isRepeatInterval,
+  newSeriesId,
+  startOfToday,
+  toIsoDate,
+  type RepeatInterval,
+} from "../lib/live-event-utils";
 
 const router: IRouter = Router();
 
-/** Published Google Sheet CSV for Long Money Live events. */
-const LIVE_EVENTS_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTF4KFJK_fThcwFW2iT0tAyF0ETpTt54PhXB6sjK0-RI03jAI7byjZPYfjiB5PUkYceVkoD2uvgxKfO/pub?gid=0&single=true&output=csv";
-
-export type LiveEvent = {
-  date: string;
+type EventFields = {
+  showOnSite: boolean;
+  eventDate: string;
   time: string;
   type: string;
   title: string;
@@ -18,219 +27,374 @@ export type LiveEvent = {
   rsvpLink: string;
 };
 
-function parseCsv(text: string): string[][] {
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let field = "";
-  let inQuotes = false;
+function publicShape(row: LiveEventRow) {
+  return {
+    id: row.id,
+    date: row.eventDate,
+    time: row.time,
+    type: row.type,
+    title: row.title,
+    venue: row.venue,
+    address: row.address,
+    cityState: row.cityState,
+    price: row.price,
+    rsvpLink: row.rsvpLink,
+  };
+}
 
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    const next = text[i + 1];
+function adminShape(row: LiveEventRow) {
+  return {
+    id: row.id,
+    showOnSite: row.showOnSite,
+    eventDate: row.eventDate,
+    time: row.time,
+    type: row.type,
+    title: row.title,
+    venue: row.venue,
+    address: row.address,
+    cityState: row.cityState,
+    price: row.price,
+    rsvpLink: row.rsvpLink,
+    seriesId: row.seriesId,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt,
+  };
+}
 
-    if (inQuotes) {
-      if (ch === '"' && next === '"') {
-        field += '"';
-        i++;
-      } else if (ch === '"') {
-        inQuotes = false;
-      } else {
-        field += ch;
-      }
-      continue;
-    }
+function parseBool(value: unknown, fallback = false): boolean {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "string") {
+    const v = value.trim().toLowerCase();
+    if (v === "true" || v === "1" || v === "yes") return true;
+    if (v === "false" || v === "0" || v === "no") return false;
+  }
+  return fallback;
+}
 
-    if (ch === '"') {
-      inQuotes = true;
-      continue;
-    }
-
-    if (ch === ",") {
-      row.push(field);
-      field = "";
-      continue;
-    }
-
-    if (ch === "\n" || (ch === "\r" && next === "\n")) {
-      row.push(field);
-      field = "";
-      if (row.some((cell) => cell.trim() !== "")) {
-        rows.push(row);
-      }
-      row = [];
-      if (ch === "\r") i++;
-      continue;
-    }
-
-    if (ch === "\r") {
-      row.push(field);
-      field = "";
-      if (row.some((cell) => cell.trim() !== "")) {
-        rows.push(row);
-      }
-      row = [];
-      continue;
-    }
-
-    field += ch;
+function parseEventFields(
+  body: Record<string, unknown>,
+): EventFields | { error: string } {
+  const title = typeof body.title === "string" ? body.title.trim() : "";
+  if (!title) {
+    return { error: "Title is required." };
   }
 
-  row.push(field);
-  if (row.some((cell) => cell.trim() !== "")) {
-    rows.push(row);
+  const eventDate =
+    typeof body.eventDate === "string"
+      ? body.eventDate.trim()
+      : typeof body.date === "string"
+        ? body.date.trim()
+        : "";
+  if (!isIsoDate(eventDate)) {
+    return { error: "Date must be a valid YYYY-MM-DD value." };
   }
 
-  return rows;
+  return {
+    showOnSite: parseBool(body.showOnSite, false),
+    eventDate,
+    time: typeof body.time === "string" ? body.time.trim() : "",
+    type: typeof body.type === "string" ? body.type.trim() : "",
+    title,
+    venue: typeof body.venue === "string" ? body.venue.trim() : "",
+    address: typeof body.address === "string" ? body.address.trim() : "",
+    cityState:
+      typeof body.cityState === "string" ? body.cityState.trim() : "",
+    price: typeof body.price === "string" ? body.price.trim() : "",
+    rsvpLink: typeof body.rsvpLink === "string" ? body.rsvpLink.trim() : "",
+  };
 }
 
-function normalizeHeader(value: string): string {
-  return value.trim().toLowerCase().replace(/\s+/g, " ");
+async function listPublicUpcoming() {
+  const today = toIsoDate(startOfToday());
+  const rows = await db
+    .select()
+    .from(liveEventsTable)
+    .where(
+      and(
+        eq(liveEventsTable.showOnSite, true),
+        gte(liveEventsTable.eventDate, today),
+      ),
+    )
+    .orderBy(asc(liveEventsTable.eventDate), asc(liveEventsTable.id));
+
+  return rows.map(publicShape);
 }
 
-function isShown(value: string): boolean {
-  const v = value.trim().toUpperCase();
-  return v === "TRUE" || v === "YES" || v === "1" || v === "CHECKED";
-}
-
-/** Parse common sheet date strings into a local calendar date (no timezone shift). */
-function parseEventDate(raw: string): Date | null {
-  const value = raw.trim();
-  if (!value) return null;
-
-  const us = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(value);
-  if (us) {
-    const month = Number(us[1]);
-    const day = Number(us[2]);
-    const year = Number(us[3]);
-    const date = new Date(year, month - 1, day);
-    if (
-      date.getFullYear() === year &&
-      date.getMonth() === month - 1 &&
-      date.getDate() === day
-    ) {
-      return date;
-    }
-    return null;
-  }
-
-  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
-  if (iso) {
-    const year = Number(iso[1]);
-    const month = Number(iso[2]);
-    const day = Number(iso[3]);
-    const date = new Date(year, month - 1, day);
-    if (
-      date.getFullYear() === year &&
-      date.getMonth() === month - 1 &&
-      date.getDate() === day
-    ) {
-      return date;
-    }
-    return null;
-  }
-
-  const parsed = new Date(value);
-  if (Number.isNaN(parsed.getTime())) return null;
-  return new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate());
-}
-
-function startOfToday(): Date {
-  const now = new Date();
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
-}
-
-function toIsoDate(date: Date): string {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
-}
-
-function col(
-  map: Record<string, number>,
-  row: string[],
-  ...names: string[]
-): string {
-  for (const name of names) {
-    const idx = map[normalizeHeader(name)];
-    if (idx !== undefined) {
-      return (row[idx] ?? "").trim();
-    }
-  }
-  return "";
-}
-
-function parseEvents(csvText: string): LiveEvent[] {
-  const rows = parseCsv(csvText.replace(/^\uFEFF/, ""));
-  if (rows.length < 2) return [];
-
-  const headerMap: Record<string, number> = {};
-  rows[0].forEach((header, index) => {
-    headerMap[normalizeHeader(header)] = index;
-  });
-
-  const today = startOfToday();
-  const events: Array<LiveEvent & { sortKey: number }> = [];
-
-  for (const row of rows.slice(1)) {
-    if (!isShown(col(headerMap, row, "show on site"))) continue;
-
-    const dateRaw = col(headerMap, row, "date");
-    const eventDate = parseEventDate(dateRaw);
-    if (!eventDate || eventDate < today) continue;
-
-    const title = col(headerMap, row, "title");
-    if (!title) continue;
-
-    events.push({
-      date: toIsoDate(eventDate),
-      time: col(headerMap, row, "time"),
-      type: col(headerMap, row, "type"),
-      title,
-      venue: col(headerMap, row, "venue"),
-      address: col(headerMap, row, "address"),
-      cityState: col(headerMap, row, "city, state", "city state"),
-      price: col(headerMap, row, "price"),
-      rsvpLink: col(headerMap, row, "rsvp link", "rsvp"),
-      sortKey: eventDate.getTime(),
-    });
-  }
-
-  events.sort((a, b) => a.sortKey - b.sortKey);
-
-  return events.map(({ sortKey: _sortKey, ...event }) => event);
-}
-
-router.get("/live/events", async (_req, res) => {
+/** Public: upcoming published events (past dates auto-drop). */
+router.get("/live/events", async (req, res) => {
   try {
-    const response = await fetch(LIVE_EVENTS_CSV_URL, {
-      headers: {
-        Accept: "text/csv,text/plain,*/*",
-        "User-Agent": "LongMoneyConceptsLive/1.0",
-      },
-      redirect: "follow",
-    });
-
-    if (!response.ok) {
-      res.status(502).json({
+    const events = await listPublicUpcoming();
+    res.setHeader("Cache-Control", "public, max-age=60");
+    res.json({ ok: true, events });
+  } catch (firstErr) {
+    try {
+      const { ensureSchema } = await import("@workspace/db");
+      await ensureSchema();
+      const events = await listPublicUpcoming();
+      res.setHeader("Cache-Control", "public, max-age=60");
+      res.json({ ok: true, events });
+    } catch (err) {
+      req.log?.error?.({ err, firstErr }, "Failed to list live events");
+      res.status(503).json({
         ok: false,
         error: "Could not load events right now.",
         events: [],
       });
+    }
+  }
+});
+
+/** Admin: list all events (optional filter=upcoming|past|all). */
+router.get(
+  "/admin/live-events",
+  requireAdmin,
+  async (req: AuthedRequest, res) => {
+    const filter =
+      typeof req.query.filter === "string" ? req.query.filter : "all";
+    const today = toIsoDate(startOfToday());
+
+    try {
+      let rows: LiveEventRow[];
+      if (filter === "upcoming") {
+        rows = await db
+          .select()
+          .from(liveEventsTable)
+          .where(gte(liveEventsTable.eventDate, today))
+          .orderBy(asc(liveEventsTable.eventDate), asc(liveEventsTable.id));
+      } else if (filter === "past") {
+        rows = await db
+          .select()
+          .from(liveEventsTable)
+          .where(lt(liveEventsTable.eventDate, today))
+          .orderBy(desc(liveEventsTable.eventDate), desc(liveEventsTable.id));
+      } else {
+        rows = await db
+          .select()
+          .from(liveEventsTable)
+          .orderBy(asc(liveEventsTable.eventDate), asc(liveEventsTable.id));
+      }
+
+      res.json({ ok: true, events: rows.map(adminShape) });
+    } catch (err) {
+      req.log?.error?.({ err }, "Failed to list admin live events");
+      res.status(503).json({ ok: false, error: "Unable to load events." });
+    }
+  },
+);
+
+/** Admin: get one event. */
+router.get(
+  "/admin/live-events/:id",
+  requireAdmin,
+  async (req: AuthedRequest, res) => {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id < 1) {
+      res.status(400).json({ ok: false, error: "Invalid event id." });
       return;
     }
 
-    const csvText = await response.text();
-    const events = parseEvents(csvText);
-    res.setHeader("Cache-Control", "public, max-age=300");
-    res.json({ ok: true, events });
-  } catch {
-    res.status(502).json({
-      ok: false,
-      error: "Could not load events right now.",
-      events: [],
-    });
-  }
-});
+    try {
+      const [row] = await db
+        .select()
+        .from(liveEventsTable)
+        .where(eq(liveEventsTable.id, id))
+        .limit(1);
+
+      if (!row) {
+        res.status(404).json({ ok: false, error: "Event not found." });
+        return;
+      }
+
+      res.json({ ok: true, event: adminShape(row) });
+    } catch (err) {
+      req.log?.error?.({ err }, "Failed to load live event");
+      res.status(503).json({ ok: false, error: "Unable to load event." });
+    }
+  },
+);
+
+/** Admin: create one event, or expand a repeating series. */
+router.post(
+  "/admin/live-events",
+  requireAdmin,
+  async (req: AuthedRequest, res) => {
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const fields = parseEventFields(body);
+    if ("error" in fields) {
+      res.status(400).json({ ok: false, error: fields.error });
+      return;
+    }
+
+    const repeatRaw = body.repeatInterval;
+    const wantsRepeat =
+      repeatRaw !== undefined &&
+      repeatRaw !== null &&
+      repeatRaw !== "" &&
+      repeatRaw !== "none";
+
+    try {
+      if (!wantsRepeat) {
+        const [row] = await db
+          .insert(liveEventsTable)
+          .values({
+            ...fields,
+            seriesId: null,
+            updatedAt: new Date(),
+          })
+          .returning();
+
+        res.status(201).json({ ok: true, event: adminShape(row), created: 1 });
+        return;
+      }
+
+      if (!isRepeatInterval(repeatRaw)) {
+        res.status(400).json({
+          ok: false,
+          error: "Repeat interval must be weekly, biweekly, or monthly.",
+        });
+        return;
+      }
+
+      const endDate =
+        typeof body.repeatEndDate === "string"
+          ? body.repeatEndDate.trim()
+          : "";
+      if (!isIsoDate(endDate)) {
+        res.status(400).json({
+          ok: false,
+          error: "Repeat end date must be a valid YYYY-MM-DD value.",
+        });
+        return;
+      }
+
+      const expanded = expandOccurrenceDates(
+        fields.eventDate,
+        endDate,
+        repeatRaw as RepeatInterval,
+      );
+      if ("error" in expanded) {
+        res.status(400).json({ ok: false, error: expanded.error });
+        return;
+      }
+
+      const seriesId = newSeriesId();
+      const now = new Date();
+      const rows = await db
+        .insert(liveEventsTable)
+        .values(
+          expanded.map((eventDate) => ({
+            ...fields,
+            eventDate,
+            seriesId,
+            updatedAt: now,
+          })),
+        )
+        .returning();
+
+      res.status(201).json({
+        ok: true,
+        event: adminShape(rows[0]),
+        events: rows.map(adminShape),
+        created: rows.length,
+        seriesId,
+      });
+    } catch (err) {
+      req.log?.error?.({ err }, "Failed to create live event");
+      res.status(503).json({ ok: false, error: "Unable to create event." });
+    }
+  },
+);
+
+/** Admin: update a single occurrence. */
+router.patch(
+  "/admin/live-events/:id",
+  requireAdmin,
+  async (req: AuthedRequest, res) => {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id < 1) {
+      res.status(400).json({ ok: false, error: "Invalid event id." });
+      return;
+    }
+
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const fields = parseEventFields(body);
+    if ("error" in fields) {
+      res.status(400).json({ ok: false, error: fields.error });
+      return;
+    }
+
+    try {
+      const [row] = await db
+        .update(liveEventsTable)
+        .set({
+          ...fields,
+          updatedAt: new Date(),
+        })
+        .where(eq(liveEventsTable.id, id))
+        .returning();
+
+      if (!row) {
+        res.status(404).json({ ok: false, error: "Event not found." });
+        return;
+      }
+
+      res.json({ ok: true, event: adminShape(row) });
+    } catch (err) {
+      req.log?.error?.({ err }, "Failed to update live event");
+      res.status(503).json({ ok: false, error: "Unable to update event." });
+    }
+  },
+);
+
+/** Admin: delete one occurrence, or entire series with ?series=1. */
+router.delete(
+  "/admin/live-events/:id",
+  requireAdmin,
+  async (req: AuthedRequest, res) => {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id < 1) {
+      res.status(400).json({ ok: false, error: "Invalid event id." });
+      return;
+    }
+
+    const deleteSeries =
+      req.query.series === "1" ||
+      req.query.series === "true" ||
+      parseBool(req.body?.deleteSeries, false);
+
+    try {
+      const [existing] = await db
+        .select()
+        .from(liveEventsTable)
+        .where(eq(liveEventsTable.id, id))
+        .limit(1);
+
+      if (!existing) {
+        res.status(404).json({ ok: false, error: "Event not found." });
+        return;
+      }
+
+      if (deleteSeries && existing.seriesId) {
+        const deleted = await db
+          .delete(liveEventsTable)
+          .where(eq(liveEventsTable.seriesId, existing.seriesId))
+          .returning({ id: liveEventsTable.id });
+
+        res.json({
+          ok: true,
+          deleted: deleted.length,
+          seriesId: existing.seriesId,
+        });
+        return;
+      }
+
+      await db.delete(liveEventsTable).where(eq(liveEventsTable.id, id));
+      res.json({ ok: true, deleted: 1 });
+    } catch (err) {
+      req.log?.error?.({ err }, "Failed to delete live event");
+      res.status(503).json({ ok: false, error: "Unable to delete event." });
+    }
+  },
+);
 
 export default router;

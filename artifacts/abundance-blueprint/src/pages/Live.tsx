@@ -403,7 +403,7 @@ export default function Live() {
               <div className="flex flex-col gap-4">
                 {events.map((event) => (
                   <EventRow
-                    key={`${event.date}-${event.title}-${event.venue}-${event.time}`}
+                    key={event.id ?? `${event.date}-${event.title}-${event.venue}-${event.time}`}
                     event={event}
                   />
                 ))}

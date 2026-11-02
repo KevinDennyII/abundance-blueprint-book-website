@@ -1,5 +1,6 @@
 import pg from "pg";
 import { db } from "./index";
+import { liveEventsTable } from "./schema/live-events";
 import { pageMetaTable } from "./schema/page-meta";
 import { staticPageMetaDefaults } from "./seo-defaults";
 
@@ -54,6 +55,24 @@ const statements = [
     description text NOT NULL DEFAULT '',
     updated_at timestamptz NOT NULL DEFAULT now()
   )`,
+  `CREATE TABLE IF NOT EXISTS live_events (
+    id serial PRIMARY KEY,
+    show_on_site boolean NOT NULL DEFAULT false,
+    event_date text NOT NULL,
+    time text NOT NULL DEFAULT '',
+    type text NOT NULL DEFAULT '',
+    title text NOT NULL,
+    venue text NOT NULL DEFAULT '',
+    address text NOT NULL DEFAULT '',
+    city_state text NOT NULL DEFAULT '',
+    price text NOT NULL DEFAULT '',
+    rsvp_link text NOT NULL DEFAULT '',
+    series_id text,
+    created_at timestamptz NOT NULL DEFAULT now(),
+    updated_at timestamptz NOT NULL DEFAULT now()
+  )`,
+  `CREATE INDEX IF NOT EXISTS live_events_event_date_idx ON live_events (event_date)`,
+  `CREATE INDEX IF NOT EXISTS live_events_series_id_idx ON live_events (series_id)`,
 ];
 
 /** Idempotent: creates blog/admin tables on first boot (Replit Database, local Docker). */
@@ -84,4 +103,29 @@ export async function ensurePageMetaDefaults(): Promise<void> {
       })
       .onConflictDoNothing({ target: pageMetaTable.path });
   }
+}
+
+/**
+ * One-time migration seed from the former Google Sheet (birthday workshop).
+ * Skips when any live_events row already exists.
+ */
+export async function ensureLiveEventDefaults(): Promise<void> {
+  const existing = await db
+    .select({ id: liveEventsTable.id })
+    .from(liveEventsTable)
+    .limit(1);
+  if (existing.length > 0) return;
+
+  await db.insert(liveEventsTable).values({
+    showOnSite: true,
+    eventDate: "2026-12-16",
+    time: "6:00 PM",
+    type: "Workshop",
+    title: "There's Life Beneath the Numbers",
+    venue: "Long Money Concepts, LLC",
+    address: "4414 Bayonne Ave",
+    cityState: "Baltimore, MD",
+    price: "Free",
+    rsvpLink: "https://longmoneycpa.as.me/1216",
+  });
 }

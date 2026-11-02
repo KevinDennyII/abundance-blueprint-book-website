@@ -1,4 +1,5 @@
 export type LiveEvent = {
+  id?: number;
   date: string;
   time: string;
   type: string;

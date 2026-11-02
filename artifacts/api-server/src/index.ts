@@ -64,9 +64,14 @@ async function bootstrapDatabase(): Promise<void> {
   }
 
   try {
-    const { ensurePageMetaDefaults, ensureSchema } = await import("@workspace/db");
+    const {
+      ensureLiveEventDefaults,
+      ensurePageMetaDefaults,
+      ensureSchema,
+    } = await import("@workspace/db");
     await ensureSchema();
     await ensurePageMetaDefaults();
+    await ensureLiveEventDefaults();
     logger.info("Database schema is ready");
   } catch (err) {
     logger.error({ err }, "Failed to ensure database schema");
