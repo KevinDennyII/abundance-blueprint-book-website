@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Menu,
   MessageSquare,
+  Mic2,
   Search,
   UserRound,
   X,
@@ -36,6 +37,12 @@ const nav = [
     label: "Events",
     icon: CalendarDays,
     match: (loc: string) => loc.startsWith("/admin/events"),
+  },
+  {
+    href: "/admin/podcast-appearances",
+    label: "Podcasts",
+    icon: Mic2,
+    match: (loc: string) => loc.startsWith("/admin/podcast-appearances"),
   },
   {
     href: "/admin/comments",

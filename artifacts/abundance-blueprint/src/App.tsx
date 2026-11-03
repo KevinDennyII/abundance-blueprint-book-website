@@ -24,6 +24,8 @@ import AdminPosts from "@/pages/admin/AdminPosts";
 import AdminPostEditor from "@/pages/admin/AdminPostEditor";
 import AdminEvents from "@/pages/admin/AdminEvents";
 import AdminEventEditor from "@/pages/admin/AdminEventEditor";
+import AdminPodcastAppearances from "@/pages/admin/AdminPodcastAppearances";
+import AdminPodcastAppearanceEditor from "@/pages/admin/AdminPodcastAppearanceEditor";
 import AdminComments from "@/pages/admin/AdminComments";
 import AdminPageSeo from "@/pages/admin/AdminPageSeo";
 import AdminPasskeys from "@/pages/admin/AdminPasskeys";
@@ -120,6 +122,27 @@ function Router() {
         <AdminAuthProvider>
           <RequireAdmin>
             <AdminEvents />
+          </RequireAdmin>
+        </AdminAuthProvider>
+      </Route>
+      <Route path="/admin/podcast-appearances/new">
+        <AdminAuthProvider>
+          <RequireAdmin>
+            <AdminPodcastAppearanceEditor mode="new" />
+          </RequireAdmin>
+        </AdminAuthProvider>
+      </Route>
+      <Route path="/admin/podcast-appearances/:id/edit">
+        <AdminAuthProvider>
+          <RequireAdmin>
+            <AdminPodcastAppearanceEditor mode="edit" />
+          </RequireAdmin>
+        </AdminAuthProvider>
+      </Route>
+      <Route path="/admin/podcast-appearances">
+        <AdminAuthProvider>
+          <RequireAdmin>
+            <AdminPodcastAppearances />
           </RequireAdmin>
         </AdminAuthProvider>
       </Route>

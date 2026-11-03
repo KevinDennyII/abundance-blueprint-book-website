@@ -73,6 +73,20 @@ const statements = [
   )`,
   `CREATE INDEX IF NOT EXISTS live_events_event_date_idx ON live_events (event_date)`,
   `CREATE INDEX IF NOT EXISTS live_events_series_id_idx ON live_events (series_id)`,
+  `CREATE TABLE IF NOT EXISTS podcast_appearances (
+    id serial PRIMARY KEY,
+    show_name text NOT NULL,
+    episode_title text NOT NULL,
+    published_date text NOT NULL,
+    episode_link text NOT NULL DEFAULT '',
+    embed_code text NOT NULL DEFAULT '',
+    description text NOT NULL DEFAULT '',
+    status text NOT NULL DEFAULT 'draft',
+    created_at timestamptz NOT NULL DEFAULT now(),
+    updated_at timestamptz NOT NULL DEFAULT now()
+  )`,
+  `CREATE INDEX IF NOT EXISTS podcast_appearances_published_date_idx ON podcast_appearances (published_date)`,
+  `CREATE INDEX IF NOT EXISTS podcast_appearances_status_idx ON podcast_appearances (status)`,
 ];
 
 /** Idempotent: creates blog/admin tables on first boot (Replit Database, local Docker). */
