@@ -122,7 +122,7 @@ export function AdminShell({
           "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
           active
             ? "bg-primary text-primary-foreground font-medium"
-            : "text-muted hover:bg-primary/5 hover:text-primary",
+            : "text-muted hover:bg-accent hover:text-accent-foreground",
         )}
       >
         <Icon className="size-4 shrink-0" />
@@ -173,10 +173,10 @@ export function AdminShell({
   );
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="admin-theme min-h-screen bg-background text-foreground">
       <PageMeta title={`${title} · Admin — Long Money Concepts`} noindex />
 
-      <div className="sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-card-border bg-card px-4 py-3 lg:hidden">
+      <div className="sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-border bg-card px-4 py-3 lg:hidden">
         <BrandMark />
         <Button
           type="button"
@@ -191,25 +191,25 @@ export function AdminShell({
       </div>
 
       {mobileOpen && (
-        <nav className="space-y-1 border-b border-card-border bg-card px-3 py-3 lg:hidden">
+        <nav className="space-y-1 border-b border-border bg-card px-3 py-3 lg:hidden">
           {navLinks}
-          <div className="mt-3 border-t border-card-border pt-3">
+          <div className="mt-3 border-t border-border pt-3">
             {accountBlock}
           </div>
         </nav>
       )}
 
       <div className="lg:flex">
-        <aside className="hidden border-r border-card-border bg-card lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-64 lg:shrink-0 lg:flex-col">
-          <div className="border-b border-card-border px-6 py-5">
+        <aside className="hidden border-r border-border bg-card lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-64 lg:shrink-0 lg:flex-col">
+          <div className="border-b border-border px-6 py-5">
             <BrandMark />
           </div>
           <nav className="flex-1 space-y-1 p-3">{navLinks}</nav>
-          <div className="border-t border-card-border p-4">{accountBlock}</div>
+          <div className="border-t border-border p-4">{accountBlock}</div>
         </aside>
 
         <div className="min-w-0 flex-1">
-          <header className="border-b border-card-border bg-background/85 px-4 py-6 backdrop-blur md:px-8">
+          <header className="border-b border-border bg-background/90 px-4 py-6 backdrop-blur md:px-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="min-w-0">
                 <h1 className="font-serif text-3xl text-primary">{title}</h1>

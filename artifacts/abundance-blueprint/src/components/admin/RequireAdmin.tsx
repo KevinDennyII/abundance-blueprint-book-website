@@ -6,7 +6,7 @@ export function RequireAdmin({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background text-muted">
+      <div className="admin-theme min-h-screen flex items-center justify-center bg-background text-muted">
         Checking session…
       </div>
     );

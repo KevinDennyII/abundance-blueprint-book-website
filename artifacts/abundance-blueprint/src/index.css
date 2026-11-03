@@ -105,6 +105,37 @@
   --ring: 44 54% 54%;
 }
 
+/*
+  Admin console surfaces (HCI / dashboard UX):
+  cool low-chroma canvas + white elevated panels for figure–ground,
+  WCAG-friendly neutrals for long sessions. Brand primary (deep purple)
+  and secondary (gold) stay; marketing cream tokens remain on :root.
+*/
+.admin-theme {
+  --background: 220 14% 96%; /* #f2f3f6 */
+  --foreground: 261 35% 14%; /* #1c1528 */
+  --card: 0 0% 100%;
+  --card-foreground: 261 35% 14%;
+  --card-border: 220 12% 72%; /* #aeb6c4 — clearer panel edges */
+  --popover: 0 0% 100%;
+  --popover-foreground: 261 35% 14%;
+  --popover-border: 220 12% 72%;
+  --primary: 261 48% 21%; /* #2d1b4e — brand */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 44 54% 54%; /* #c9a84c — brand gold */
+  --secondary-foreground: 24 23% 8%;
+  --muted: 220 9% 40%; /* secondary text on light surfaces */
+  --muted-foreground: 220 14% 96%;
+  --accent: 261 28% 94%; /* soft brand wash for hovers */
+  --accent-foreground: 261 48% 21%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 220 12% 68%;
+  --input-background: 0 0% 100%;
+  --border: 220 12% 72%;
+  --ring: 261 48% 21%;
+}
+
 @layer base {
   * {
     @apply border-border;
