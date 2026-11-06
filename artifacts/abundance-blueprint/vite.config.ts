@@ -28,8 +28,9 @@ if (!basePath) {
 
 /**
  * Security headers for Replit production (`vite preview` / `pnpm run serve`)
- * and local Vite dev. Covers Library Shopify embeds, GA, fonts, and crisis PDFs.
- * script-src keeps 'unsafe-inline' for the GA bootstrap in index.html.
+ * and local Vite dev. Covers Library Shopify embeds, Circle SimpleTexting
+ * iframe, GA, fonts, and crisis PDFs. script-src keeps 'unsafe-inline' for
+ * the GA bootstrap in index.html.
  */
 const securityHeaders: Record<string, string> = {
   "X-Content-Type-Options": "nosniff",
@@ -46,7 +47,7 @@ const securityHeaders: Record<string, string> = {
     "font-src 'self' https://fonts.gstatic.com data:",
     "img-src 'self' data: blob: https:",
     "connect-src 'self' https://*.myshopify.com https://cdn.shopify.com https://www.google-analytics.com https://www.googletagmanager.com https://region1.google-analytics.com https://api.web3forms.com",
-    "frame-src 'self' https://*.myshopify.com https://sdks.shopifycdn.com https://shop.app https://*.shopify.com",
+    "frame-src 'self' https://*.myshopify.com https://sdks.shopifycdn.com https://shop.app https://*.shopify.com https://app2.simpletexting.com",
     "form-action 'self' https://*.myshopify.com https://*.kit.com https://api.web3forms.com",
     "upgrade-insecure-requests",
   ].join("; "),
