@@ -33,9 +33,15 @@ export const KIT_SITE_URL = "https://long-money-concepts-llc.kit.com/";
 export const KIT_BOOK_LAUNCH_URL =
   "https://long-money-concepts-llc.kit.com/e30afd8248";
 
-/** Weekly Pulse Kit signup forms (Business / Personal) — hosted form pages. */
+/**
+ * Weekly Pulse Kit signup forms (Business / Personal) — hosted form pages.
+ * Soft gate: Library/Live link here; after signup, Kit automation should email
+ * the unlisted app at https://www.longmoneyconcepts.com/pulse
+ */
 export const KIT_WEEKLY_PULSE_BUSINESS_FORM_URL = `${KIT_SITE_URL}c01e8fb0af`;
 export const KIT_WEEKLY_PULSE_PERSONAL_FORM_URL = `${KIT_SITE_URL}b240865c92`;
+/** Unlisted Weekly Money Pulse web app (not in nav; share after Kit signup). */
+export const WEEKLY_MONEY_PULSE_APP_PATH = "/pulse";
 
 /**
  * Workshop waitlist — confirm Kit/form URL + month with client.

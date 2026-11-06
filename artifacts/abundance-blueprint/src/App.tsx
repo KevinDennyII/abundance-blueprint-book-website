@@ -16,6 +16,7 @@ import Circle from "@/pages/Circle";
 import FinancialWellnessReset from "@/pages/FinancialWellnessReset";
 import ReadinessAssessment from "@/pages/ReadinessAssessment";
 import Okayinaire from "@/pages/Okayinaire";
+import Pulse from "@/pages/pulse/Pulse";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import AdminLogin from "@/pages/admin/AdminLogin";
@@ -62,6 +63,8 @@ function Router() {
       <Route path="/circle" component={Circle} />
       {/* Unlisted landing — not in nav; share URL only. */}
       <Route path="/okayinaire" component={Okayinaire} />
+      {/* Unlisted Weekly Money Pulse — Kit share URL only; not in nav. */}
+      <Route path="/pulse" component={Pulse} />
       {/* Public letter lives on letter.longmoneyconcepts.com (host 301 + SPA fallback). */}
       <Route path="/articles/:slug">
         <ExternalRedirect href={LETTER_SITE_URL} />

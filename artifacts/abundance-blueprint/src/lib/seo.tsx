@@ -78,6 +78,11 @@ export const STATIC_PAGE_META: Record<string, PublicPageSeo> = {
     description:
       "okayinaire (n.): a millionaire on paper who is comfortable, not rich. Investments cover the basics; you work by choice for lifestyle extras.",
   },
+  "/pulse": {
+    title: "The Weekly Money Pulse | Long Money Concepts",
+    description:
+      "A simple weekly money check-in for business owners and households — track income, tax set-asides, and your 13-week pattern.",
+  },
   "/articles": {
     title:
       "The Long Money Letter — Articles | Long Money Concepts",
