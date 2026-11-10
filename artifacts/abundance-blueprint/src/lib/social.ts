@@ -10,9 +10,59 @@ export const LONG_MONEY_CIRCLE_FACEBOOK_URL =
 export const SIMPLETEXTING_JOIN_FORM_URL =
   "https://app2.simpletexting.com/join/joinWebForm?webFormId=6a66181d3d07f1b47d9053a3&c=USA";
 
-/** Acuity discovery call — used for green readiness results (Reset & Advisory). */
+function viteOptionalUrl(value: string | undefined): string | null {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : null;
+}
+
+/**
+ * CoachAccountable Discovery Call offering (all "Book a discovery call" CTAs).
+ * Override with VITE_DISCOVERY_CALL_URL if the offering link changes.
+ */
 export const DISCOVERY_CALL_URL =
-  "https://longmoneycpa.as.me/DiscoveryCall";
+  viteOptionalUrl(import.meta.env.VITE_DISCOVERY_CALL_URL) ??
+  "https://www.coachaccountable.com/offering/PO86ljO5WWYIdEe503YZjxGwK1SLDuX";
+
+/**
+ * CoachAccountable "Start Here" collection script (Work With Me embed).
+ * Client snippet:
+ * `<script src="https://www.coachaccountable.com/offering/SwYxIc8SsSSlpyKBLzuOwSf2o3Nj09g"></script>`
+ * Infisical key VITE_COACH_ACCOUNTABLE_START_HERE_IFRAME_SRC can override (legacy name).
+ */
+export const COACH_ACCOUNTABLE_START_HERE_SCRIPT_SRC =
+  viteOptionalUrl(import.meta.env.VITE_COACH_ACCOUNTABLE_START_HERE_IFRAME_SRC) ??
+  "https://www.coachaccountable.com/offering/SwYxIc8SsSSlpyKBLzuOwSf2o3Nj09g";
+
+/** @deprecated Use COACH_ACCOUNTABLE_START_HERE_SCRIPT_SRC */
+export const COACH_ACCOUNTABLE_START_HERE_IFRAME_SRC =
+  COACH_ACCOUNTABLE_START_HERE_SCRIPT_SRC;
+
+/**
+ * Guide Walkthrough offering — `/walkthrough` redirect target.
+ * Override with VITE_GUIDE_WALKTHROUGH_URL if the offering link changes.
+ */
+export const GUIDE_WALKTHROUGH_URL =
+  viteOptionalUrl(import.meta.env.VITE_GUIDE_WALKTHROUGH_URL) ??
+  "https://www.coachaccountable.com/offering/PbLRXATJynz9VcHhCX50M4ok4juiOvc";
+
+/**
+ * Kit form for Library Hours — `/libraryhours` redirect target.
+ * Set VITE_LIBRARY_HOURS_URL in Infisical/Replit when the form URL is ready.
+ */
+export const LIBRARY_HOURS_URL = viteOptionalUrl(
+  import.meta.env.VITE_LIBRARY_HOURS_URL,
+);
+
+/** Unlisted Cash Flow Intensive detail page (share after discovery; not linked from nav). */
+export const CASH_FLOW_INTENSIVE_PATH = "/cash-flow-intensive";
+
+/**
+ * CoachAccountable Kickoff Call booking for the Cash Flow Intensive.
+ * Set via VITE_CASH_FLOW_INTENSIVE_KICKOFF_URL — CTA stays disabled until set.
+ */
+export const CASH_FLOW_INTENSIVE_KICKOFF_URL = viteOptionalUrl(
+  import.meta.env.VITE_CASH_FLOW_INTENSIVE_KICKOFF_URL,
+);
 
 /** Hosted crisis PDFs — free, no signup. Library cards route to `/crisis`. */
 export const CRISIS_PAGE_PATH = "/crisis";

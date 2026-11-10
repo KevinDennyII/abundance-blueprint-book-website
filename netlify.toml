@@ -47,6 +47,13 @@
   status = 301
   force = true
 
+# Short links used in guides (SPA also handles these via ExternalRedirect)
+[[redirects]]
+  from = "/walkthrough"
+  to = "https://www.coachaccountable.com/offering/PbLRXATJynz9VcHhCX50M4ok4juiOvc"
+  status = 301
+  force = true
+
 # Client-side routing (wouter)
 [[redirects]]
   from = "/*"

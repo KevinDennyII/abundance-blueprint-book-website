@@ -57,7 +57,7 @@ const previousDefaultsByPath: Record<
     {
       title: "Work With Me — HEALS™ Services | Abundance Blueprint",
       description:
-        "Financial wellness services built on the HEALS™ Method — the Long Money Circle, Financial Wellness Reset, Advisory Membership, and workshops rooted in Abundance Blueprint.",
+        "Live Cohort, 1:1 Financial Wellness Reset, Advisory Membership, and Strategic Intensives — built on the HEALS™ Method.",
     },
   ],
   "/financial-wellness-reset": [
@@ -65,6 +65,13 @@ const previousDefaultsByPath: Record<
       title: "The Financial Wellness Reset | Abundance Blueprint",
       description:
         "A 12-week, one-on-one guided experience built on the HEALS™ Method — moving you from where you are now into real, structural financial change.",
+    },
+  ],
+  "/cash-flow-intensive": [
+    {
+      title: "The Cash Flow Intensive | Abundance Blueprint",
+      description:
+        "Financial triage for your business and household — a full year of real cash flow mapped, with live support from La'Toya Ray, CPA.",
     },
   ],
   "/readiness-assessment": [

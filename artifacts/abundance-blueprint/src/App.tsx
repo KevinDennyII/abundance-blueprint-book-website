@@ -14,6 +14,7 @@ import WorkWithMe from "@/pages/WorkWithMe";
 import Contact from "@/pages/Contact";
 import Circle from "@/pages/Circle";
 import FinancialWellnessReset from "@/pages/FinancialWellnessReset";
+import CashFlowIntensive from "@/pages/CashFlowIntensive";
 import ReadinessAssessment from "@/pages/ReadinessAssessment";
 import Okayinaire from "@/pages/Okayinaire";
 import Pulse from "@/pages/pulse/Pulse";
@@ -37,7 +38,11 @@ import { ExternalRedirect } from "@/components/ExternalRedirect";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { SeoProvider } from "@/lib/seo";
-import { LETTER_SITE_URL } from "@/lib/social";
+import {
+  GUIDE_WALKTHROUGH_URL,
+  LETTER_SITE_URL,
+  LIBRARY_HOURS_URL,
+} from "@/lib/social";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +61,8 @@ function Router() {
       <Route path="/work-with-me" component={WorkWithMe} />
       <Route path="/contact" component={Contact} />
       <Route path="/financial-wellness-reset" component={FinancialWellnessReset} />
+      {/* Unlisted — share after discovery; not linked from Work With Me or nav. */}
+      <Route path="/cash-flow-intensive" component={CashFlowIntensive} />
       <Route path="/readiness-assessment" component={ReadinessAssessment} />
       <Route path="/services">
         <Redirect to="/work-with-me" />
@@ -77,6 +84,17 @@ function Router() {
       </Route>
       <Route path="/blog">
         <ExternalRedirect href={LETTER_SITE_URL} />
+      </Route>
+      {/* Short links for guides — change target URLs in social.ts / Infisical only. */}
+      <Route path="/walkthrough">
+        <ExternalRedirect href={GUIDE_WALKTHROUGH_URL} />
+      </Route>
+      <Route path="/libraryhours">
+        {LIBRARY_HOURS_URL ? (
+          <ExternalRedirect href={LIBRARY_HOURS_URL} />
+        ) : (
+          <Redirect to="/library" />
+        )}
       </Route>
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />

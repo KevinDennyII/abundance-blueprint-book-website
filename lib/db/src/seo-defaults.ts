@@ -50,13 +50,19 @@ export const staticPageMetaDefaults: PageMetaDefault[] = [
     path: "/work-with-me",
     title: "Work With Me — HEALS™ Services | Long Money Concepts",
     description:
-      "Financial wellness services from Long Money Concepts built on the HEALS™ Method — the Long Money Circle, Financial Wellness Reset, Advisory Membership, and workshops.",
+      "Live Cohort, 1:1 Financial Wellness Reset, Advisory Membership, and Strategic Intensives from Long Money Concepts — built on the HEALS™ Method.",
   },
   {
     path: "/financial-wellness-reset",
     title: "The Financial Wellness Reset | Long Money Concepts",
     description:
       "A 12-week, one-on-one guided experience from Long Money Concepts built on the HEALS™ Method — moving you from where you are now into real, structural financial change.",
+  },
+  {
+    path: "/cash-flow-intensive",
+    title: "The Cash Flow Intensive | Long Money Concepts",
+    description:
+      "Financial triage for your business and household — a full year of real cash flow mapped, with live support from La'Toya Ray, CPA.",
   },
   {
     path: "/readiness-assessment",

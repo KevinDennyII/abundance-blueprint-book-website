@@ -10,6 +10,7 @@ function isNavActive(location: string, href: string) {
   if (
     href === "/work-with-me" &&
     (location.startsWith("/financial-wellness-reset") ||
+      location.startsWith("/cash-flow-intensive") ||
       location.startsWith("/readiness-assessment") ||
       location.startsWith("/contact"))
   ) {
