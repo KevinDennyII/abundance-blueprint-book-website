@@ -46,12 +46,12 @@ export const GUIDE_WALKTHROUGH_URL =
   "https://www.coachaccountable.com/offering/PbLRXATJynz9VcHhCX50M4ok4juiOvc";
 
 /**
- * Kit form for Library Hours — `/libraryhours` redirect target.
- * Set VITE_LIBRARY_HOURS_URL in Infisical/Replit when the form URL is ready.
+ * Library Hours form on the letter site — `/libraryhours` redirect target.
+ * Override with VITE_LIBRARY_HOURS_URL if the form URL changes.
  */
-export const LIBRARY_HOURS_URL = viteOptionalUrl(
-  import.meta.env.VITE_LIBRARY_HOURS_URL,
-);
+export const LIBRARY_HOURS_URL =
+  viteOptionalUrl(import.meta.env.VITE_LIBRARY_HOURS_URL) ??
+  "https://letter.longmoneyconcepts.com/libraryhours";
 
 /** Unlisted Cash Flow Intensive detail page (share after discovery; not linked from nav). */
 export const CASH_FLOW_INTENSIVE_PATH = "/cash-flow-intensive";

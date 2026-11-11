@@ -90,11 +90,7 @@ function Router() {
         <ExternalRedirect href={GUIDE_WALKTHROUGH_URL} />
       </Route>
       <Route path="/libraryhours">
-        {LIBRARY_HOURS_URL ? (
-          <ExternalRedirect href={LIBRARY_HOURS_URL} />
-        ) : (
-          <Redirect to="/library" />
-        )}
+        <ExternalRedirect href={LIBRARY_HOURS_URL} />
       </Route>
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />

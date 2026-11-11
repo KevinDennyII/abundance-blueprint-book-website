@@ -54,6 +54,12 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/libraryhours"
+  to = "https://letter.longmoneyconcepts.com/libraryhours"
+  status = 301
+  force = true
+
 # Client-side routing (wouter)
 [[redirects]]
   from = "/*"

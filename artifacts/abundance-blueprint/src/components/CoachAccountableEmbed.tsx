@@ -7,6 +7,13 @@ type CoachAccountableEmbedProps = {
 };
 
 /**
+ * CoachAccountable's collection script always injects a 600px-tall iframe,
+ * which leaves empty white space under a short "Start Here" list. We keep
+ * their script (so the widget stays current), then tighten the iframe height.
+ */
+const IFRAME_HEIGHT_PX = 380;
+
+/**
  * CoachAccountable Offering Collection widget (script → iframe).
  * CSP must allow https://www.coachaccountable.com in script-src + frame-src.
  */
@@ -23,6 +30,21 @@ export function CoachAccountableEmbed({
 
     host.replaceChildren();
 
+    const tightenIframe = (iframe: HTMLIFrameElement) => {
+      iframe.style.height = `${IFRAME_HEIGHT_PX}px`;
+      iframe.style.minHeight = `${IFRAME_HEIGHT_PX}px`;
+      iframe.setAttribute("height", String(IFRAME_HEIGHT_PX));
+    };
+
+    const observer = new MutationObserver(() => {
+      const iframe = host.querySelector("iframe");
+      if (iframe) {
+        tightenIframe(iframe);
+        observer.disconnect();
+      }
+    });
+    observer.observe(host, { childList: true, subtree: true });
+
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = src;
@@ -30,6 +52,7 @@ export function CoachAccountableEmbed({
     host.appendChild(script);
 
     return () => {
+      observer.disconnect();
       host.replaceChildren();
     };
   }, [src]);
@@ -54,7 +77,7 @@ export function CoachAccountableEmbed({
   return (
     <div
       ref={hostRef}
-      className={className ?? "w-full min-h-[600px] bg-white"}
+      className={className ?? "w-full bg-transparent"}
       data-testid={testId}
     />
   );
