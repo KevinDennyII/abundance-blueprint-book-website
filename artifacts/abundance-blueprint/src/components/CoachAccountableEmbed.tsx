@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { COACH_ACCOUNTABLE_START_HERE_SCRIPT_SRC } from "@/lib/social";
 
 type CoachAccountableEmbedProps = {
@@ -7,57 +6,33 @@ type CoachAccountableEmbedProps = {
 };
 
 /**
- * CoachAccountable's collection script always injects a 600px-tall iframe,
- * which leaves empty white space under a short "Start Here" list. We keep
- * their script (so the widget stays current), then tighten the iframe height.
+ * CoachAccountable's collection script hardcodes a 600px iframe, leaving empty
+ * white space under the three-offering list. Their script only injects an
+ * iframe at the matching widget URL (script id prefix `S` → widget prefix `W`).
+ * We load that iframe ourselves at a height that shows all three offerings
+ * without scrolling or empty pad below.
  */
-const IFRAME_HEIGHT_PX = 380;
+const IFRAME_HEIGHT_PX = 420;
+
+/** Map the published script src to the widget iframe src CA would inject. */
+function widgetIframeSrcFromScript(scriptSrc: string): string {
+  return scriptSrc.replace("/offering/S", "/offering/W");
+}
 
 /**
- * CoachAccountable Offering Collection widget (script → iframe).
- * CSP must allow https://www.coachaccountable.com in script-src + frame-src.
+ * CoachAccountable Offering Collection widget.
+ * CSP must allow https://www.coachaccountable.com in frame-src.
  */
 export function CoachAccountableEmbed({
   className,
   "data-testid": testId = "embed-coachaccountable-start-here",
 }: CoachAccountableEmbedProps) {
-  const hostRef = useRef<HTMLDivElement>(null);
-  const src = COACH_ACCOUNTABLE_START_HERE_SCRIPT_SRC;
+  const scriptSrc = COACH_ACCOUNTABLE_START_HERE_SCRIPT_SRC;
+  const iframeSrc = scriptSrc
+    ? widgetIframeSrcFromScript(scriptSrc)
+    : null;
 
-  useEffect(() => {
-    const host = hostRef.current;
-    if (!host || !src) return;
-
-    host.replaceChildren();
-
-    const tightenIframe = (iframe: HTMLIFrameElement) => {
-      iframe.style.height = `${IFRAME_HEIGHT_PX}px`;
-      iframe.style.minHeight = `${IFRAME_HEIGHT_PX}px`;
-      iframe.setAttribute("height", String(IFRAME_HEIGHT_PX));
-    };
-
-    const observer = new MutationObserver(() => {
-      const iframe = host.querySelector("iframe");
-      if (iframe) {
-        tightenIframe(iframe);
-        observer.disconnect();
-      }
-    });
-    observer.observe(host, { childList: true, subtree: true });
-
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = src;
-    script.async = false;
-    host.appendChild(script);
-
-    return () => {
-      observer.disconnect();
-      host.replaceChildren();
-    };
-  }, [src]);
-
-  if (!src) {
+  if (!iframeSrc) {
     return (
       <div
         className={
@@ -75,10 +50,18 @@ export function CoachAccountableEmbed({
   }
 
   return (
-    <div
-      ref={hostRef}
-      className={className ?? "w-full bg-transparent"}
-      data-testid={testId}
-    />
+    <div className={className ?? "w-full"} data-testid={testId}>
+      <iframe
+        title="Start with a single session"
+        src={iframeSrc}
+        width="100%"
+        height={IFRAME_HEIGHT_PX}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        className="block w-full border-0"
+        style={{ height: IFRAME_HEIGHT_PX }}
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-top-navigation allow-forms allow-popups"
+      />
+    </div>
   );
 }
