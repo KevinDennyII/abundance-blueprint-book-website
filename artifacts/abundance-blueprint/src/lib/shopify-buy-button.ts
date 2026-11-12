@@ -44,6 +44,28 @@ export type GuideBadgeTone = "solid" | "new";
  * Digital / Print map to the Library card CTAs.
  */
 export const SHOPIFY_GUIDES = {
+  paymentIsNotPrice: {
+    productId: "15441100210285",
+    title: "Your Payment Is Not Your Price",
+    eyebrow: "Guide + workbook",
+    audience:
+      "For people who can make their payments but feel buried by debt",
+    body: "See what your debt is really costing you, choose a payoff plan you'll stick with, and enjoy your life along the way. Then learn to borrow on purpose, so you never end up back here.",
+    badge: "New",
+    badgeTone: "new" as GuideBadgeTone,
+    digital: {
+      variantId: "68046083358829",
+      priceLabel: "$47",
+      nodeId: "shopify-payment-digital",
+      buttonText: "Buy Now",
+    },
+    print: {
+      variantId: "68046076444781",
+      priceLabel: "Print on demand",
+      nodeId: "shopify-payment-print",
+      buttonText: "Buy Print",
+    },
+  },
   financialFoundations: {
     productId: "15414445080685",
     title: "Financial Foundations",
@@ -71,8 +93,8 @@ export const SHOPIFY_GUIDES = {
     eyebrow: "Guide + workbook",
     audience: "For business owners, owner-operators & 1099 contractors",
     body: "Separate what the business earns from what you live on. Learn to treat taxes as a regular weekly bill instead of a yearly surprise, and pay yourself on purpose.",
-    badge: "New",
-    badgeTone: "new" as GuideBadgeTone,
+    badge: "Available now",
+    badgeTone: "solid" as GuideBadgeTone,
     digital: {
       variantId: "67895103029357",
       priceLabel: "$47",
