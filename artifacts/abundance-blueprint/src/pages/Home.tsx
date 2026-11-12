@@ -45,19 +45,21 @@ export default function Home() {
                   variants={fadeInUp}
                   className="text-4xl md:text-5xl lg:text-6xl font-serif text-primary leading-tight mb-6"
                 >
-                  Heal Your Past. <br />
-                  <span className="text-secondary">
-                    Build Your Foundation.
-                  </span>{" "}
-                  <br />
-                  Create Financial Harmony.
+                  Abundance Blueprint
                 </motion.h1>
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-xl md:text-2xl text-secondary mb-4 font-serif"
+                >
+                  A Journey to Financial Harmony
+                </motion.p>
                 <motion.p
                   variants={fadeInUp}
                   className="text-lg text-muted mb-8 leading-relaxed"
                 >
-                  A memoir-driven guide to healing the story beneath the
-                  spending, debt, hustle, fear, and financial exhaustion.
+                  There&apos;s life beneath the numbers — a memoir-driven guide
+                  to healing the story beneath the spending, debt, hustle, and
+                  exhaustion.
                 </motion.p>
                 <motion.div variants={fadeInUp}>
                   <EmailSignup />
@@ -91,7 +93,7 @@ export default function Home() {
             className="max-w-4xl mx-auto"
           >
             <p className="font-serif text-3xl md:text-4xl lg:text-5xl leading-tight mb-8 text-accent italic">
-              "Real wealth doesn't announce itself. It is quiet peace."
+              &ldquo;Your past explains you. It does not confine you.&rdquo;
             </p>
             <p className="font-sans tracking-widest uppercase text-sm opacity-80">
               — La'Toya Ray, CPA

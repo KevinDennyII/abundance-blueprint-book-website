@@ -55,10 +55,10 @@ export default function Book() {
 
                 <motion.div variants={fadeInUp} className="space-y-6 text-muted text-lg leading-relaxed mb-10">
                   <p>
-                    Abundance Blueprint is the financial book for people who already know what to do but still struggle to understand why money feels so emotionally hard — a memoir-driven guide to healing the story beneath the spending, debt, hustle, fear, and financial exhaustion.
+                    Abundance Blueprint is for anyone who has ever felt behind with money and couldn&apos;t explain why. Part memoir, part financial education, it is one CPA&apos;s honest account of the story beneath the spending, debt, hustle, and exhaustion — and how to build something steadier on top of it.
                   </p>
                   <p>
-                    From food stamps and financial instability to entrepreneurship, real estate ownership, and the freedom to reclaim her time, La'Toya's journey is both deeply personal and universally recognizable.
+                    From food stamps to financial freedom — through a CPA license, a loan modification, twenty years of client work, and a woman named Ms. Ruth who co-signed a car when it mattered most — La&apos;Toya&apos;s journey is both deeply personal and universally recognizable.
                   </p>
                 </motion.div>
 
@@ -116,14 +116,17 @@ export default function Book() {
                   From the back cover
                 </motion.h3>
                 <motion.div variants={fadeInUp} className="space-y-6 text-muted text-lg leading-relaxed">
-                  <p>
-                    You didn't learn about money in a classroom. You learned it in the silences at the dinner table, the instability you normalized, the responsibilities you carried too early, and the survival patterns that followed you long after the crisis ended.
+                  <p className="font-serif text-xl md:text-2xl text-primary">
+                    You didn&apos;t learn about money in a classroom.
                   </p>
                   <p>
-                    Until those patterns are examined, no budget, debt payoff plan, or income increase will fully change the financial behaviors underneath them.
+                    You learned it in the silences at the dinner table, in the instability you normalized, in the responsibilities you carried too early — and in the survival patterns that followed you long after the crisis ended. Until those patterns are examined, no budget, debt payoff plan, or raise will be enough.
                   </p>
                   <p>
-                    In Abundance Blueprint, La'Toya Ray, CPA combines personal storytelling, emotional insight, and practical financial wisdom to explore the relationship between money, identity, security, and healing. Through honest reflections on scarcity, ambition, debt, relationships, and generational wealth, this book offers a new framework for building financial harmony from the inside out.
+                    <em>Abundance Blueprint</em> is for anyone who has ever felt behind with money and couldn&apos;t explain why. Part memoir, part financial education, it is one CPA&apos;s honest account of the story beneath the spending, debt, hustle, and exhaustion — and how to build something steadier on top of it.
+                  </p>
+                  <p className="font-serif text-xl text-secondary italic">
+                    &ldquo;Your past explains you. It does not confine you.&rdquo;
                   </p>
                 </motion.div>
               </motion.div>
@@ -160,8 +163,8 @@ export default function Book() {
               {[
                 "Trace your money story back to its roots and decide what no longer belongs in your future",
                 "Build a practical financial foundation without shame, fear, or perfectionism",
-                "Understand how survival mode silently shapes spending, overworking, debt, and relationships",
-                "Redefine wealth beyond income and build a life aligned with peace, purpose, and legacy"
+                "Use debt, taxes, and real estate as tools instead of traps — the way a CPA does",
+                "Redefine wealth as time, peace, and the people you build with — not just a number",
               ].map((item, i) => (
                 <motion.div 
                   key={i}
