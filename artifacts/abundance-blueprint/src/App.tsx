@@ -11,6 +11,7 @@ import Library from "@/pages/Library";
 import Live from "@/pages/Live";
 import Crisis from "@/pages/Crisis";
 import WorkWithMe from "@/pages/WorkWithMe";
+import ClientLogin from "@/pages/ClientLogin";
 import Contact from "@/pages/Contact";
 import Circle from "@/pages/Circle";
 import FinancialWellnessReset from "@/pages/FinancialWellnessReset";
@@ -59,6 +60,7 @@ function Router() {
         <Redirect to="/library" />
       </Route>
       <Route path="/work-with-me" component={WorkWithMe} />
+      <Route path="/client-login" component={ClientLogin} />
       <Route path="/contact" component={Contact} />
       <Route path="/financial-wellness-reset" component={FinancialWellnessReset} />
       {/* Unlisted — share after discovery; not linked from Work With Me or nav. */}

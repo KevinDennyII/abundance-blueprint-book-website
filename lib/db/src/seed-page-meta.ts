@@ -60,6 +60,13 @@ const previousDefaultsByPath: Record<
         "Live Cohort, 1:1 Financial Wellness Reset, Advisory Membership, and Strategic Intensives — built on the HEALS™ Method.",
     },
   ],
+  "/client-login": [
+    {
+      title: "Client Login — The Long Money Table | Abundance Blueprint",
+      description:
+        "Sign in to The Long Money Table, the Long Money Concepts coaching portal for resources, notes, and progress tracking.",
+    },
+  ],
   "/financial-wellness-reset": [
     {
       title: "The Financial Wellness Reset | Abundance Blueprint",

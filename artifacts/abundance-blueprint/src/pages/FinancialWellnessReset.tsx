@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -41,15 +42,48 @@ const phases = [
   },
 ] as const;
 
-const included = [
-  "Twelve weekly 1:1 sessions with LaToya",
-  "Pre-session material before each session (reflection & preparation, not graded homework)",
-  "Printed HEALS™ Method guides—one for each phase",
-  "Online client portal for resources, notes, and progress tracking",
-  "Monarch Money dashboard access starting Week 3",
-  "Weekly written deliverables with 48-hour response follow-up",
-  "Session recordings available with your consent",
-] as const;
+const included: readonly { key: string; content: ReactNode }[] = [
+  {
+    key: "sessions",
+    content: "Twelve weekly 1:1 sessions with LaToya",
+  },
+  {
+    key: "pre-session",
+    content:
+      "Pre-session material before each session (reflection & preparation, not graded homework)",
+  },
+  {
+    key: "guides",
+    content: "Printed HEALS™ Method guides—one for each phase",
+  },
+  {
+    key: "portal",
+    content: (
+      <>
+        Online{" "}
+        <Link
+          href="/client-login"
+          className="text-secondary underline underline-offset-4 hover:text-primary"
+        >
+          client portal
+        </Link>{" "}
+        for resources, notes, and progress tracking
+      </>
+    ),
+  },
+  {
+    key: "monarch",
+    content: "Monarch Money dashboard access starting Week 3",
+  },
+  {
+    key: "deliverables",
+    content: "Weekly written deliverables with 48-hour response follow-up",
+  },
+  {
+    key: "recordings",
+    content: "Session recordings available with your consent",
+  },
+];
 
 export default function FinancialWellnessReset() {
   return (
@@ -121,10 +155,10 @@ export default function FinancialWellnessReset() {
                 <ul className="space-y-3">
                   {included.map((item) => (
                     <li
-                      key={item}
+                      key={item.key}
                       className="relative pl-5 text-muted leading-relaxed before:content-['✓'] before:absolute before:left-0 before:text-secondary"
                     >
-                      {item}
+                      {item.content}
                     </li>
                   ))}
                 </ul>

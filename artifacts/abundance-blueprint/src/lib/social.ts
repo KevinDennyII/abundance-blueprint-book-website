@@ -38,6 +38,27 @@ export const COACH_ACCOUNTABLE_START_HERE_IFRAME_SRC =
   COACH_ACCOUNTABLE_START_HERE_SCRIPT_SRC;
 
 /**
+ * CoachAccountable branded client login page (direct link / fallback).
+ * Override with VITE_COACH_ACCOUNTABLE_CLIENT_LOGIN_URL if the branding id changes.
+ */
+export const COACH_ACCOUNTABLE_CLIENT_LOGIN_URL =
+  viteOptionalUrl(import.meta.env.VITE_COACH_ACCOUNTABLE_CLIENT_LOGIN_URL) ??
+  "https://www.coachaccountable.com/login/bIEtzjyiZd2M4Bt5Gkxg";
+
+/**
+ * CoachAccountable login widget script (Client Login page embed).
+ * Client snippet:
+ * `<script src="https://www.coachaccountable.com/loginWidget/bIEtzjyiZd2M4Bt5Gkxg"></script>`
+ * The script injects an iframe at `/loginWidget/w-{id}` and resizes via postMessage.
+ * Override with VITE_COACH_ACCOUNTABLE_CLIENT_LOGIN_WIDGET_SRC if needed.
+ */
+export const COACH_ACCOUNTABLE_CLIENT_LOGIN_WIDGET_SCRIPT_SRC =
+  viteOptionalUrl(
+    import.meta.env.VITE_COACH_ACCOUNTABLE_CLIENT_LOGIN_WIDGET_SRC,
+  ) ??
+  "https://www.coachaccountable.com/loginWidget/bIEtzjyiZd2M4Bt5Gkxg";
+
+/**
  * Guide Walkthrough offering — `/walkthrough` redirect target.
  * Override with VITE_GUIDE_WALKTHROUGH_URL if the offering link changes.
  */

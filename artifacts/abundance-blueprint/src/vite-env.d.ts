@@ -9,6 +9,10 @@ interface ImportMetaEnv {
    * Legacy Infisical name — value is the script `src`, not an iframe.
    */
   readonly VITE_COACH_ACCOUNTABLE_START_HERE_IFRAME_SRC?: string;
+  /** CoachAccountable branded client login page URL. */
+  readonly VITE_COACH_ACCOUNTABLE_CLIENT_LOGIN_URL?: string;
+  /** CoachAccountable login widget script URL (Client Login embed). */
+  readonly VITE_COACH_ACCOUNTABLE_CLIENT_LOGIN_WIDGET_SRC?: string;
   /** Guide Walkthrough offering — `/walkthrough` redirect. */
   readonly VITE_GUIDE_WALKTHROUGH_URL?: string;
   /** Library Hours form on letter site — `/libraryhours` redirect. */

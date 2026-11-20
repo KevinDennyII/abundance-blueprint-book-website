@@ -53,6 +53,11 @@ export const STATIC_PAGE_META: Record<string, PublicPageSeo> = {
     description:
       "Live Cohort, 1:1 Financial Wellness Reset, Advisory Membership, and Strategic Intensives from Long Money Concepts — built on the HEALS™ Method.",
   },
+  "/client-login": {
+    title: "Client Login — The Long Money Table | Long Money Concepts",
+    description:
+      "Sign in to The Long Money Table, the Long Money Concepts coaching portal for resources, notes, and progress tracking.",
+  },
   "/financial-wellness-reset": {
     title: "The Financial Wellness Reset | Long Money Concepts",
     description:

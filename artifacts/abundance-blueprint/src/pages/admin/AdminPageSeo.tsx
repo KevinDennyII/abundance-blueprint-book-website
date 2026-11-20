@@ -14,6 +14,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/live": "Long Money Live",
   "/crisis": "Crisis Resources",
   "/work-with-me": "Work With Me",
+  "/client-login": "Client Login",
   "/financial-wellness-reset": "Financial Wellness Reset",
   "/cash-flow-intensive": "Cash Flow Intensive",
   "/readiness-assessment": "Readiness Assessment",

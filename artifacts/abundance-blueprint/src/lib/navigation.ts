@@ -14,6 +14,7 @@ export const navLinks: readonly NavLink[] = [
   { href: "/circle", label: "Community" },
   { href: "/live", label: "Live" },
   { href: "/work-with-me", label: "Work With Me" },
+  { href: "/client-login", label: "Client Login" },
   { href: "/about", label: "About" },
   { href: LETTER_SITE_URL, label: "Articles", external: true },
 ];
