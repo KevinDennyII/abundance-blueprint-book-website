@@ -7,7 +7,7 @@ import {
   COMPANY_PHONE_DISPLAY,
   COMPANY_PHONE_TEL,
 } from "@/lib/social";
-import { navLinks } from "@/lib/navigation";
+import { footerNavLinks } from "@/lib/navigation";
 
 export function Footer() {
   return (
@@ -57,12 +57,12 @@ export function Footer() {
           </div>
 
           {/* Secondary nav */}
-          <div className="shrink-0 lg:w-36">
+          <div className="shrink-0 lg:w-52">
             <h4 className="font-sans font-semibold text-xs tracking-wider uppercase mb-1.5 text-background/50">
               Navigation
             </h4>
             <ul className="space-y-1.5 text-sm leading-snug">
-              {navLinks.map((link) => (
+              {footerNavLinks.map((link) => (
                 <li key={link.href}>
                   {link.external ? (
                     <a
