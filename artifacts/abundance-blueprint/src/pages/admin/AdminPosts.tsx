@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { FileText, Plus } from "lucide-react";
+import { FileText, Plus, RefreshCw } from "lucide-react";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,7 @@ import {
   deleteAdminPost,
   fetchAdminPosts,
   formatPostDate,
+  syncAdminKitLetterPosts,
   type BlogPost,
 } from "@/lib/blog-api";
 
@@ -15,7 +16,9 @@ export default function AdminPosts() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<number | null>(null);
+  const [syncing, setSyncing] = useState(false);
 
   async function load() {
     setLoading(true);
@@ -48,21 +51,51 @@ export default function AdminPosts() {
     await load();
   }
 
+  async function handleSyncKit() {
+    setSyncing(true);
+    setError(null);
+    setMessage(null);
+    const result = await syncAdminKitLetterPosts();
+    setSyncing(false);
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    const synced = result.data.synced ?? 0;
+    setMessage(
+      synced > 0
+        ? `Synced ${synced} letter${synced === 1 ? "" : "s"} from Kit.`
+        : "Letter posts are already up to date with Kit.",
+    );
+    await load();
+  }
+
   const published = posts.filter((post) => post.status === "published").length;
   const drafts = posts.length - published;
 
   return (
     <AdminShell
       title="Posts"
-      description="Draft and publish blog posts. Only published posts appear on the public blog."
+      description="The public Letter page mirrors Kit (letter.longmoneyconcepts.com). Use Sync from Kit after she publishes there, or wait for the automatic refresh."
       actions={
-        <Link
-          href="/admin/posts/new"
-          className={cn(buttonVariants({ variant: "default" }))}
-        >
-          <Plus />
-          New post
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            disabled={syncing}
+            onClick={() => void handleSyncKit()}
+          >
+            <RefreshCw className={cn(syncing && "animate-spin")} />
+            {syncing ? "Syncing…" : "Sync from Kit"}
+          </Button>
+          <Link
+            href="/admin/posts/new"
+            className={cn(buttonVariants({ variant: "default" }))}
+          >
+            <Plus />
+            New post
+          </Link>
+        </div>
       }
     >
       {!loading && posts.length > 0 && (
@@ -73,6 +106,11 @@ export default function AdminPosts() {
       )}
 
       {loading && <p className="text-muted">Loading…</p>}
+      {message && (
+        <p className="mb-4 text-sm text-primary" role="status">
+          {message}
+        </p>
+      )}
       {error && (
         <p className="mb-4 text-destructive" role="alert">
           {error}
@@ -84,8 +122,7 @@ export default function AdminPosts() {
           <FileText className="mx-auto mb-3 size-8 text-muted" />
           <p className="font-serif text-xl text-primary">No posts yet</p>
           <p className="mx-auto mt-2 max-w-sm text-sm text-muted">
-            Write your first post to start the blog. You can save it as a draft
-            before publishing.
+            Sync from Kit to pull The Long Money Letter, or create a local draft.
           </p>
           <Link
             href="/admin/posts/new"
@@ -119,6 +156,11 @@ export default function AdminPosts() {
                   >
                     {post.status}
                   </span>
+                  {post.source === "kit" ? (
+                    <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[0.7rem] font-medium uppercase tracking-wide text-primary">
+                      Kit
+                    </span>
+                  ) : null}
                 </div>
                 <p className="mt-1 truncate text-sm text-muted">
                   /letter/{post.slug}

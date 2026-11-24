@@ -27,6 +27,9 @@ const statements = [
   )`,
   `ALTER TABLE posts ADD COLUMN IF NOT EXISTS meta_title text`,
   `ALTER TABLE posts ADD COLUMN IF NOT EXISTS meta_description text`,
+  `ALTER TABLE posts ADD COLUMN IF NOT EXISTS source text`,
+  `ALTER TABLE posts ADD COLUMN IF NOT EXISTS source_id text`,
+  `CREATE INDEX IF NOT EXISTS posts_source_idx ON posts (source)`,
   `CREATE TABLE IF NOT EXISTS comments (
     id serial PRIMARY KEY,
     post_id integer NOT NULL REFERENCES posts(id) ON DELETE CASCADE,

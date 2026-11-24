@@ -10,6 +10,13 @@ import {
 import { isValidEmail, normalizeSlug } from "../lib/blog-utils";
 import { isRateLimited } from "../lib/rate-limit";
 import { requireAdmin, type AuthedRequest } from "../lib/require-admin";
+import {
+  ensureKitLetterPostsFresh,
+  kitLetterSyncStatus,
+  kitPublishedOnlyFilter,
+  KIT_POST_SOURCE,
+  syncKitLetterPosts,
+} from "../lib/sync-kit-letter-posts";
 
 const router: IRouter = Router();
 
@@ -21,6 +28,7 @@ function publicPostShape(post: typeof postsTable.$inferSelect) {
     excerpt: post.excerpt,
     body: post.body,
     status: post.status,
+    source: post.source ?? null,
     metaTitle: post.metaTitle ?? null,
     metaDescription: post.metaDescription ?? null,
     publishedAt: post.publishedAt,
@@ -48,11 +56,26 @@ function publicCommentShape(comment: typeof commentsTable.$inferSelect) {
   };
 }
 
+async function publicPostsWhere() {
+  const [kitCount] = await db
+    .select({ value: count() })
+    .from(postsTable)
+    .where(eq(postsTable.source, KIT_POST_SOURCE));
+
+  // Once Kit sync has landed rows, Letter only shows those (matches creator site).
+  if ((kitCount?.value ?? 0) > 0) {
+    return kitPublishedOnlyFilter();
+  }
+  return eq(postsTable.status, "published");
+}
+
 async function listPublishedPosts(page: number, pageSize: number) {
+  const where = await publicPostsWhere();
+
   const [totalRow] = await db
     .select({ value: count() })
     .from(postsTable)
-    .where(eq(postsTable.status, "published"));
+    .where(where);
 
   const total = totalRow?.value ?? 0;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
@@ -68,7 +91,7 @@ async function listPublishedPosts(page: number, pageSize: number) {
       createdAt: postsTable.createdAt,
     })
     .from(postsTable)
-    .where(eq(postsTable.status, "published"))
+    .where(where)
     .orderBy(desc(postsTable.publishedAt), desc(postsTable.createdAt))
     .limit(pageSize)
     .offset((safePage - 1) * pageSize);
@@ -89,12 +112,14 @@ router.get("/posts", async (req, res) => {
   const page = Number.isInteger(rawPage) && rawPage > 0 ? rawPage : 1;
 
   try {
+    await ensureKitLetterPostsFresh();
     const payload = await listPublishedPosts(page, pageSize);
     res.json({ ok: true, ...payload });
   } catch (firstErr) {
     try {
       const { ensureSchema } = await import("@workspace/db");
       await ensureSchema();
+      await ensureKitLetterPostsFresh();
       const payload = await listPublishedPosts(page, pageSize);
       res.json({ ok: true, ...payload });
     } catch (err) {
@@ -116,12 +141,12 @@ router.get("/posts/:slug", async (req, res) => {
   const slug = req.params.slug ?? "";
 
   try {
+    await ensureKitLetterPostsFresh();
+    const where = await publicPostsWhere();
     const [post] = await db
       .select()
       .from(postsTable)
-      .where(
-        and(eq(postsTable.slug, slug), eq(postsTable.status, "published")),
-      )
+      .where(and(eq(postsTable.slug, slug), where))
       .limit(1);
 
     if (!post) {
@@ -233,6 +258,24 @@ router.post("/posts/:slug/comments", async (req, res) => {
     res.status(503).json({ ok: false, error: "Unable to submit comment." });
   }
 });
+
+/** Admin: force-sync The Long Money Letter from Kit creator site */
+router.post(
+  "/admin/letter/sync",
+  requireAdmin,
+  async (req: AuthedRequest, res) => {
+    try {
+      const result = await syncKitLetterPosts({ force: true });
+      res.status(result.ok ? 200 : 502).json({
+        ...result,
+        status: kitLetterSyncStatus(),
+      });
+    } catch (err) {
+      req.log?.error?.({ err }, "Failed to sync Kit letter posts");
+      res.status(503).json({ ok: false, error: "Unable to sync letter posts." });
+    }
+  },
+);
 
 /** Admin: list all posts */
 router.get("/admin/posts", requireAdmin, async (req: AuthedRequest, res) => {

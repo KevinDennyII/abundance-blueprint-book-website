@@ -92,20 +92,22 @@ export const CRISIS_STABILIZATION_ROADMAP_URL =
 export const CRISIS_RESOURCE_GUIDE_URL = "/crisis/crisis-resource-guide.pdf";
 
 /**
- * On-site Letter index — published posts from admin (`/admin/posts`).
+ * On-site Letter index — mirrors published Kit creator posts
+ * (letter.longmoneyconcepts.com) via API sync into Postgres.
  * Legacy `/articles`, `/blog`, and `/letters` permanently redirect here.
  */
 export const LETTER_PAGE_PATH = "/letter";
 
 /**
- * Newsletter signup home (Kit / dedicated letter site).
+ * Newsletter signup home.
  * Banner on the Letter page links here.
  */
 export const LONG_MONEY_LETTER_SIGNUP_URL = "https://longmoneyletter.com";
 
 /**
- * Legacy letter subdomain (Library Hours form and older shared links).
- * Public letter archive now lives on the main site at {@link LETTER_PAGE_PATH}.
+ * Kit creator site for The Long Money Letter (source of truth for posts;
+ * also hosts Library Hours). Public archive is mirrored on-site at
+ * {@link LETTER_PAGE_PATH}.
  */
 export const LETTER_SITE_URL = "https://letter.longmoneyconcepts.com";
 

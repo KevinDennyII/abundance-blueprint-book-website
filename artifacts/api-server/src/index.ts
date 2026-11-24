@@ -79,6 +79,21 @@ async function bootstrapDatabase(): Promise<void> {
   }
 
   await bootstrapAdminIfNeeded();
+
+  try {
+    const { syncKitLetterPosts } = await import("./lib/sync-kit-letter-posts");
+    const result = await syncKitLetterPosts({ force: true });
+    if (result.ok) {
+      logger.info(
+        { synced: result.synced, hasMore: result.hasMore },
+        "Kit letter posts synced on boot",
+      );
+    } else {
+      logger.warn({ error: result.error }, "Kit letter sync on boot failed");
+    }
+  } catch (err) {
+    logger.warn({ err }, "Kit letter sync on boot threw");
+  }
 }
 
 async function bootstrapAdminIfNeeded(): Promise<void> {

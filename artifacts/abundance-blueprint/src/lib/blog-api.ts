@@ -17,6 +17,8 @@ export type BlogPostListItem = {
 export type BlogPost = BlogPostListItem & {
   body: string;
   status: "draft" | "published";
+  /** `kit` when mirrored from the Kit creator letter site. */
+  source?: string | null;
   metaTitle: string | null;
   metaDescription: string | null;
   updatedAt: string;
@@ -241,6 +243,20 @@ export async function updateAdminPost(id: number, input: AdminPostInput) {
 export async function deleteAdminPost(id: number) {
   return apiFetch<{ ok: true }>(`/api/admin/posts/${id}`, {
     method: "DELETE",
+  });
+}
+
+/** Force-refresh Letter posts from the Kit creator site. */
+export async function syncAdminKitLetterPosts() {
+  return apiFetch<{
+    ok: boolean;
+    synced: number;
+    skipped: boolean;
+    hasMore: boolean;
+    slugs: string[];
+    error?: string;
+  }>("/api/admin/letter/sync", {
+    method: "POST",
   });
 }
 

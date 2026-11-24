@@ -12,6 +12,10 @@ export const postsTable = pgTable("posts", {
   status: text("status").$type<PostStatus>().notNull().default("draft"),
   metaTitle: text("meta_title"),
   metaDescription: text("meta_description"),
+  /** Origin system for mirrored content — `kit` for The Long Money Letter. */
+  source: text("source"),
+  /** External id from `source` (Kit post id as string). */
+  sourceId: text("source_id"),
   publishedAt: timestamp("published_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
