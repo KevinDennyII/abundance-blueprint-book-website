@@ -179,7 +179,7 @@ export default function AdminPostEditor({ mode }: { mode: Mode }) {
                 }}
               />
               <p className="text-xs text-muted">
-                Public URL: /articles/{slug || "…"}
+                Public URL: /letter/{slug || "…"}
               </p>
             </div>
 

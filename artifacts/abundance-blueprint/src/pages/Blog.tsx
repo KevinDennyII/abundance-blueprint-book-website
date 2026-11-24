@@ -10,6 +10,10 @@ import {
   formatPostDate,
   type BlogPostListItem,
 } from "@/lib/blog-api";
+import {
+  LETTER_PAGE_PATH,
+  LONG_MONEY_LETTER_SIGNUP_URL,
+} from "@/lib/social";
 
 function pageFromSearch(search: string): number {
   const params = new URLSearchParams(
@@ -56,8 +60,8 @@ export default function Blog() {
       ) {
         setLocation(
           result.data.page <= 1
-            ? "/articles"
-            : `/articles?page=${result.data.page}`,
+            ? LETTER_PAGE_PATH
+            : `${LETTER_PAGE_PATH}?page=${result.data.page}`,
           { replace: true },
         );
       }
@@ -69,13 +73,15 @@ export default function Blog() {
   }, [page, setLocation]);
 
   function goToPage(next: number) {
-    setLocation(next <= 1 ? "/articles" : `/articles?page=${next}`);
+    setLocation(
+      next <= 1 ? LETTER_PAGE_PATH : `${LETTER_PAGE_PATH}?page=${next}`,
+    );
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <PageMeta path="/articles" />
+      <PageMeta path={LETTER_PAGE_PATH} />
       <Navbar />
 
       <main className="flex-1 pt-32 md:pt-36">
@@ -87,6 +93,20 @@ export default function Blog() {
               transition={{ duration: 0.6 }}
               className="max-w-3xl mx-auto"
             >
+              <p className="mb-10 text-center text-base md:text-lg text-muted leading-relaxed border-b border-card-border pb-8">
+                Want The Long Money Letter delivered to your inbox? Sign up free
+                at{" "}
+                <a
+                  href={LONG_MONEY_LETTER_SIGNUP_URL}
+                  className="text-secondary underline underline-offset-4 hover:text-primary transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  longmoneyletter.com
+                </a>
+                .
+              </p>
+
               <div className="text-center mb-14">
                 <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-primary mb-6">
                   The Long Money Letter
@@ -129,7 +149,7 @@ export default function Blog() {
                       >
                         <article>
                           <Link
-                            href={`/articles/${post.slug}`}
+                            href={`${LETTER_PAGE_PATH}/${post.slug}`}
                             className="group block"
                           >
                             <time className="text-sm text-muted tracking-wide uppercase">
@@ -160,7 +180,7 @@ export default function Blog() {
                   {totalPages > 1 && (
                     <nav
                       className="mt-14 flex items-center justify-between gap-4"
-                      aria-label="Articles pagination"
+                      aria-label="Letter pagination"
                     >
                       <Button
                         type="button"

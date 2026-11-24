@@ -1,4 +1,10 @@
-import { Redirect, Route, Switch, Router as WouterRouter } from "wouter";
+import {
+  Redirect,
+  Route,
+  Switch,
+  Router as WouterRouter,
+  useParams,
+} from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,6 +25,8 @@ import CashFlowIntensive from "@/pages/CashFlowIntensive";
 import ReadinessAssessment from "@/pages/ReadinessAssessment";
 import Okayinaire from "@/pages/Okayinaire";
 import Pulse from "@/pages/pulse/Pulse";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import AdminLogin from "@/pages/admin/AdminLogin";
@@ -41,11 +49,22 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { SeoProvider } from "@/lib/seo";
 import {
   GUIDE_WALKTHROUGH_URL,
-  LETTER_SITE_URL,
+  LETTER_PAGE_PATH,
   LIBRARY_HOURS_URL,
 } from "@/lib/social";
 
 const queryClient = new QueryClient();
+
+/** SPA fallback for host-level 301s (`/articles`, `/blog`, `/letters` → `/letter`). */
+function RedirectToLetter() {
+  return <Redirect to={LETTER_PAGE_PATH} />;
+}
+
+function RedirectToLetterPost() {
+  const params = useParams<{ slug: string }>();
+  const slug = params.slug ?? "";
+  return <Redirect to={slug ? `${LETTER_PAGE_PATH}/${slug}` : LETTER_PAGE_PATH} />;
+}
 
 function Router() {
   return (
@@ -74,19 +93,16 @@ function Router() {
       <Route path="/okayinaire" component={Okayinaire} />
       {/* Unlisted Weekly Money Pulse — Kit share URL only; not in nav. */}
       <Route path="/pulse" component={Pulse} />
-      {/* Public letter lives on letter.longmoneyconcepts.com (host 301 + SPA fallback). */}
-      <Route path="/articles/:slug">
-        <ExternalRedirect href={LETTER_SITE_URL} />
-      </Route>
-      <Route path="/articles">
-        <ExternalRedirect href={LETTER_SITE_URL} />
-      </Route>
-      <Route path="/blog/:slug">
-        <ExternalRedirect href={LETTER_SITE_URL} />
-      </Route>
-      <Route path="/blog">
-        <ExternalRedirect href={LETTER_SITE_URL} />
-      </Route>
+      {/* The Long Money Letter — on-site archive of admin-published posts. */}
+      <Route path="/letter/:slug" component={BlogPost} />
+      <Route path="/letter" component={Blog} />
+      {/* Permanent redirects: old Article/Blog URLs + common /letters typo. */}
+      <Route path="/articles/:slug" component={RedirectToLetterPost} />
+      <Route path="/articles" component={RedirectToLetter} />
+      <Route path="/blog/:slug" component={RedirectToLetterPost} />
+      <Route path="/blog" component={RedirectToLetter} />
+      <Route path="/letters/:slug" component={RedirectToLetterPost} />
+      <Route path="/letters" component={RedirectToLetter} />
       {/* Short links for guides — change target URLs in social.ts / Infisical only. */}
       <Route path="/walkthrough">
         <ExternalRedirect href={GUIDE_WALKTHROUGH_URL} />

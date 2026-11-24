@@ -95,9 +95,8 @@ export const staticPageMetaDefaults: PageMetaDefault[] = [
       "okayinaire (n.): a millionaire on paper who is comfortable, not rich. Investments cover the basics; you work by choice for lifestyle extras.",
   },
   {
-    path: "/articles",
-    title:
-      "The Long Money Letter — Articles | Long Money Concepts",
+    path: "/letter",
+    title: "The Long Money Letter | Long Money Concepts",
     description:
       "There's more to money than numbers. Explore the stories behind our financial decisions, the lessons that shape our habits, and the journey toward Financial Harmony.",
   },

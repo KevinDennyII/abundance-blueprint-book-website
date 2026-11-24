@@ -1,4 +1,4 @@
-import { LETTER_SITE_URL } from "@/lib/social";
+import { LETTER_PAGE_PATH } from "@/lib/social";
 
 export type NavLink = {
   href: string;
@@ -46,7 +46,7 @@ export const mainNavItems: readonly NavItem[] = [
         label: "The Long Money Library",
         description: "Guides, workshops & shop",
       },
-      { href: LETTER_SITE_URL, label: "Articles", external: true },
+      { href: LETTER_PAGE_PATH, label: "Letter" },
     ],
   },
   { href: "/work-with-me", label: "Work With Me", cta: true },
@@ -65,7 +65,7 @@ export const footerNavLinks: readonly NavLink[] = [
   { href: "/circle", label: "The Long Money Circle" },
   { href: "/live", label: "Long Money Live" },
   { href: "/library", label: "The Long Money Library" },
-  { href: LETTER_SITE_URL, label: "Articles", external: true },
+  { href: LETTER_PAGE_PATH, label: "Letter" },
   { href: "/work-with-me", label: "Work With Me" },
   { href: "/about", label: "About" },
   clientLoginLink,
@@ -73,6 +73,9 @@ export const footerNavLinks: readonly NavLink[] = [
 
 export function isNavActive(location: string, href: string) {
   if (location === href) return true;
+  if (href === LETTER_PAGE_PATH && location.startsWith(`${LETTER_PAGE_PATH}/`)) {
+    return true;
+  }
   if (
     href === "/work-with-me" &&
     (location.startsWith("/financial-wellness-reset") ||

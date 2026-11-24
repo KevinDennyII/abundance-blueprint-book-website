@@ -20,7 +20,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/readiness-assessment": "Readiness Assessment",
   "/contact": "Contact",
   "/circle": "The Long Money Circle",
-  "/articles": "Articles",
+  "/letter": "Letter",
   "/privacy": "Privacy Policy",
   "/terms": "Terms of Service",
 };

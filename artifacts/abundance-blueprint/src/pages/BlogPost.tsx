@@ -16,6 +16,7 @@ import {
   type BlogComment,
   type BlogPost,
 } from "@/lib/blog-api";
+import { LETTER_PAGE_PATH } from "@/lib/social";
 
 export default function BlogPostPage() {
   const params = useParams<{ slug: string }>();
@@ -103,10 +104,10 @@ export default function BlogPostPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <PageMeta
-        path="/articles"
+        path={LETTER_PAGE_PATH}
         title={metaTitle}
         description={metaDescription}
-        canonicalPath={slug ? `/articles/${slug}` : "/articles"}
+        canonicalPath={slug ? `${LETTER_PAGE_PATH}/${slug}` : LETTER_PAGE_PATH}
       />
       <Navbar />
 
@@ -115,10 +116,10 @@ export default function BlogPostPage() {
           <div className="container mx-auto px-4 md:px-6">
             <div className="max-w-3xl mx-auto">
               <Link
-                href="/articles"
+                href={LETTER_PAGE_PATH}
                 className="text-sm text-muted hover:text-primary transition-colors"
               >
-                ← Back to articles
+                ← Back to the Letter
               </Link>
 
               {loading && (

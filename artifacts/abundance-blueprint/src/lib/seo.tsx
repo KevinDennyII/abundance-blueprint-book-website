@@ -93,9 +93,8 @@ export const STATIC_PAGE_META: Record<string, PublicPageSeo> = {
     description:
       "A simple weekly money check-in for business owners and households — track income, tax set-asides, and your 13-week pattern.",
   },
-  "/articles": {
-    title:
-      "The Long Money Letter — Articles | Long Money Concepts",
+  "/letter": {
+    title: "The Long Money Letter | Long Money Concepts",
     description:
       "There's more to money than numbers. Explore the stories behind our financial decisions, the lessons that shape our habits, and the journey toward Financial Harmony.",
   },

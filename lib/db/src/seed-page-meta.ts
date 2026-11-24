@@ -107,10 +107,16 @@ const previousDefaultsByPath: Record<
         "A free Facebook community for honest conversations about money, financial healing, and building Financial Harmony — led by La'Toya Ray, CPA.",
     },
   ],
-  "/articles": [
+  "/letter": [
     {
       title:
         "The Long Money Letter — Articles | Abundance Blueprint",
+      description:
+        "There's more to money than numbers. Explore the stories behind our financial decisions, the lessons that shape our habits, and the journey toward Financial Harmony.",
+    },
+    {
+      title:
+        "The Long Money Letter — Articles | Long Money Concepts",
       description:
         "There's more to money than numbers. Explore the stories behind our financial decisions, the lessons that shape our habits, and the journey toward Financial Harmony.",
     },
@@ -142,7 +148,36 @@ function matchesPreviousDefault(
   );
 }
 
+async function migrateArticlesPathToLetter() {
+  const [letterRow] = await db
+    .select()
+    .from(pageMetaTable)
+    .where(eq(pageMetaTable.path, "/letter"))
+    .limit(1);
+  const [articlesRow] = await db
+    .select()
+    .from(pageMetaTable)
+    .where(eq(pageMetaTable.path, "/articles"))
+    .limit(1);
+
+  if (!articlesRow) return;
+
+  if (!letterRow) {
+    await db
+      .update(pageMetaTable)
+      .set({ path: "/letter", updatedAt: new Date() })
+      .where(eq(pageMetaTable.path, "/articles"));
+    console.log("SEO seed: renamed /articles → /letter");
+    return;
+  }
+
+  await db.delete(pageMetaTable).where(eq(pageMetaTable.path, "/articles"));
+  console.log("SEO seed: removed obsolete /articles row ( /letter already present )");
+}
+
 async function seedPageMeta() {
+  await migrateArticlesPathToLetter();
+
   let inserted = 0;
   let upgraded = 0;
   let leftAlone = 0;

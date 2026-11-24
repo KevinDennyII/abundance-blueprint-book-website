@@ -1,4 +1,5 @@
 import pg from "pg";
+import { eq } from "drizzle-orm";
 import { db } from "./index";
 import { liveEventsTable } from "./schema/live-events";
 import { pageMetaTable } from "./schema/page-meta";
@@ -107,6 +108,27 @@ export async function ensureSchema(): Promise<void> {
 }
 
 export async function ensurePageMetaDefaults(): Promise<void> {
+  // Rename legacy Articles SEO row before inserting defaults.
+  const [letterRow] = await db
+    .select({ path: pageMetaTable.path })
+    .from(pageMetaTable)
+    .where(eq(pageMetaTable.path, "/letter"))
+    .limit(1);
+  const [articlesRow] = await db
+    .select({ path: pageMetaTable.path })
+    .from(pageMetaTable)
+    .where(eq(pageMetaTable.path, "/articles"))
+    .limit(1);
+
+  if (articlesRow && !letterRow) {
+    await db
+      .update(pageMetaTable)
+      .set({ path: "/letter", updatedAt: new Date() })
+      .where(eq(pageMetaTable.path, "/articles"));
+  } else if (articlesRow && letterRow) {
+    await db.delete(pageMetaTable).where(eq(pageMetaTable.path, "/articles"));
+  }
+
   for (const entry of staticPageMetaDefaults) {
     await db
       .insert(pageMetaTable)
