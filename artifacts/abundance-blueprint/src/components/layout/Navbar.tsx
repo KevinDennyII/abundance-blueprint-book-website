@@ -61,6 +61,57 @@ function NavAnchor({
   );
 }
 
+function DesktopDropdownChild({
+  link,
+  active,
+}: {
+  link: NavLink;
+  active: boolean;
+}) {
+  const className = `group/item block px-5 py-3 transition-colors ${
+    active ? "bg-primary/[0.04]" : "hover:bg-primary/[0.04]"
+  }`;
+
+  const body = (
+    <>
+      <span
+        className={`font-serif text-lg leading-snug tracking-normal normal-case transition-colors ${
+          active
+            ? "text-primary"
+            : "text-foreground group-hover/item:text-primary"
+        }`}
+      >
+        {link.label}
+      </span>
+      {link.description ? (
+        <span className="mt-0.5 block font-sans text-[0.7rem] font-normal normal-case tracking-wide text-muted">
+          {link.description}
+        </span>
+      ) : null}
+    </>
+  );
+
+  if (link.external) {
+    return (
+      <a
+        href={link.href}
+        className={className}
+        target="_blank"
+        rel="noopener noreferrer"
+        role="menuitem"
+      >
+        {body}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={link.href} className={className} role="menuitem">
+      {body}
+    </Link>
+  );
+}
+
 function DesktopDropdown({
   group,
   location,
@@ -75,40 +126,34 @@ function DesktopDropdown({
     <div className="relative group/nav">
       <button
         type="button"
-        className={`inline-flex items-center gap-1 text-xs xl:text-sm tracking-widest uppercase transition-colors hover:text-secondary whitespace-nowrap ${
-          active ? "text-secondary font-medium" : "text-foreground/80"
+        className={`relative inline-flex items-center gap-1 pb-1 text-xs xl:text-sm tracking-widest uppercase whitespace-nowrap transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:bg-secondary after:transition-transform after:duration-200 ${
+          active
+            ? "font-medium text-foreground after:scale-x-100"
+            : "text-foreground/80 after:scale-x-0 group-hover/nav:after:scale-x-100 group-focus-within/nav:after:scale-x-100"
         }`}
         aria-haspopup="menu"
         aria-controls={menuId}
       >
         {group.label}
         <ChevronDown
-          className="size-3.5 opacity-70 transition-transform group-hover/nav:rotate-180 group-focus-within/nav:rotate-180"
+          className="size-3.5 opacity-60 transition-transform duration-200 group-hover/nav:rotate-180 group-focus-within/nav:rotate-180"
           aria-hidden="true"
         />
       </button>
       <div
         id={menuId}
         role="menu"
-        className="invisible absolute left-1/2 top-full z-50 min-w-[16rem] -translate-x-1/2 pt-3 opacity-0 transition-[opacity,visibility] duration-150 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
+        className="invisible absolute left-0 top-full z-50 min-w-[18rem] pt-3 opacity-0 transition-[opacity,visibility,transform] duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
       >
-        <ul className="rounded-md border border-border bg-background/98 py-2 shadow-md backdrop-blur-md">
-          {group.children.map((child) => {
-            const childActive =
-              !child.external && isNavActive(location, child.href);
-            return (
-              <li key={child.href} role="none">
-                <NavAnchor
-                  link={child}
-                  className={`block px-4 py-2.5 text-xs tracking-widest uppercase transition-colors hover:bg-primary/5 hover:text-secondary ${
-                    childActive
-                      ? "text-secondary font-medium"
-                      : "text-foreground/80"
-                  }`}
-                />
-              </li>
-            );
-          })}
+        <ul className="relative overflow-hidden rounded-sm bg-background py-2 shadow-[0_18px_40px_-16px_rgba(26,20,16,0.22)] before:absolute before:inset-x-5 before:top-0 before:h-px before:bg-secondary/70">
+          {group.children.map((child) => (
+            <li key={child.href} role="none">
+              <DesktopDropdownChild
+                link={child}
+                active={!child.external && isNavActive(location, child.href)}
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </div>
@@ -124,8 +169,8 @@ function desktopLinkClass(
   if (link.cta) {
     return `inline-flex items-center whitespace-nowrap rounded-md border border-secondary px-3 py-1.5 text-xs xl:text-sm tracking-widest uppercase transition-colors ${
       active
-        ? "bg-secondary/15 text-secondary font-medium"
-        : "text-secondary hover:bg-secondary/10"
+        ? "bg-secondary/15 text-foreground font-medium"
+        : "text-foreground/80 hover:bg-secondary/10 hover:text-foreground"
     }`;
   }
 
@@ -222,10 +267,10 @@ export function Navbar() {
 
           <Link
             href={clientLoginLink.href}
-            className={`shrink-0 border-l border-border pl-5 text-[0.7rem] tracking-wide text-muted transition-colors hover:text-secondary ${
+            className={`shrink-0 border-l border-border pl-5 text-xs xl:text-sm tracking-widest uppercase transition-colors hover:text-secondary ${
               isNavActive(location, clientLoginLink.href)
-                ? "text-secondary"
-                : ""
+                ? "text-secondary font-medium"
+                : "text-foreground/55"
             }`}
             data-testid="link-client-login-desktop"
           >
@@ -269,8 +314,8 @@ export function Navbar() {
                       type="button"
                       className={`flex w-full items-center justify-between rounded-md px-3 py-3 text-sm tracking-widest uppercase transition-colors ${
                         groupActive
-                          ? "bg-secondary/15 text-secondary font-medium"
-                          : "text-foreground/80 hover:bg-primary/5 hover:text-secondary"
+                          ? "bg-primary/[0.04] font-medium text-foreground"
+                          : "text-foreground/80 hover:bg-primary/[0.04]"
                       }`}
                       aria-expanded={expanded}
                       aria-controls={panelId}
@@ -286,7 +331,10 @@ export function Navbar() {
                       />
                     </button>
                     {expanded ? (
-                      <ul id={panelId} className="mt-1 mb-1 space-y-0.5 pl-3">
+                      <ul
+                        id={panelId}
+                        className="relative mt-1 mb-2 ml-3 space-y-0.5 border-l border-secondary/50 pl-3"
+                      >
                         {item.children.map((child) => {
                           const childActive =
                             !child.external &&
@@ -294,18 +342,52 @@ export function Navbar() {
                           const testId = `link-mobile-nav-${child.label
                             .toLowerCase()
                             .replace(/\s+/g, "-")}`;
+                          const className = `block rounded-md px-3 py-2.5 transition-colors ${
+                            childActive
+                              ? "bg-primary/[0.04]"
+                              : "hover:bg-primary/[0.04]"
+                          }`;
+                          const body = (
+                            <>
+                              <span
+                                className={`font-serif text-lg leading-snug normal-case tracking-normal ${
+                                  childActive
+                                    ? "text-primary"
+                                    : "text-foreground"
+                                }`}
+                              >
+                                {child.label}
+                              </span>
+                              {child.description ? (
+                                <span className="mt-0.5 block font-sans text-[0.7rem] normal-case tracking-wide text-muted">
+                                  {child.description}
+                                </span>
+                              ) : null}
+                            </>
+                          );
                           return (
                             <li key={child.href}>
-                              <NavAnchor
-                                link={child}
-                                className={`block rounded-md px-3 py-2.5 text-sm tracking-widest uppercase transition-colors ${
-                                  childActive
-                                    ? "bg-secondary/15 text-secondary font-medium"
-                                    : "text-foreground/80 hover:bg-primary/5 hover:text-secondary"
-                                }`}
-                                onClick={() => setMobileOpen(false)}
-                                testId={testId}
-                              />
+                              {child.external ? (
+                                <a
+                                  href={child.href}
+                                  className={className}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={() => setMobileOpen(false)}
+                                  data-testid={testId}
+                                >
+                                  {body}
+                                </a>
+                              ) : (
+                                <Link
+                                  href={child.href}
+                                  className={className}
+                                  onClick={() => setMobileOpen(false)}
+                                  data-testid={testId}
+                                >
+                                  {body}
+                                </Link>
+                              )}
                             </li>
                           );
                         })}
@@ -327,8 +409,8 @@ export function Navbar() {
                       link={item}
                       className={`block rounded-md border border-secondary px-3 py-3 text-center text-sm tracking-widest uppercase transition-colors ${
                         active
-                          ? "bg-secondary/15 text-secondary font-medium"
-                          : "text-secondary hover:bg-secondary/10"
+                          ? "bg-secondary/15 text-foreground font-medium"
+                          : "text-foreground/80 hover:bg-secondary/10 hover:text-foreground"
                       }`}
                       onClick={() => setMobileOpen(false)}
                       testId={testId}
@@ -356,10 +438,10 @@ export function Navbar() {
             <li className="mt-2 border-t border-border pt-3">
               <Link
                 href={clientLoginLink.href}
-                className={`block px-3 py-2 text-sm text-muted transition-colors hover:text-secondary ${
+                className={`block px-3 py-2.5 text-sm tracking-widest uppercase transition-colors hover:text-secondary ${
                   isNavActive(location, clientLoginLink.href)
-                    ? "text-secondary"
-                    : ""
+                    ? "text-secondary font-medium"
+                    : "text-foreground/55"
                 }`}
                 onClick={() => setMobileOpen(false)}
                 data-testid="link-mobile-nav-client-login"
